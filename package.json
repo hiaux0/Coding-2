@@ -4,7 +4,7 @@
   "description": "A place for my code",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "babel-node spec/run.js"
   },
   "repository": {
     "type": "git",
@@ -16,8 +16,12 @@
     "url": "https://github.com/hiaux0/Coding-2/issues"
   },
   "homepage": "https://github.com/hiaux0/Coding-2#readme",
-  "dependencies": {},
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1"
+  },
   "devDependencies": {
+    "jasmine": "^3.1.0",
     "npm": "^6.1.0"
   }
 }
