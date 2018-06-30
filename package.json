@@ -1,0 +1,23 @@
+{
+  "name": "coding-2",
+  "version": "1.0.0",
+  "description": "A place for my code",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hiaux0/Coding-2.git"
+  },
+  "author": "hdn",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hiaux0/Coding-2/issues"
+  },
+  "homepage": "https://github.com/hiaux0/Coding-2#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "npm": "^6.1.0"
+  }
+}
