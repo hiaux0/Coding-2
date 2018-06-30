@@ -1,16 +1,17 @@
 /**
- * Merge two arrays in ascending order.
+ * Merge two arrays in ascending order. Note that due to merge sort logic, 
+ * each array is already sorted, and their length differ at maximal 1.
  * 
  * @param {Array} leftArr      
  * @param {Array} rightArr  
  */
-const merge = (leftArr, rightArr) => { 
+const mergeAscending = (leftArr, rightArr) => {
   const lArrLen = leftArr.length;
   const rArrLen = rightArr.length;
   let resultArr = [];
 
   while ( resultArr.length < lArrLen + rArrLen) {
-    let [lHead, ...lTail] = leftArr; 
+    let [lHead, ...lTail] = leftArr;
     let [rHead, ...rTail] = rightArr;
     if (rHead <= lHead) {
       resultArr.push(rHead);
@@ -33,16 +34,19 @@ const merge = (leftArr, rightArr) => {
  * 
  * @param {Array} arr 
  */
-const mergeSortSplit = (arr) => {
+const mergeSort = (arr) => {
   if (arr.length === 1) return arr;
   else if (arr.length === 2) {
     if (arr[0] > arr[1]) return [arr[1], arr[0]];
     return arr;
   }
   let splitIndex = arr.length / 2;
-  let leftArr = mergeSortSplit(arr.slice(0, splitIndex));
-  let rightArr = mergeSortSplit(arr.slice(splitIndex, arr.length));
-  return merge(leftArr, rightArr);
+  let leftArr = mergeSort(arr.slice(0, splitIndex));
+  let rightArr = mergeSort(arr.slice(splitIndex, arr.length));
+  return mergeAscending(leftArr, rightArr);
 }
 
-mergeSortSplit([2,3,6,1,7,8,10]) /*?*/
+export {
+  mergeAscending,
+  mergeSort
+}
