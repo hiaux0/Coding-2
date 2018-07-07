@@ -1,0 +1,22 @@
+@import (reference) '../../app.less';
+
+.simple-table {
+  width: 100%;
+
+  thead {
+    border: 1px black solid;
+    background-color: @pri-clr;
+  }
+
+  tbody {
+    tr {
+      border: 1px black solid;
+
+      &:nth-child(even) { background-color: @sec-support-clr; }
+
+      td {
+        border: 1px black solid;
+      }
+    }
+  }
+}
