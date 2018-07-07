@@ -1,0 +1,27 @@
+{
+  "name": "nlp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon lib/index.js --exec babel-node",
+    "build": "babel lib -d dist --presets es2015,stage-2",
+    "serve": "node dist/index.js"
+  },
+  "keywords": [
+    "nlp",
+    "js"
+  ],
+  "author": "hdn",
+  "license": "MIT",
+  "dependencies": {
+    "npm": "^6.1.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "compromise": "^11.11.0",
+    "nodemon": "^1.17.5"
+  }
+}
