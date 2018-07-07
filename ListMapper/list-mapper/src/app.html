@@ -1,0 +1,19 @@
+<template>
+  <require from='bootstrap/dist/css/bootstrap.min.css'></require>
+  <require from='font-awesome/less/font-awesome.less'></require>
+  <require from='./resources/elements/nav-bar'></require>
+
+  <nav-bar router.bind="router"></nav-bar>
+  
+  <div id="color-palett">
+    <span id="main">Main</span>
+    <span id="pri">Pri</span>
+    <span id="pri-sup">Pri-sup</span>
+    <span id="sec">Sec</span>
+    <span id="sec-sup">Sec-sup</span>
+  </div>
+
+  <div class="app-container">
+    <router-view></router-view>
+  </div>
+</template>
