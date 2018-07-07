@@ -1,0 +1,48 @@
+@import (reference) '../../app.less';
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2 ,1fr);
+  grid-gap: 10px;
+}
+
+.grid-item {
+  background-color: @pri-support-clr;
+  color: @grey-clr;
+  border-radius: 5px;
+  padding: 20px;
+  font-size: 150%;
+}
+
+/////////////////////////////////////////////////////
+//
+// Different examples of flexboxes
+
+// 0 ------------------------------------------------------------
+.flex-container0 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .flex-item0 {
+    background: @sec-clr;
+    color: @pri-clr;
+    padding: 10px;
+  }
+}
+
+.flex-container1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .flex-item1 {
+    background: @sec-clr;
+    color: @pri-clr;
+    margin: 10px;
+  }
+
+  .flex-item1-special {
+    flex-grow: 2;
+  }
+}
