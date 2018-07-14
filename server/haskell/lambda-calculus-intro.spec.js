@@ -5,6 +5,7 @@ var λ_true = lci.λ_true
   , λ_false = lci.λ_false
   , λ_not = lci.λ_not
   , λ_and = lci.λ_and
+  , λ_or = lci.λ_or
     ;
 
 describe('λ CALCULUS INIT', () => {
