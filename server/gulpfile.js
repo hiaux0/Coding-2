@@ -9,7 +9,5 @@ gulp.task('jasmine', function () {
 });
 
 gulp.task('watch', function () {
-  gulp.watch(['**/*.spec.js'], function (event) {
-    gulp.run('jasmine');
-  });
+  gulp.watch(['**/*.spec.js'], ['jasmine']);
 });
