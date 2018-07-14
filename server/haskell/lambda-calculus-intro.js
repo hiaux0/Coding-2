@@ -31,9 +31,9 @@ const λ_not = b => b(λ_false)(λ_true)
  */
 const λ_and = a => b => b(a)(b)
 
-export {
-  λ_true,
-  λ_false,
-  λ_not,
-  λ_and
+module.exports = {
+λ_true: λ_true,
+λ_false: λ_false,
+λ_not: λ_not,
+λ_and: λ_and
 }
