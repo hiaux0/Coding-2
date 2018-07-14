@@ -6,8 +6,8 @@
  * @param {Array} rightArr  
  */
 const mergeAscending = (leftArr, rightArr) => {
-  const lArrLen = leftArr.length;
-  const rArrLen = rightArr.length;
+  let lArrLen = leftArr.length;
+  let rArrLen = rightArr.length;
   let resultArr = [];
 
   while ( resultArr.length < lArrLen + rArrLen) {
@@ -46,7 +46,7 @@ const mergeSort = (arr) => {
   return mergeAscending(leftArr, rightArr);
 }
 
-export {
-  mergeAscending,
-  mergeSort
+module.exports = {
+mergeAscending: mergeAscending,
+mergeSort: mergeSort
 }

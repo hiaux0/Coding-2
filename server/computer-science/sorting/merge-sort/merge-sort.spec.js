@@ -1,4 +1,8 @@
-import { mergeAscending, mergeSort } from './merge-sort';
+// import { mergeAscending, mergeSort } from './merge-sort';
+var ms = require('./merge-sort');
+var mergeSort = ms.mergeSort
+  , mergeAscending = ms.mergeAscending
+    ;
 
 describe('MERGE SORT', () => {
   let testArr1, testArr2, testArr3, testArr4, testArr5, testArr6,
