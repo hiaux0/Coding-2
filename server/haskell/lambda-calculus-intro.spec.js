@@ -26,4 +26,27 @@ describe('λ CALCULUS INIT', () => {
     done();
   })
 
+  it('Should define λ_and, and return the correct result for the inputs', (done) => {
+    let result0 = λ_and(λ_true)(λ_true);
+    expect(result0.name).toBe("λ_true");
+    let result1 = λ_and(λ_true)(λ_false);
+    expect(result1.name).toBe("λ_false");
+    let result2 = λ_and(λ_false)(λ_true);
+    expect(result2.name).toBe("λ_false");
+    let result3 = λ_and(λ_false)(λ_false);
+    expect(result3.name).toBe("λ_false");
+    done();
+  })
+
+  it('Should define λ_or, and return the correct result for the inputs', (done) => {
+    let result0 = λ_or(λ_true)(λ_true);
+    expect(result0.name).toBe("λ_true");
+    let result1 = λ_or(λ_true)(λ_false);
+    expect(result1.name).toBe("λ_true");
+    let result2 = λ_or(λ_false)(λ_true);
+    expect(result2.name).toBe("λ_true");
+    let result3 = λ_or(λ_false)(λ_false);
+    expect(result3.name).toBe("λ_false");
+    done();
+  })
 });
