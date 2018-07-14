@@ -31,9 +31,42 @@ const λ_not = b => b(λ_false)(λ_true)
  */
 const λ_and = a => b => b(a)(b)
 
+const λ_or = a => b => a(a)(b)
+λ_or(λ_true)(λ_true); /*?*/
+λ_or(λ_true)(λ_false); /*?*/
+λ_or(λ_false)(λ_true); /*?*/
+λ_or(λ_false)(λ_false); /*?*/
+
 module.exports = {
 λ_true: λ_true,
 λ_false: λ_false,
 λ_not: λ_not,
-λ_and: λ_and
+λ_and: λ_and,
+λ_or: λ_or
 }
+
+///////////////////////////////
+//
+//         Conclusion
+
+/**
+ * Here I want to write a small "tutorial", ideally "course", which teaches λ-Calculus through javascript.
+ * Why javascript? It is what I know. It would make sense to directly use Haskell with its typing, but again,
+ * I only know javascript good enough, too somehow feel comfortable with the language.
+ * Though the results here, should be applicable to any language, and I welcome any conversion.
+ * 
+ * Where do we start? Or better where did I start?
+ * 1. https://www.youtube.com/watch?v=eis11j_iGMs&t=444s 
+ *   - This video was the initial motivation behind this little project.
+ *   - While watching I already tried to stop, and think of the way how you would define it.
+ * 
+ * The next source should ideally not be used. When I struggled finding a way for `λ_and`, I tried to google a bit. Even though the link does not any clear connection to the implementation, it gave me the final push to solve the implementation.
+ * 
+ * 2. https://medium.com/functional-javascript/lambda-calculus-in-javascript-part-1-28ff63824d4d
+ *   - this article unfortunately only consists of part 1, and is not furhter continued.
+ * 
+ * Your first task would be to try and implement `λ_true`, `λ_false`, and `λ_not`.
+ * Next would be to try `λ_and` and `λ_or`.
+ * TODO: Currently I am not satasfied by the "type" `λ_boolean`
+ * 
+ */
