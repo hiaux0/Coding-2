@@ -117,6 +117,9 @@ makeRealFact_4(makeFact)(5); /*?*/
 
 
 
+///////////////////////////
+//
+//         Comparison
 // https://gist.github.com/logicmason/0722b5b159a45f7a81b6
 
 // Y = λt.(λx.t(x x))(λx.t(x x))
@@ -164,3 +167,13 @@ module.exports = {
   T: T,
   Y_2: Y_2
 }
+
+////////////////////////////////////////
+//
+//        Conclusion
+
+// The main take away is the derivation of _a_(?) y-combinator in javascript.
+// _a_ is highlighted because the official defintion and the js implementation don't look the same (see the comparison section).
+// We started with the simple recursive factorial implementation, and tried step by step to reach a y-combinator form (variable less).
+// For me, the biggest take-away was the technique of substituting a recursive call into the arguments.
+// TODO: Is the substituting technique also used in tail-recursion-optimization?
