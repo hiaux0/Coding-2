@@ -1,4 +1,5 @@
 @import (reference) '../../app.less';
+@import (reference) '../common/styles/colors.less';
 
 .simple-list-container {
   display: flex;
@@ -7,7 +8,18 @@
   
   .simple-list {
     border: 2px dotted gray;
+    list-style-type: none;
     width: 30vw;
-  }
+    -webkit-padding-start: 0; // Removes right margin in `li` tags due to bullet points
 
+    li {
+      border: 1px black solid;
+      margin-top: -1px;
+      padding: 6px 6px 6px 20px;
+
+      &:hover {
+        background: @main-clr-hover;
+      }
+    }
+  }
 }

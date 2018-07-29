@@ -1,7 +1,6 @@
 import { PLATFORM } from "aurelia-pal";
 import './app.less';
 
-
 export class App {
   constructor() {
     this.message = 'Hello World!';
