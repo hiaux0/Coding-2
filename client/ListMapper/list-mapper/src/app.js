@@ -35,6 +35,26 @@ export class App {
             dropdownTitle: "Css Leveling",
           }
         },
+        // Dropdown items for Drag drop Leveling (interactjs)
+        {
+          route: ['drag-drop-leveling/initial'], 
+          moduleId: PLATFORM.moduleName('./resources/elements/drag-drop/leveling/init'),
+          nav:true, title: 'Init', 
+          settings: {
+            dropdownId: 'dragDropLeveling',
+            dropdownTitle: "Drag Drop Leveling",
+          }
+        },
+        {
+          route: ['drag-drop-leveling/simple-table'], 
+          moduleId: PLATFORM.moduleName('./resources/elements/simple-table'),
+          nav:true, title: 'Next title here', 
+          settings: {
+            dropdownId: 'dragDropLeveling',
+            dropdownTitle: "Drag Drop Leveling",
+          }
+        },
+
     ]);
     this.router = router;
   }
