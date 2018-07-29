@@ -1,20 +1,54 @@
-import {bindable} from 'aurelia-framework';
+/**
+ * Note that this is actually not a resuable component yet.
+ */
+
+import {bindable, inject} from 'aurelia-framework';
 import './simple-list.less';
+import db from '../../../../../../db';
 
+/**
+ * Takes in 2 objects with an `position` property, and sorts them according to that `position`.
+ * 
+ * @param {Object} a - object with order property
+ * @param {Object} b - object with order property
+ */
+const _comparePosition = (a, b) => {
+  return a.position - b.position;
+}
+
+@inject(Element)
 export class SimpleList {
-  @bindable value;
+  
+  simpleListRef;
 
-  constructor() {
+  constructor(element) {
+    this.element = element;
+    this.db = db;
+    this.ctrl = this.sortOrder(this.db.shortcuts);
+    this.commandName = this.sortOrder(this.db.commands);
     this.shortcutStore = {
-      ctrl: [ "C-a :", "C-b :", "C-c :", "C-d :", "C-e :", "C-f :", "C-g :", "C-h :", "C-i :", "C-j :", "C-k :", "C-l :", "C-m :", "C-n :", "C-o :", "C-p :", "C-q :", "C-r :", "C-s :", "C-t :", "C-u :", "C-v :", "C-w :", "C-x :", "C-y :", "C-z :",
-      ],
-      commandName: [ "Command-a", "Command-b", "Command-c", "Command-d", "Command-e", "Command-f", "Command-g", "Command-h", "Command-i", "Command-j", "Command-k", "Command-l", "Command-m", "Command-n", "Command-o", "Command-p", "Command-q", "Command-r", "Command-s", "Command-t", "Command-u", "Command-v", "Command-w", "Command-x", "Command-y", "Command-z",
-      ]
+      ctrl: this.ctrl,
+      commandName: this.commandName
     }
   }
 
-  valueChanged(newValue, oldValue) {
+  attached() {
+    console.log(this.db)
+  }
 
+  /**
+   * Sort object according to its order propety.
+   * // TODO use value converter
+   * @param {Object} obj 
+   */
+  sortOrder(arr) {
+    console.log(arr)
+    // return (arr);
+    return arr.sort(_comparePosition);
+  }
+
+  mouseOverHandler() {
+    console.log('mouse over')
   }
 }
 
