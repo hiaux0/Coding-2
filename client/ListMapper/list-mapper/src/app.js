@@ -3,7 +3,7 @@ import './app.less';
 
 export class App {
   constructor() {
-    this.message = 'Hello World!';
+    this.toggleNavbar = false;
   }
 
   configureRouter(config, router) {
@@ -56,5 +56,9 @@ export class App {
 
     ]);
     this.router = router;
+  }
+
+  toggleNavbarHandler() {
+    this.toggleNavbar = !this.toggleNavbar;
   }
 }
