@@ -3,9 +3,9 @@
   <require from='font-awesome/less/font-awesome.less'></require>
   <require from='./resources/elements/nav-bar'></require>
 
-  <nav-bar router.bind="router" show.bind="toggleNavbar"></nav-bar>
+  <nav-bar router.bind="router" show.bind="showNavbar"></nav-bar>
 
-  <button class="btn btn-outline-secondary btn-sm" click.delegate="toggleNavbarHandler()">${toggleNavbar ? "Show" : "Hide"} Navbar</button>
+  <button class="btn btn-outline-secondary btn-sm" click.delegate="toggleNavbarHandler()">${showNavbar ? "Hide" : "Show"} Navbar</button>
   
   <div class="app-container">
     <router-view></router-view>

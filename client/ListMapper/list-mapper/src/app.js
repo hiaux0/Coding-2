@@ -3,7 +3,7 @@ import './app.less';
 
 export class App {
   constructor() {
-    this.toggleNavbar = false;
+    this.showNavbar = false;
   }
 
   configureRouter(config, router) {
@@ -46,8 +46,8 @@ export class App {
         },
         {
           route: ['drag-drop-leveling/simple-table'], 
-          moduleId: PLATFORM.moduleName('./resources/elements/simple-table'),
-          nav:true, title: 'Next title here', 
+          moduleId: PLATFORM.moduleName('./resources/elements/drag-drop/leveling/drag-drop-ca'),
+          nav:true, title: 'Drag Drop Custom Attribute', 
           settings: {
             dropdownId: 'dragDropLeveling',
             dropdownTitle: "Drag Drop Leveling",
@@ -59,6 +59,6 @@ export class App {
   }
 
   toggleNavbarHandler() {
-    this.toggleNavbar = !this.toggleNavbar;
+    this.showNavbar = !this.showNavbar;
   }
 }
