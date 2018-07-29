@@ -1,5 +1,3 @@
-// import { λ_true, λ_false, λ_not, λ_and } from './lambda-calculus-intro';
-
 var lci = require('./lambda-calculus-intro');
 var λ_true = lci.λ_true
   , λ_false = lci.λ_false
