@@ -1,8 +1,9 @@
 <template>
   <require from='../drag-drop-container'></require>
   <require from='../../simple-list'></require>
+  
+  <drag-drop-container allow-drag-ref.two-way="allowDragRef">
+    <simple-list allow-drag-ref.two-way="allowDragRef"></simple-list>
+  </drag-drop-container>
 
-  <drag-container>
-      <simple-list></simple-list>
-  </drag-container>
 </template>

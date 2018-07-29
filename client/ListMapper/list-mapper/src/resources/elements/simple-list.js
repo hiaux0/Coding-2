@@ -18,6 +18,7 @@ const _comparePosition = (a, b) => {
 
 @inject(Element)
 export class SimpleList {
+  @bindable allowDragRef;
   
   simpleListRef;
 
@@ -32,17 +33,12 @@ export class SimpleList {
     }
   }
 
-  attached() {
-    console.log(this.db)
-  }
-
   /**
    * Sort object according to its order propety.
    * // TODO use value converter
    * @param {Object} obj 
    */
   sortOrder(arr) {
-    console.log(arr)
     // return (arr);
     return arr.sort(_comparePosition);
   }
