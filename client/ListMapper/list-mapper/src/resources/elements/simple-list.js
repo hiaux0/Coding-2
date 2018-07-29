@@ -1,3 +1,7 @@
+/**
+ * Note that this is actually not a resuable component yet.
+ */
+
 import {bindable, inject} from 'aurelia-framework';
 import './simple-list.less';
 import db from '../../../../../../db';
@@ -14,7 +18,8 @@ const _comparePosition = (a, b) => {
 
 @inject(Element)
 export class SimpleList {
-  @bindable value;
+  
+  simpleListRef;
 
   constructor(element) {
     this.element = element;
