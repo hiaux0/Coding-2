@@ -12,11 +12,13 @@
  */
 const λ_true = x => y => x 
 
+
 /**
  * @param {any} x - As part of the definition of λ_false, `x` is of no specific type.
  * @param {any} y - As part of the definition of λ_false, `y` is of no specific type.
  */
 const λ_false = x => y => y
+
 
 /**
  * @param {λ_boolean} b - Takes in a λ_boolean and 
@@ -58,9 +60,9 @@ module.exports = {
  * Where do we start? Or better where did I start?
  * 1. https://www.youtube.com/watch?v=eis11j_iGMs&t=444s 
  *   - This video was the initial motivation behind this little project.
- *   - While watching I already tried to stop, and think of the way how you would define it.
+ *   - While watching I already tried to paused and pounder about the way how you would define the definitions in the video..
  * 
- * The next source should ideally not be used. When I struggled finding a way for `λ_and`, I tried to google a bit. Even though the link does not any clear connection to the implementation, it gave me the final push to solve the implementation.
+ * The next source should ideally not be used. When I struggled finding a way for `λ_and`, I tried to google a bit. Even though the link does not provide any clear connection to the implementation, it gave me the final push to solve the implementation.
  * 
  * 2. https://medium.com/functional-javascript/lambda-calculus-in-javascript-part-1-28ff63824d4d
  *   - this article unfortunately only consists of part 1, and is not furhter continued.
@@ -68,5 +70,10 @@ module.exports = {
  * Your first task would be to try and implement `λ_true`, `λ_false`, and `λ_not`.
  * Next would be to try `λ_and` and `λ_or`.
  * TODO: Currently I am not satasfied by the "type" `λ_boolean`
+ * 
+ * In the end, what did I got by implementing these definitions in javascript?
+ * - Got me closer to the premise of functional programming
+ * - Got me closer to the motivation behind functional programming
+ * - Motivated me to go deeper into funtional programming
  * 
  */
