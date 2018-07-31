@@ -18,19 +18,28 @@ const _comparePosition = (a, b) => {
 
 @inject(Element)
 export class SimpleList {
-  @bindable allowDragRef;
+  // @bindable allowDragRef;
+  @bindable listData = [];
   
   simpleListRef;
 
   constructor(element) {
+    window.simpleList = this
     this.element = element;
     this.db = db;
     this.ctrl = this.sortOrder(this.db.shortcuts);
     this.commandName = this.sortOrder(this.db.commands);
+    // Add property, that stores html element
+    this.addHtmlStorage(this.ctrl);
+
     this.shortcutStore = {
       ctrl: this.ctrl,
       commandName: this.commandName
     }
+  }
+
+  attached() {
+
   }
 
   /**
@@ -41,6 +50,15 @@ export class SimpleList {
   sortOrder(arr) {
     // return (arr);
     return arr.sort(_comparePosition);
+  }
+
+  /**
+   * Add property to each object, to store the corresponding html element
+   */
+  addHtmlStorage(arr) {
+    arr.forEach((ele) => {
+      Object.assign(ele, {htmlElement: null})
+    })
   }
 
   mouseOverHandler() {
