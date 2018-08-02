@@ -2,213 +2,226 @@ export default {
   "shortcuts": [
     {
       "shortcut": "C-a :",
-      "position": 1
+      "position": 0 
     },
     {
       "shortcut": "C-b :",
-      "position": 2
+      "position": 1
     },
     {
       "shortcut": "C-c :",
-      "position": 3
+      "position": 2
     },
     {
       "shortcut": "C-d :",
-      "position": 4
+      "position": 3
     },
     {
       "shortcut": "C-e :",
-      "position": 5
+      "position": 4
     },
     {
       "shortcut": "C-f :",
-      "position": 6
+      "position": 5
     },
     {
       "shortcut": "C-g :",
-      "position": 7
+      "position": 6
     },
     {
       "shortcut": "C-h :",
-      "position": 8
+      "position": 7
     },
     {
       "shortcut": "C-i :",
-      "position": 9
+      "position": 8
     },
     {
       "shortcut": "C-j :",
-      "position": 10
+      "position": 9
     },
     {
       "shortcut": "C-k :",
-      "position": 11
+      "position": 10
     },
     {
       "shortcut": "C-l :",
-      "position": 12
+      "position": 11
     },
     {
       "shortcut": "C-m :",
-      "position": 13
+      "position": 12
     },
     {
       "shortcut": "C-n :",
-      "position": 14
+      "position": 13
     },
     {
       "shortcut": "C-o :",
-      "position": 15
+      "position": 14
     },
     {
       "shortcut": "C-p :",
-      "position": 16
+      "position": 15
     },
     {
       "shortcut": "C-q :",
-      "position": 17
+      "position": 16
     },
     {
       "shortcut": "C-r :",
-      "position": 18
+      "position": 17
     },
     {
       "shortcut": "C-s :",
-      "position": 19
+      "position": 18
     },
     {
       "shortcut": "C-t :",
-      "position": 20
+      "position": 19
     },
     {
       "shortcut": "C-u :",
-      "position": 21
+      "position": 20
     },
     {
       "shortcut": "C-v :",
-      "position": 22
+      "position": 21
     },
     {
       "shortcut": "C-w :",
-      "position": 23
+      "position": 22
     },
     {
       "shortcut": "C-x :",
-      "position": 24
+      "position": 23
     },
     {
       "shortcut": "C-y :",
-      "position": 25
+      "position": 24
     },
     {
       "shortcut": "C-z :",
-      "position": 26
+      "position": 25
     }
   ],
   "commands": [
     {
       "command": "Command-a :",
-      "position": 1
+      "position": 0
     },
     {
       "command": "Command-b :",
-      "position": 2
+      "position": 1
     },
     {
       "command": "Command-c :",
-      "position": 3
+      "position": 2
     },
     {
       "command": "Command-d :",
-      "position": 4
+      "position": 3
     },
     {
       "command": "Command-e :",
-      "position": 5
+      "position": 4
     },
     {
       "command": "Command-f :",
-      "position": 6
+      "position": 5
     },
     {
       "command": "Command-g :",
-      "position": 7
+      "position": 6
     },
     {
       "command": "Command-h :",
-      "position": 8
+      "position": 7
     },
     {
       "command": "Command-i :",
-      "position": 9
+      "position": 8
     },
     {
       "command": "Command-j :",
-      "position": 10
+      "position": 9
     },
     {
       "command": "Command-k :",
-      "position": 11
+      "position": 10
     },
     {
       "command": "Command-l :",
-      "position": 12
+      "position": 11
     },
     {
       "command": "Command-m :",
-      "position": 13
+      "position": 12
     },
     {
       "command": "Command-n :",
-      "position": 14
+      "position": 13
     },
     {
       "command": "Command-o :",
-      "position": 15
+      "position": 14
     },
     {
       "command": "Command-p :",
-      "position": 16
+      "position": 15
     },
     {
       "command": "Command-q :",
-      "position": 17
+      "position": 16
     },
     {
       "command": "Command-r :",
-      "position": 18
+      "position": 17
     },
     {
       "command": "Command-s :",
-      "position": 19
+      "position": 18
     },
     {
       "command": "Command-t :",
-      "position": 20
+      "position": 19
     },
     {
       "command": "Command-u :",
-      "position": 21
+      "position": 20
     },
     {
       "command": "Command-v :",
-      "position": 22
+      "position": 21
     },
     {
       "command": "Command-w :",
-      "position": 23
+      "position": 22
     },
     {
       "command": "Command-x :",
-      "position": 24
+      "position": 23
     },
     {
       "command": "Command-y :",
-      "position": 25
+      "position": 24
     },
     {
       "command": "Command-z :",
-      "position": 26
+      "position": 25
     }
   ]
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

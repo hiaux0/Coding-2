@@ -11,8 +11,8 @@ export class DragDropCa {
 
   attached() {
     // this.snap = true;
-    console.log(this.simpleListVM)
-    console.log(this.abc)
+    // console.log(this.simpleListVM)
+    // console.log(this.abc)
   }
 
   bind() {

@@ -5,6 +5,7 @@
 import {bindable, inject} from 'aurelia-framework';
 import './simple-list.less';
 import db from '../../../../../../db';
+import { EventAggregator } from 'aurelia-event-aggregator';
 
 /**
  * Takes in 2 objects with an `position` property, and sorts them according to that `position`.
@@ -16,17 +17,25 @@ const _comparePosition = (a, b) => {
   return a.position - b.position;
 }
 
-@inject(Element)
+@inject(Element, EventAggregator)
 export class SimpleList {
   // @bindable allowDragRef;
   @bindable listData = [];
-  
+
+  // listDataChanged() {
+  //   console.log(this.listData);
+  // }
+
   simpleListRef;
 
-  constructor(element) {
+  constructor(element, eventAggregator) {
     window.simpleList = this
     this.element = element;
+    this.eventAggregator = eventAggregator;
     this.db = db;
+
+    this.subscriptions = [];
+
     this.ctrl = this.sortOrder(this.db.shortcuts);
     this.commandName = this.sortOrder(this.db.commands);
     // Add property, that stores html element
@@ -39,7 +48,12 @@ export class SimpleList {
   }
 
   attached() {
-
+    this.subscriptions.push(
+      this.eventAggregator.subscribe('drag-drop:draggel-swapped', (newList) => {
+        // console.log('​SimpleList -> attached -> newList', newList);
+        this.listData = newList;
+      })
+    )
   }
 
   /**
