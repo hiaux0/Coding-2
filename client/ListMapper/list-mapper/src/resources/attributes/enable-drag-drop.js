@@ -129,6 +129,8 @@ export class EnableDragDropCustomAttribute {
     this.dragStarted = true;
     let draggel = event.target;
     this.draggel = draggel;
+    window.draggel = draggel;
+    console.log("Drag start: ",draggel.innerHTML.trim());
 
     let clone = this._createShadowCopy(draggel);
     this.draggelShadowClone = clone;
@@ -194,9 +196,9 @@ export class EnableDragDropCustomAttribute {
         let getValue = this._getSwapThreshold(direction);
         if (!getValue) return;
         let {heightOfPotentialSwappel, potentialSwappel} = getValue;
-        if (movedDistance > (heightOfPotentialSwappel * 0.9)) { // 0.9 for swap to happen earlier
+        if (movedDistance > (heightOfPotentialSwappel * 0.75)) { // 0.9 for swap to happen earlier
           let swapToPosition = this._getElementsListPosition(potentialSwappel);
-          this.elementsList = this._swapViaPosition(this.draggelsPosition, swapToPosition,                                                              this.elementsListClone);
+          this.elementsList = this._swapViaPosition(this.draggelsPosition, swapToPosition,                                                              this.elementsList);
           this.eventAggregator.publish('drag-drop:draggel-swapped', this.elementsList);
         }
       }
@@ -209,9 +211,10 @@ export class EnableDragDropCustomAttribute {
            */
           @debounce(15) // 15 by experimenting. More will not listen to enough drag events. Less too much
           _getSwapThreshold(direction) {
+            let position = this.draggelsPosition;
             let potentialSwapPosition = (direction === 'down')
-              ? this.draggelsPosition + 1
-              : this.draggelsPosition - 1;
+              ? position + 1
+              : position - 1;
 
             let potentialSwappel = this._getPotentialSwappel(potentialSwapPosition);
             let heightOfPotentialSwappel = potentialSwappel.getBoundingClientRect().height;
@@ -224,9 +227,17 @@ export class EnableDragDropCustomAttribute {
 
           _swapViaPosition(from, to, arr) {
             let returnArr = cloneDeep(arr);
-            let temp = returnArr[from]
+
+            let arrEleTemp = returnArr[from]
             returnArr[from] = returnArr[to]
-            returnArr[to] = temp;
+            returnArr[to] = arrEleTemp;
+
+            let posTemp = returnArr[from].position
+            returnArr[from].position = returnArr[to].position
+            returnArr[to].position = posTemp;
+            // debugger;
+
+            window.returnArr = returnArr
             return returnArr;
           }
 
