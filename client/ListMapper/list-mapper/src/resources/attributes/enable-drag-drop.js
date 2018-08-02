@@ -10,6 +10,7 @@ import { cloneDeep } from 'lodash';
 @dynamicOptions
 @inject(Element, EventAggregator, TemplatingEngine)
 export class EnableDragDropCustomAttribute {
+
   constructor(element, eventAggregator, templatingEngine) {
     this.element = element;
     this.eventAggregator = eventAggregator;
@@ -19,7 +20,6 @@ export class EnableDragDropCustomAttribute {
     this.dragStarted = false;
     this.draggel = null;
     this.draggelShadowClone = null;
-    this.dragShadowFromdraggel = null;
     this.elementsViewModel = null;
     this.elementsList = null;
     this.elementsListClone = null;
@@ -46,6 +46,12 @@ export class EnableDragDropCustomAttribute {
 
   get draggelsPosition() {
     return this.draggelsData[0].position;
+  }
+
+  get elementsListContainerInfo() {
+    let reffel = this.elementsViewModel.simpleListRef;
+    let reffelRect = reffel.getBoundingClientRect();
+    return { reffel, reffelRect };
   }
 
   _getElementsListPosition(element) {
@@ -78,84 +84,17 @@ export class EnableDragDropCustomAttribute {
     this.verifyCorrectDragDropSetup(this.elementsViewModel);
   }
 
-  /**
-   * In order ot use this custom attribute follow the convention.
-   * @param {Aurelia.ViewModel.Object} viewModel
-   */
-  verifyCorrectDragDropSetup(viewModel) {
-    // list data should be stored in `listData`
-    if (typeof viewModel.listData === 'undefined') {
-      throw new Error("EDD: Element's `listData` is empty ");
-    }
-    // console.error("TODO: Implement verifying of drag drop's element viewmodel")
-  } 
-
-  /**
-   * Remove the drag shadow on drag end
-   */
-  onDragEnd = () => { // `onDragEnd` could also be named `onDrop`
-    let element = this.dragShadowFromdraggel ;
-    let parent = this.draggel.parentNode
-    // parent.removeChild(element);
-    this.checkValidDropDestination();
-  }
-
-  checkValidDropDestination() {
-  // If drop is invalid place, place the original element back to its original position
-
-  // If drop is valid place, drop the original element
-  }
-
-  /**
-   * Handles logic when drag started:
-   * * Save the dragged html element to a class variable.
-   * 
-   * * Note the arrow fnc notation, since we are passing this function to an event listener.
-   * @param {Drag.Event.Object} event 
-   */
-  onDragStart = (event) => {
-    this.dragStarted = true;
-    let draggel = event.target;
-    window.draggel = draggel;
-    this.draggel = draggel;
-
-    this.draggelShadowClone = this.createShadowCopy(draggel);
-    this.draggel.classList.add('drag-shadow');
-  }
-
-  // /**
-  //  * When element is being dragged, create a shadow of it in the starting place.
-  //  * @param {HTML.Element} draggel - The element that is being dragged.
-  //  * @param {HTML.Element} container - The container, in which the shadow should appear
-  //  *   This should usually be the "main" parent.
-  //  */
-  // createDragShadow = (draggel) => {
-  //   return this.createShadowCopy(draggel);
-  // }
-
-  /**
-   * TODO : Consider creating a custom element.
-   *    Though, due to dynamic tags, is this even possible?
-   *    Maybe just attach the whole element to a custom element and just add a "drag-shadow" class to it.
-   * @param {HTML.Element} draggel 
-   */
-  createShadowCopy(draggel) {
-    window.draggel = draggel;
-    let originalCoords = draggel.getBoundingClientRect();
-    let {left, top, width, height} = originalCoords;
-    let clone = draggel.cloneNode(true) // true copies descendents as well
-
-    clone.classList.remove('drag-active')
-    clone.style.position = "absolute";
-    clone.style.left = `${left}px`;
-    clone.style.top = `${top}px`;
-    clone.style.height = `${height}px`;
-    clone.style.width = `${width}px`;
-
-    window.clone = clone;
-    this.dragShadowFromdraggel = clone;
-    return clone;
-  }
+      /**
+       * In order ot use this custom attribute follow the convention.
+       * @param {Aurelia.ViewModel.Object} viewModel
+       */
+      verifyCorrectDragDropSetup(viewModel) {
+        // list data should be stored in `listData`
+        if (typeof viewModel.listData === 'undefined') {
+          throw new Error("EDD: Element's `listData` is empty ");
+        }
+        // console.error("TODO: Implement verifying of drag drop's element viewmodel")
+      } 
 
   initDraggable(options) {
     if (typeof options === 'undefined') {
@@ -173,11 +112,52 @@ export class EnableDragDropCustomAttribute {
         restriction: ".simple-list",
         elementRect: {top: 0, left: 0, bottom: 1, right: 1}
       },
-      onend: this.onDragEnd,
-      onmove: this.onDragMove,
       onstart: this.onDragStart,
+      onmove: this.onDragMove,
+      onend: this.onDragEnd,
     });
   }
+
+  /**
+   * Handles logic when drag started:
+   * * Save the dragged html element to a class variable.
+   * 
+   * * Note the arrow fnc notation, since we are passing this function to an event listener.
+   * @param {Drag.Event.Object} event 
+   */
+  onDragStart = (event) => {
+    this.dragStarted = true;
+    let draggel = event.target;
+    this.draggel = draggel;
+
+    let clone = this._createShadowCopy(draggel);
+    this.draggelShadowClone = clone;
+    // let container = this.elementsViewModel.simpleListRef;
+    let container = draggel.parentNode;
+    container.prepend(clone);
+
+    this.draggel.classList.add('drag-shadow');
+  }
+
+      /**
+       * TODO : Consider creating a custom element.
+       *    Though, due to dynamic tags, is this even possible?
+       *    Maybe just attach the whole element to a custom element and just add a "drag-shadow" class to it.
+       * @param {HTML.Element} draggel 
+       */
+      _createShadowCopy(draggel) {
+        window.draggel = draggel;
+        let originalCoords = draggel.getBoundingClientRect();
+        let { top, width } = originalCoords;
+        let clone = draggel.cloneNode(true) // true : copies descendents as well
+
+        clone.classList.add('drag-active')
+        clone.style.position = "absolute";
+        clone.style.top = `${top}px`;
+        clone.style.width = `${width}px`;
+
+        return clone;
+      }
 
   /**
    * This function was given by the interactjs demo
@@ -185,14 +165,7 @@ export class EnableDragDropCustomAttribute {
    * @param {Object} event 
    */
   onDragMove = (event) => {
-    let draggel = this.draggel;
-    // console.log('​EnableDragDropCustomAttribute -> onDragMove -> event.dy', event);
-    // window.dragMoveEvent = event;
-
-    // Create clone and drag that instead
-    // let draggelClone = this.createDragShadow(draggel)
-    let container = this.elementsViewModel.simpleListRef;
-    container.prepend(clone);
+    let parentsTop = this.elementsListContainerInfo.reffelRect.top; // Could also just use parent property of html element?
 
     // keep the dragged position in the data-x/data-y attributes
     let x = (parseFloat(this.draggelShadowClone.getAttribute('data-x')) || 0) + event.dx;
@@ -201,9 +174,9 @@ export class EnableDragDropCustomAttribute {
     // translate the element
     this.draggelShadowClone.style.webkitTransform =
       this.draggelShadowClone.style.transform =
-      'translate(' + x + 'px, ' + y + 'px)';
+      `translate(${x}px, ${y-parentsTop}px)`;
 
-    // update the posiion attributes
+    // update the position attributes
     this.draggelShadowClone.setAttribute('data-x', x);
     this.draggelShadowClone.setAttribute('data-y', y);
 
@@ -212,57 +185,67 @@ export class EnableDragDropCustomAttribute {
     this._maybeSwappel(movedDistance, direction);
   }
 
-  /**
-   * Handle swap elements if necessary.
-   * @param {Number} movedDistance
-   * @param {String} direction 
-   */
-  _maybeSwappel(movedDistance, direction) {
-    let getValue = this._getSwapThreshold(direction);
-    if (!getValue) return;
-    let {heightOfPotentialSwappel, potentialSwappel} = getValue;
-    if (movedDistance > heightOfPotentialSwappel) {
-      let swapToPosition = this._getElementsListPosition(potentialSwappel);
-      // debugger;
-      // console.log('​EnableDragDropCustomAttribute -> _maybeSwappel -> swapToPosition', swapToPosition);
-
-      
-      // console.log('​EnableDragDropCustomAttribute -> _maybeSwappel -> this.elementsList', this.elementsList);
-      this.elementsList = this._swapViaPosition(this.draggelsPosition, swapToPosition, this.elementsListClone);
-      // console.log('​EnableDragDropCustomAttribute -> _maybeSwappel -> this.elementsList', this.elementsList);
-      this.eventAggregator.publish('drag-drop:draggel-swapped', this.elementsList);
-
-    }
-  }
+      /**
+       * Handle swap elements if necessary.
+       * @param {Number} movedDistance
+       * @param {String} direction 
+       */
+      _maybeSwappel(movedDistance, direction) {
+        let getValue = this._getSwapThreshold(direction);
+        if (!getValue) return;
+        let {heightOfPotentialSwappel, potentialSwappel} = getValue;
+        if (movedDistance > (heightOfPotentialSwappel * 0.9)) { // 0.9 for swap to happen earlier
+          let swapToPosition = this._getElementsListPosition(potentialSwappel);
+          this.elementsList = this._swapViaPosition(this.draggelsPosition, swapToPosition,                                                              this.elementsListClone);
+          this.eventAggregator.publish('drag-drop:draggel-swapped', this.elementsList);
+        }
+      }
   
+          /**
+           * If draggel moves pass a neighbouring element, 
+           * shift the element to draggel original position
+           * @param {HTML.Element} draggel - The element that is being dragged.
+           * @return {Number} threshold - 
+           */
+          @debounce(15) // 15 by experimenting. More will not listen to enough drag events. Less too much
+          _getSwapThreshold(direction) {
+            let potentialSwapPosition = (direction === 'down')
+              ? this.draggelsPosition + 1
+              : this.draggelsPosition - 1;
+
+            let potentialSwappel = this._getPotentialSwappel(potentialSwapPosition);
+            let heightOfPotentialSwappel = potentialSwappel.getBoundingClientRect().height;
+
+            return ({
+              heightOfPotentialSwappel, 
+              potentialSwappel
+            });
+          }
+
+          _swapViaPosition(from, to, arr) {
+            let returnArr = cloneDeep(arr);
+            let temp = returnArr[from]
+            returnArr[from] = returnArr[to]
+            returnArr[to] = temp;
+            return returnArr;
+          }
+
   /**
-   * If draggel moves pass a neighbouring element, 
-   * shift the element to draggel original position
-   * @param {HTML.Element} draggel - The element that is being dragged.
-   * @return {Number} threshold - 
+   * Remove the drag shadow on drag end
    */
-  // @debounce(15) // 15 by experimenting. More will not listen to enough drag events. Less too much
-  _getSwapThreshold(direction) {
-    let potentialSwapPosition = (direction === 'down')
-      ? this.draggelsPosition + 1
-      : this.draggelsPosition - 1;
-
-    let potentialSwappel = this._getPotentialSwappel(potentialSwapPosition);
-    let heightOfPotentialSwappel = potentialSwappel.getBoundingClientRect().height;
-
-    return ({
-      heightOfPotentialSwappel, 
-      potentialSwappel
-    });
+  onDragEnd = () => { // `onDragEnd` could also be named `onDrop`
+    let element = this.draggelShadowClone;
+    let parent = element.parentNode
+    parent.removeChild(element);
+    this.checkValidDropDestination();
+    this.draggel.classList.remove('drag-shadow');
   }
 
-  _swapViaPosition(from, to, arr) {
-    let returnArr = cloneDeep(arr);
-    let temp = returnArr[from]
-    returnArr[from] = returnArr[to]
-    returnArr[to] = temp;
-    return returnArr;
-  }
+      checkValidDropDestination() {
+      // If drop is invalid place, place the original element back to its original position
+
+      // If drop is valid place, drop the original element
+      }
 
 }
 

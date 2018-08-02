@@ -9,6 +9,7 @@
   .simple-list {
     // border: 2px dotted gray;
     list-style-type: none;
+    position: relative;
     width: 30vw;
     -webkit-padding-start: 0; // Removes right margin in `li` tags due to bullet points
 
@@ -19,6 +20,7 @@
 
       &.drag-active {
         background: @main-clr-hover;
+        z-index: 1;
       }
 
       &.drag-shadow {
