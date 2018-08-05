@@ -197,9 +197,9 @@ export class EnableDragDropCustomAttribute {
         if (!getValue) return;
         let {heightOfPotentialSwappel, potentialSwappel} = getValue;
         if (movedDistance > (heightOfPotentialSwappel * 0.75)) { // 0.9 for swap to happen earlier
-          let swapToPosition = this._getElementsListPosition(potentialSwappel);
-          this.elementsList = this._swapViaPosition(this.draggelsPosition, swapToPosition,                                                              this.elementsList);
-          this.eventAggregator.publish('drag-drop:draggel-swapped', this.elementsList);
+          // let swapToPosition = this._getElementsListPosition(potentialSwappel);
+          this._swapViaPosition(this.draggel, potentialSwappel,                                                              this.elementsList);
+          // this.eventAggregator.publish('drag-drop:draggel-swapped');
         }
       }
   
@@ -225,20 +225,20 @@ export class EnableDragDropCustomAttribute {
             });
           }
 
-          _swapViaPosition(from, to, arr) {
-            let returnArr = cloneDeep(arr);
+          _swapViaPosition(withDraggel, toSwappel, arr) {
+            window.withDraggel = withDraggel;
+            window.toSwappel = toSwappel;
+            if (withDraggel.previousElementSibling === toSwappel) {
+              // In case for drag up
+              withDraggel.insertAdjacentElement("afterend", toSwappel)
+              console.log(`Swapping ${withDraggel.innerHTML.trim()} UP with ${toSwappel.innerHTML.trim()}`)
+            } else if (withDraggel.nextElementSibling === toSwappel) {
+              // In case for drag down
+              withDraggel.insertAdjacentElement("beforebegin", toSwappel)
+              console.log(`Swapping ${withDraggel.innerHTML.trim()} DOWN with ${toSwappel.innerHTML.trim()}`)
 
-            let arrEleTemp = returnArr[from]
-            returnArr[from] = returnArr[to]
-            returnArr[to] = arrEleTemp;
+            }
 
-            let posTemp = returnArr[from].position
-            returnArr[from].position = returnArr[to].position
-            returnArr[to].position = posTemp;
-            // debugger;
-
-            window.returnArr = returnArr
-            return returnArr;
           }
 
   /**
