@@ -27,6 +27,14 @@
         opacity: 0.4;
         margin-top: -1px; // since original also have this. We compensate the double border line issue with that.
       }
+
+      &.drag-entered {
+        background: @main-clr-truthy-hover;
+      }
+
+      &.drag-left {
+        background: @main-clr-falsy-hover;
+      }
     }
 
     .dropzone {

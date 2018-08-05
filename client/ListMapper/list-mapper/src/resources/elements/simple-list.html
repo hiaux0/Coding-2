@@ -11,12 +11,15 @@
         <span class="dropzone"></span>
       </span>
     </ul>
-    
+
     <ul class="simple-list">
       <strong>Command list</strong>
-      <li repeat.for="cmdName of shortcutStore.commandName">
-        ${cmdName.command}
-      </li>
+      <span class="item-container draggable" repeat.for="cmdName of shortcutStore.commandName">
+        <li ref="shortcut.htmlElement">
+          ${cmdName.command}
+        </li>
+        <span class="dropzone"></span>
+      </span>
     </ul>
     
   </div>

@@ -28,82 +28,82 @@ export default {
       "shortcut": "C-g :",
       "position": 6
     },
-    {
-      "shortcut": "C-h :",
-      "position": 7
-    },
-    {
-      "shortcut": "C-i :",
-      "position": 8
-    },
-    {
-      "shortcut": "C-j :",
-      "position": 9
-    },
-    {
-      "shortcut": "C-k :",
-      "position": 10
-    },
-    {
-      "shortcut": "C-l :",
-      "position": 11
-    },
-    {
-      "shortcut": "C-m :",
-      "position": 12
-    },
-    {
-      "shortcut": "C-n :",
-      "position": 13
-    },
-    {
-      "shortcut": "C-o :",
-      "position": 14
-    },
-    {
-      "shortcut": "C-p :",
-      "position": 15
-    },
-    {
-      "shortcut": "C-q :",
-      "position": 16
-    },
-    {
-      "shortcut": "C-r :",
-      "position": 17
-    },
-    {
-      "shortcut": "C-s :",
-      "position": 18
-    },
-    {
-      "shortcut": "C-t :",
-      "position": 19
-    },
-    {
-      "shortcut": "C-u :",
-      "position": 20
-    },
-    {
-      "shortcut": "C-v :",
-      "position": 21
-    },
-    {
-      "shortcut": "C-w :",
-      "position": 22
-    },
-    {
-      "shortcut": "C-x :",
-      "position": 23
-    },
-    {
-      "shortcut": "C-y :",
-      "position": 24
-    },
-    {
-      "shortcut": "C-z :",
-      "position": 25
-    }
+    // {
+    //   "shortcut": "C-h :",
+    //   "position": 7
+    // },
+    // {
+    //   "shortcut": "C-i :",
+    //   "position": 8
+    // },
+    // {
+    //   "shortcut": "C-j :",
+    //   "position": 9
+    // },
+    // {
+    //   "shortcut": "C-k :",
+    //   "position": 10
+    // },
+    // {
+    //   "shortcut": "C-l :",
+    //   "position": 11
+    // },
+    // {
+    //   "shortcut": "C-m :",
+    //   "position": 12
+    // },
+    // {
+    //   "shortcut": "C-n :",
+    //   "position": 13
+    // },
+    // {
+    //   "shortcut": "C-o :",
+    //   "position": 14
+    // },
+    // {
+    //   "shortcut": "C-p :",
+    //   "position": 15
+    // },
+    // {
+    //   "shortcut": "C-q :",
+    //   "position": 16
+    // },
+    // {
+    //   "shortcut": "C-r :",
+    //   "position": 17
+    // },
+    // {
+    //   "shortcut": "C-s :",
+    //   "position": 18
+    // },
+    // {
+    //   "shortcut": "C-t :",
+    //   "position": 19
+    // },
+    // {
+    //   "shortcut": "C-u :",
+    //   "position": 20
+    // },
+    // {
+    //   "shortcut": "C-v :",
+    //   "position": 21
+    // },
+    // {
+    //   "shortcut": "C-w :",
+    //   "position": 22
+    // },
+    // {
+    //   "shortcut": "C-x :",
+    //   "position": 23
+    // },
+    // {
+    //   "shortcut": "C-y :",
+    //   "position": 24
+    // },
+    // {
+    //   "shortcut": "C-z :",
+    //   "position": 25
+    // }
   ],
   "commands": [
     {

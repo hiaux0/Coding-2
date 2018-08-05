@@ -50,7 +50,6 @@ export class SimpleList {
   attached() {
     this.subscriptions.push(
       this.eventAggregator.subscribe('drag-drop:draggel-swapped', (newList) => {
-        // console.log('​SimpleList -> attached -> newList', newList);
         this.listData = newList;
       })
     )
