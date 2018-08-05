@@ -9,7 +9,7 @@
   .simple-list {
     // border: 2px dotted gray;
     list-style-type: none;
-    position: relative;
+    // position: relative;
     width: 30vw;
     -webkit-padding-start: 0; // Removes right margin in `li` tags due to bullet points
 
@@ -18,14 +18,22 @@
       margin-top: -1px;
       padding: 6px 6px 6px 20px;
 
-      &.drag-active {
+      &.is-draggel {
         background: @main-clr-hover;
         z-index: 1;
       }
 
       &.drag-shadow {
         opacity: 0.4;
-        margin: 0;
+        margin-top: -1px; // since original also have this. We compensate the double border line issue with that.
+      }
+    }
+
+    .dropzone {
+      display: block;
+      height: 10px;
+      &.hover {
+        background: @main-clr-hover;
       }
     }
   }

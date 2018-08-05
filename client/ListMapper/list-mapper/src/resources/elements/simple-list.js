@@ -76,7 +76,7 @@ export class SimpleList {
   }
 
   mouseOverHandler() {
-    console.log('mouse over')
+    // consdsole.log('mouse over')
   }
 }
 

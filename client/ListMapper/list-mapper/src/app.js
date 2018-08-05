@@ -45,9 +45,18 @@ export class App {
           }
         },
         {
-          route: ['drag-drop-leveling/simple-table'], 
+          route: ['drag-drop-leveling/drag-drop-ca'], 
           moduleId: PLATFORM.moduleName('./resources/elements/drag-drop/leveling/drag-drop-ca'),
           nav:true, title: 'Drag Drop Custom Attribute', 
+          settings: {
+            dropdownId: 'dragDropLeveling',
+            dropdownTitle: "Drag Drop Leveling",
+          }
+        },
+        {
+          route: ['drag-drop-leveling/drag-drop-v1'], 
+          moduleId: PLATFORM.moduleName('./resources/elements/drag-drop/leveling/drag-drop-v1-ce'),
+          nav: true, title: 'drag-drop-v1', 
           settings: {
             dropdownId: 'dragDropLeveling',
             dropdownTitle: "Drag Drop Leveling",
