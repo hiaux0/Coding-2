@@ -1,107 +1,107 @@
 export default {
   "shortcuts": [
     {
-      "shortcut": "C-a :",
+      "content": "C-a :",
       "position": 0 
     },
     {
-      "shortcut": "C-b :",
+      "content": "C-b :",
       "position": 1
     },
     {
-      "shortcut": "C-c :",
+      "content": "C-c :",
       "position": 2
     },
     {
-      "shortcut": "C-d :",
+      "content": "C-d :",
       "position": 3
     },
     {
-      "shortcut": "C-e :",
+      "content": "C-e :",
       "position": 4
     },
     {
-      "shortcut": "C-f :",
+      "content": "C-f :",
       "position": 5
     },
     {
-      "shortcut": "C-g :",
+      "content": "C-g :",
       "position": 6
     },
     // {
-    //   "shortcut": "C-h :",
+    //   "content": "C-h :",
     //   "position": 7
     // },
     // {
-    //   "shortcut": "C-i :",
+    //   "content": "C-i :",
     //   "position": 8
     // },
     // {
-    //   "shortcut": "C-j :",
+    //   "content": "C-j :",
     //   "position": 9
     // },
     // {
-    //   "shortcut": "C-k :",
+    //   "content": "C-k :",
     //   "position": 10
     // },
     // {
-    //   "shortcut": "C-l :",
+    //   "content": "C-l :",
     //   "position": 11
     // },
     // {
-    //   "shortcut": "C-m :",
+    //   "content": "C-m :",
     //   "position": 12
     // },
     // {
-    //   "shortcut": "C-n :",
+    //   "content": "C-n :",
     //   "position": 13
     // },
     // {
-    //   "shortcut": "C-o :",
+    //   "content": "C-o :",
     //   "position": 14
     // },
     // {
-    //   "shortcut": "C-p :",
+    //   "content": "C-p :",
     //   "position": 15
     // },
     // {
-    //   "shortcut": "C-q :",
+    //   "content": "C-q :",
     //   "position": 16
     // },
     // {
-    //   "shortcut": "C-r :",
+    //   "content": "C-r :",
     //   "position": 17
     // },
     // {
-    //   "shortcut": "C-s :",
+    //   "content": "C-s :",
     //   "position": 18
     // },
     // {
-    //   "shortcut": "C-t :",
+    //   "content": "C-t :",
     //   "position": 19
     // },
     // {
-    //   "shortcut": "C-u :",
+    //   "content": "C-u :",
     //   "position": 20
     // },
     // {
-    //   "shortcut": "C-v :",
+    //   "content": "C-v :",
     //   "position": 21
     // },
     // {
-    //   "shortcut": "C-w :",
+    //   "content": "C-w :",
     //   "position": 22
     // },
     // {
-    //   "shortcut": "C-x :",
+    //   "content": "C-x :",
     //   "position": 23
     // },
     // {
-    //   "shortcut": "C-y :",
+    //   "content": "C-y :",
     //   "position": 24
     // },
     // {
-    //   "shortcut": "C-z :",
+    //   "content": "C-z :",
     //   "position": 25
     // }
   ],

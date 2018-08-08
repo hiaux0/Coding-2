@@ -27,6 +27,7 @@ export class SimpleList {
   // }
 
   simpleListRef;
+  newListData = null;
 
   constructor(element, eventAggregator) {
     window.simpleList = this
@@ -39,7 +40,7 @@ export class SimpleList {
     this.ctrl = this.sortOrder(this.db.shortcuts);
     this.commandName = this.sortOrder(this.db.commands);
     // Add property, that stores html element
-    this.addHtmlStorage(this.ctrl);
+    this.addDomElementToListData(this.ctrl);
 
     this.shortcutStore = {
       ctrl: this.ctrl,
@@ -68,14 +69,30 @@ export class SimpleList {
   /**
    * Add property to each object, to store the corresponding html element
    */
-  addHtmlStorage(arr) {
+  addDomElementToListData(arr) {
     arr.forEach((ele) => {
-      Object.assign(ele, {htmlElement: null})
+      Object.assign(ele, {htmlElement: null}); // Note that Im mutating here.
+
     })
   }
 
-  mouseOverHandler() {
-    // consdsole.log('mouse over')
+  getDragDropChanges() {
+    let newListData = new Array; // Need to declare new array here?
+    let children = this.simpleListRef.children
+    let counter = 0;
+
+    for (let child of children) {
+      if (!child.classList.contains("item-container")) continue;
+      
+      let listItem = child.getElementsByTagName('li')[0]
+      let listItemContent = listItem.innerText;
+      newListData.push({
+        content: listItemContent,
+        position: counter++,
+        htmlElement: listItem,
+      });
+    }
   }
+
 }
 
