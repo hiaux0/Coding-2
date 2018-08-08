@@ -1,5 +1,6 @@
 import { PLATFORM } from "aurelia-pal";
 import './app.less';
+import 'font-awesome/css/font-awesome.css';
 
 export class App {
   constructor() {
