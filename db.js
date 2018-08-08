@@ -107,107 +107,107 @@ export default {
   ],
   "commands": [
     {
-      "command": "Command-a :",
+      "content": "Command-a :",
       "position": 0
     },
     {
-      "command": "Command-b :",
+      "content": "Command-b :",
       "position": 1
     },
     {
-      "command": "Command-c :",
+      "content": "Command-c :",
       "position": 2
     },
     {
-      "command": "Command-d :",
+      "content": "Command-d :",
       "position": 3
     },
     {
-      "command": "Command-e :",
+      "content": "Command-e :",
       "position": 4
     },
     {
-      "command": "Command-f :",
+      "content": "Command-f :",
       "position": 5
     },
     {
-      "command": "Command-g :",
+      "content": "Command-g :",
       "position": 6
     },
     {
-      "command": "Command-h :",
+      "content": "Command-h :",
       "position": 7
     },
     {
-      "command": "Command-i :",
+      "content": "Command-i :",
       "position": 8
     },
     {
-      "command": "Command-j :",
+      "content": "Command-j :",
       "position": 9
     },
     {
-      "command": "Command-k :",
+      "content": "Command-k :",
       "position": 10
     },
     {
-      "command": "Command-l :",
+      "content": "Command-l :",
       "position": 11
     },
     {
-      "command": "Command-m :",
+      "content": "Command-m :",
       "position": 12
     },
     {
-      "command": "Command-n :",
+      "content": "Command-n :",
       "position": 13
     },
     {
-      "command": "Command-o :",
+      "content": "Command-o :",
       "position": 14
     },
     {
-      "command": "Command-p :",
+      "content": "Command-p :",
       "position": 15
     },
     {
-      "command": "Command-q :",
+      "content": "Command-q :",
       "position": 16
     },
     {
-      "command": "Command-r :",
+      "content": "Command-r :",
       "position": 17
     },
     {
-      "command": "Command-s :",
+      "content": "Command-s :",
       "position": 18
     },
     {
-      "command": "Command-t :",
+      "content": "Command-t :",
       "position": 19
     },
     {
-      "command": "Command-u :",
+      "content": "Command-u :",
       "position": 20
     },
     {
-      "command": "Command-v :",
+      "content": "Command-v :",
       "position": 21
     },
     {
-      "command": "Command-w :",
+      "content": "Command-w :",
       "position": 22
     },
     {
-      "command": "Command-x :",
+      "content": "Command-x :",
       "position": 23
     },
     {
-      "command": "Command-y :",
+      "content": "Command-y :",
       "position": 24
     },
     {
-      "command": "Command-z :",
+      "content": "Command-z :",
       "position": 25
     }
   ]

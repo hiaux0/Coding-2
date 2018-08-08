@@ -11,10 +11,8 @@ export class  dragDropV1CustomAttribute {
      */
     this.dd = {
       dragStarted:         false,
-      draggel:             null,
-      draggelContainer:    null,
-      draggelShadowClon:   null,
-      elementsList:        null,
+      draggelShadowClone:   null,
+      // elementsList:        null,
       elementsViewModel:   null,
       isCustomElement:     false,
       isValidDropLocation: false,
@@ -22,7 +20,7 @@ export class  dragDropV1CustomAttribute {
   }
 
   get elementsListContainerInfo() {
-    let reffel = this.dd.elementsViewModel.simpleListRef;
+    let reffel = this.element.au.controller.viewModel.simpleListRef;
     let reffelRect = reffel.getBoundingClientRect();
     return { reffel, reffelRect };
   }
@@ -41,16 +39,16 @@ export class  dragDropV1CustomAttribute {
 
     this.dd.isCustomElement   = true;
     this.dd.elementsViewModel = element.au.controller.viewModel;
-    this.dd.elementsList      = this.dd.elementsViewModel.listData;
+    // this.dd.elementsList      = this.dd.elementsViewModel.listData;
     
-    this.verifyCorrectDragDropSetup(this.dd.elementsViewModel);
+    this._verifyCorrectDragDropSetup(this.dd.elementsViewModel);
   }
 
       /**
        * In order ot use this custom attribute follow the convention.
        * @param {Aurelia.ViewModel.Object} viewModel
        */
-      verifyCorrectDragDropSetup(viewModel) {
+      _verifyCorrectDragDropSetup(viewModel) {
         // list data should be stored in `listData`
         if (typeof viewModel.listData === 'undefined') {
           throw new Error("EDD: Element's `listData` is empty ");
@@ -92,11 +90,10 @@ export class  dragDropV1CustomAttribute {
         let clone            = this._createShadowCopy(draggel);
         
         this.dd.dragStarted        = true;
-        this.dd.draggelContainer   = draggelContainer;
-        this.dd.draggel            = draggel;
         this.dd.draggelShadowClone = clone;
 
-        let dropDestination = this.dd.elementsViewModel.simpleListRef;
+        // `dropDestination` does not describe what is happening here...
+        let dropDestination = this.dd.elementsViewModel.simpleListRef; 
         dropDestination.prepend(clone);
 
         this._saveDraggelOriginInfo(draggelContainer);
@@ -138,9 +135,11 @@ export class  dragDropV1CustomAttribute {
             let { top, width } = originalCoords;
             let clone = draggel.cloneNode(true) // true : copies descendents as well
 
+            let parentContainer = this.elementsListContainerInfo.reffelRect.top;
+
             clone.classList.add('drag-shadow');
             clone.style.position = "absolute";
-            clone.style.top = `${top}px`;
+            clone.style.top = `${top - parentContainer}px`;
             clone.style.width = `${width}px`;
 
             return clone;
@@ -152,8 +151,8 @@ export class  dragDropV1CustomAttribute {
        * @param {Object} event 
        */
       onDragMove = (event) => {
-        let target = event.target;
-        let draggel = target.getElementsByTagName('li')[0];
+        let draggelContainer = event.target;
+        let draggel = draggelContainer.getElementsByTagName('li')[0];
 
         // keep the dragged position in the data-x/data-y attributes
         let x = (parseFloat(draggel.getAttribute('data-x')) || 0) + event.dx;
@@ -172,10 +171,12 @@ export class  dragDropV1CustomAttribute {
       /**
         * Remove the drag shadow on drag end
         */
-      onDragEnd = () => { // `onDragEnd` could also be named `onDrop`
+      onDragEnd = (event) => { // `onDragEnd` could also be named `onDrop`
+        let draggelContainer = event.target;
+        let draggel = draggelContainer.getElementsByTagName('li')[0];
         let clone = this.dd.draggelShadowClone;
         this._removeClone(clone);
-        this._removeDraggelStyles(this.dd.draggel);
+        this._removeDraggelStyles(draggel);
         if (!this.dd.isValidDropLocation) {
           return;
         }
@@ -195,10 +196,14 @@ export class  dragDropV1CustomAttribute {
     })
   }
 
-      ondDragEnter = () => {
+      ondDragEnter = (event) => {
+        let draggelContainer = event.relatedTarget;
+        let draggel = draggelContainer.getElementsByTagName('li')[0];
+
         this.dd.isValidDropLocation = true;
-        this._addDragEnterStyling(this.dd.draggel);
-        this._removeDragLeaveStyling(this.dd.draggel);
+
+        this._addDragEnterStyling(draggel);
+        this._removeDragLeaveStyling(draggel);
       }
 
           _addDragEnterStyling(draggel)    { draggel.classList.add('drag-entered'); }
@@ -206,10 +211,12 @@ export class  dragDropV1CustomAttribute {
 
 
       onDragLeave = (event) => {
+        let draggelContainer = event.relatedTarget;
+        let draggel = draggelContainer.getElementsByTagName('li')[0];
         let dropZone = event.target;
         
-        this._addDragLeaveStyling(this.dd.draggel);
-        this._removeDragEnterStyling(this.dd.draggel);
+        this._addDragLeaveStyling(draggel);
+        this._removeDragEnterStyling(draggel);
         this.dd.isValidDropLocation = false;
 
         dropZone.classList.remove("hover")
@@ -226,15 +233,15 @@ export class  dragDropV1CustomAttribute {
        * @param {Object} event
        */
       onDrop = (event) => {
+        let draggelContainer = event.relatedTarget;
+        let draggel = draggelContainer.getElementsByTagName('li')[0];
         let dropZone = event.target.parentElement;
 
-        let relatedTarget = event.relatedTarget; // also this.dd.draggel
-        let draggel       = relatedTarget.getElementsByTagName('li')[0];
         this._removeDraggelStyles(draggel);
 
-        let reffel = this.elementsListContainerInfo.reffel;
-        reffel.removeChild(relatedTarget)
+        let parent = draggelContainer.parentElement;
+        parent.removeChild(draggelContainer)
 
-        dropZone.insertAdjacentElement('afterEnd', relatedTarget)
+        dropZone.insertAdjacentElement('afterEnd', draggelContainer)
       }
 }
