@@ -1,7 +1,3 @@
-/**
- * Note that this is actually not a resuable component yet.
- */
-
 import {bindable, inject} from 'aurelia-framework';
 import './simple-list.less';
 import db from '../../../../../../db';

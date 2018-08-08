@@ -1,10 +1,32 @@
 <template>
+  <require from='../value-converters/sort'></require>
 
   <div class="simple-list-container">
     
     <ul class="simple-list" ref="simpleListRef">
       <strong>Shortcut list</strong>
-      <span class="item-container draggable" repeat.for="shortcut of listData">
+
+        <label for="column">Sort By:</label>
+        <select id="column" ref="column">
+          <option value="stargazers_count">Stars</option>
+          <option value="forks_count">Forks</option>
+          <option value="open_issues">Issues</option>
+        </select>
+        
+        <select ref="direction">
+          <option value="descending">Descending</option>
+          <option value="ascending">Ascending</option>
+        </select>
+
+      <span class='sort-list'>
+        Sort
+        <i class="sort-desc fa fa-chevron-down"></i>
+        <i class="sort-asc fa fa-chevron-up"></i>
+      </span>
+      
+      <span class="item-container draggable" 
+        repeat.for="shortcut of listData | sort:column.value:direction.value"
+      >
         <li ref="shortcut.htmlElement">
           ${shortcut.content} ${shortcut.position}
         </li>
