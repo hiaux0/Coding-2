@@ -7,6 +7,7 @@ export class DragDropV1Ce {
   constructor() {
     this.snap = true;
     this.listData = db.shortcuts;
+    this.listDataCommands = db.commands;
   }
 
   attached() {

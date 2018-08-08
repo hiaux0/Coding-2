@@ -2,23 +2,11 @@
 
   <div class="simple-list-container">
     
-    <!-- <button class='btn btn-outline-secondary' click.delegate="getDragDropChanges()">Save Drag Drop Changes</button> -->
-    
     <ul class="simple-list" ref="simpleListRef">
       <strong>Shortcut list</strong>
       <span class="item-container draggable" repeat.for="shortcut of listData">
         <li ref="shortcut.htmlElement">
           ${shortcut.content} ${shortcut.position}
-        </li>
-        <span class="dropzone"></span>
-      </span>
-    </ul>
-
-    <ul class="simple-list">
-      <strong>Command list</strong>
-      <span class="item-container draggable" repeat.for="cmdName of shortcutStore.commandName">
-        <li ref="shortcut.htmlElement">
-          ${cmdName.command}
         </li>
         <span class="dropzone"></span>
       </span>
