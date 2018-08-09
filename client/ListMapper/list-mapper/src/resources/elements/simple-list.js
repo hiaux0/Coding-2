@@ -15,12 +15,7 @@ const _comparePosition = (a, b) => {
 
 @inject(Element, EventAggregator)
 export class SimpleList {
-  // @bindable allowDragRef;
   @bindable listData = [];
-
-  // listDataChanged() {
-  //   console.log(this.listData);
-  // }
 
   simpleListRef;
   newListData = null;
@@ -35,21 +30,11 @@ export class SimpleList {
 
     this.ctrl = this.sortOrder(this.db.shortcuts);
     this.commandName = this.sortOrder(this.db.commands);
-    // Add property, that stores html element
-    this.addDomElementToListData(this.ctrl);
 
     this.shortcutStore = {
       ctrl: this.ctrl,
       commandName: this.commandName
     }
-  }
-
-  attached() {
-    this.subscriptions.push(
-      this.eventAggregator.subscribe('drag-drop:draggel-swapped', (newList) => {
-        this.listData = newList;
-      })
-    )
   }
 
   /**
@@ -60,16 +45,6 @@ export class SimpleList {
   sortOrder(arr) {
     // return (arr);
     return arr.sort(_comparePosition);
-  }
-
-  /**
-   * Add property to each object, to store the corresponding html element
-   */
-  addDomElementToListData(arr) {
-    arr.forEach((ele) => {
-      Object.assign(ele, {htmlElement: null}); // Note that Im mutating here.
-
-    })
   }
 
   getDragDropChanges() {
