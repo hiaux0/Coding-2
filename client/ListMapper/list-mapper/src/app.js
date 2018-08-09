@@ -1,10 +1,10 @@
 import { PLATFORM } from "aurelia-pal";
 import './app.less';
-
+import 'font-awesome/css/font-awesome.css';
 
 export class App {
   constructor() {
-    this.message = 'Hello World!';
+    this.showNavbar = false;
   }
 
   configureRouter(config, router) {
@@ -35,7 +35,40 @@ export class App {
             dropdownTitle: "Css Leveling",
           }
         },
+        // Dropdown items for Drag drop Leveling (interactjs)
+        {
+          route: ['drag-drop-leveling/initial'], 
+          moduleId: PLATFORM.moduleName('./resources/elements/drag-drop/leveling/init'),
+          nav:true, title: 'Init', 
+          settings: {
+            dropdownId: 'dragDropLeveling',
+            dropdownTitle: "Drag Drop Leveling",
+          }
+        },
+        {
+          route: ['drag-drop-leveling/drag-drop-ca'], 
+          moduleId: PLATFORM.moduleName('./resources/elements/drag-drop/leveling/drag-drop-ca'),
+          nav:true, title: 'Drag Drop Custom Attribute', 
+          settings: {
+            dropdownId: 'dragDropLeveling',
+            dropdownTitle: "Drag Drop Leveling",
+          }
+        },
+        {
+          route: ['drag-drop-leveling/drag-drop-v1'], 
+          moduleId: PLATFORM.moduleName('./resources/elements/drag-drop/leveling/drag-drop-v1-ce'),
+          nav: true, title: 'drag-drop-v1', 
+          settings: {
+            dropdownId: 'dragDropLeveling',
+            dropdownTitle: "Drag Drop Leveling",
+          }
+        },
+
     ]);
     this.router = router;
+  }
+
+  toggleNavbarHandler() {
+    this.showNavbar = !this.showNavbar;
   }
 }
