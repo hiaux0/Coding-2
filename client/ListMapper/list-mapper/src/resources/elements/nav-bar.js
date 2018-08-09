@@ -10,7 +10,7 @@ export class NavBar {
 
   }
   attached() {
-    console.log(this.router)
+    // console.log(this.router)
   }
 }
 

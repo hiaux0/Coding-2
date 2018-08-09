@@ -1,20 +1,94 @@
-import {bindable} from 'aurelia-framework';
+import {bindable, inject} from 'aurelia-framework';
 import './simple-list.less';
+import db from '../../../../../../db';
+import { EventAggregator } from 'aurelia-event-aggregator';
 
+/**
+ * Takes in 2 objects with an `position` property, and sorts them according to that `position`.
+ * 
+ * @param {Object} a - object with order property
+ * @param {Object} b - object with order property
+ */
+const _comparePosition = (a, b) => {
+  return a.position - b.position;
+}
+
+@inject(Element, EventAggregator)
 export class SimpleList {
-  @bindable value;
+  // @bindable allowDragRef;
+  @bindable listData = [];
 
-  constructor() {
+  // listDataChanged() {
+  //   console.log(this.listData);
+  // }
+
+  simpleListRef;
+  newListData = null;
+
+  constructor(element, eventAggregator) {
+    window.simpleList = this
+    this.element = element;
+    this.eventAggregator = eventAggregator;
+    this.db = db;
+
+    this.subscriptions = [];
+
+    this.ctrl = this.sortOrder(this.db.shortcuts);
+    this.commandName = this.sortOrder(this.db.commands);
+    // Add property, that stores html element
+    this.addDomElementToListData(this.ctrl);
+
     this.shortcutStore = {
-      ctrl: [ "C-a :", "C-b :", "C-c :", "C-d :", "C-e :", "C-f :", "C-g :", "C-h :", "C-i :", "C-j :", "C-k :", "C-l :", "C-m :", "C-n :", "C-o :", "C-p :", "C-q :", "C-r :", "C-s :", "C-t :", "C-u :", "C-v :", "C-w :", "C-x :", "C-y :", "C-z :",
-      ],
-      commandName: [ "Command-a", "Command-b", "Command-c", "Command-d", "Command-e", "Command-f", "Command-g", "Command-h", "Command-i", "Command-j", "Command-k", "Command-l", "Command-m", "Command-n", "Command-o", "Command-p", "Command-q", "Command-r", "Command-s", "Command-t", "Command-u", "Command-v", "Command-w", "Command-x", "Command-y", "Command-z",
-      ]
+      ctrl: this.ctrl,
+      commandName: this.commandName
     }
   }
 
-  valueChanged(newValue, oldValue) {
-
+  attached() {
+    this.subscriptions.push(
+      this.eventAggregator.subscribe('drag-drop:draggel-swapped', (newList) => {
+        this.listData = newList;
+      })
+    )
   }
+
+  /**
+   * Sort object according to its order propety.
+   * // TODO use value converter
+   * @param {Object} obj 
+   */
+  sortOrder(arr) {
+    // return (arr);
+    return arr.sort(_comparePosition);
+  }
+
+  /**
+   * Add property to each object, to store the corresponding html element
+   */
+  addDomElementToListData(arr) {
+    arr.forEach((ele) => {
+      Object.assign(ele, {htmlElement: null}); // Note that Im mutating here.
+
+    })
+  }
+
+  getDragDropChanges() {
+    let newListData = new Array; // Need to declare new array here?
+    let children = this.simpleListRef.children
+    let counter = 0;
+
+    for (let child of children) {
+      if (!child.classList.contains("item-container")) continue;
+      
+      let listItem = child.getElementsByTagName('li')[0]
+      let listItemContent = listItem.innerText;
+      newListData.push({
+        content: listItemContent,
+        position: counter++,
+        htmlElement: listItem,
+      });
+    }
+  }
+
 }
 
