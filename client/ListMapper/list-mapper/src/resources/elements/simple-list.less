@@ -7,7 +7,6 @@
   justify-content: space-between;
   
   .simple-list {
-    // border: 2px dotted gray;
     list-style-type: none;
     position: relative;
     width: 30vw;
@@ -39,7 +38,16 @@
 
     .sort-list {
       padding-left: 10px;
+
+      i:hover {
+        &.sort-desc, &.sort-asc {
+          cursor: pointer;
+          -webkit-text-fill-color: @main-clr-truthy-hover;
+        }
+      }
     }
+
+
 
     .dropzone {
       display: block;
