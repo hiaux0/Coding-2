@@ -17,6 +17,62 @@ body {
   color: @grey-clr !important;
 }
 
+.command-palett-container {
+  background: @pri-clr;
+  
+  // following block centers an absolute element
+  position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0px auto;
+    width: 80vw;
+  
+  z-index: 1;
+
+  .command-palett {
+    background: @pri-clr;
+    border: 1px solid white;
+    justify-content: center;
+    padding: 0 1.5em;
+    z-index: 1;
+
+    input::-webkit-calendar-picker-indicator {
+      display: none;
+    }
+
+    .command-palett-input {
+      background: @pri-clr;
+      color: @grey-clr;
+
+      outline-style: none;
+      border: 0;
+      width: 90%;
+    }
+
+    .command-palett-submit {
+      display: none;
+    }
+  }
+
+  .commands-item-container {
+
+    .command-item {
+      &:hover {
+        .item-active();
+      }
+
+      &:first-child {
+        .item-active();
+      }
+    }
+      
+  }
+}
+
+.item-active() {
+  background: @pri-clr-truthy-hover;
+}
+
 .app-container {
   padding: 20px;
   margin: 20px;

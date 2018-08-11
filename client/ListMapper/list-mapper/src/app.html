@@ -2,20 +2,46 @@
   <require from='bootstrap/dist/css/bootstrap.min.css'></require>
   <require from='font-awesome/less/font-awesome.less'></require>
   <require from='./resources/elements/nav-bar'></require>
+  <require from='./resources/attributes/autocomplete'></require>
+  <require from='./resources/attributes/up-down-navigation'></require>
 
-  <nav-bar router.bind="router" show.bind="showNavbar"></nav-bar>
+  <nav-bar router.bind='router' show.bind='showNavbar'></nav-bar>
 
-  <button class="btn btn-outline-secondary btn-sm" click.delegate="toggleNavbarHandler()">${showNavbar ? "Hide" : "Show"} Navbar</button>
+  <button class='btn btn-outline-secondary btn-sm' click.delegate='toggleNavbarHandler()'>${showNavbar ? 'Hide' : 'Show'} Navbar</button>
   
-  <div class="app-container">
+  <div if.bind='showCommandPalett' class='command-palett-container'>
+    <form class='command-palett'>
+      <input 
+        type='text' 
+        autocomplete="value.bind: value; 
+                      list.bind: simpleCommand; 
+                      key.bind: key;
+                      suggested-list.two-way: suggestedList"
+        up-down-navigation
+        value.bind="value"
+        class='command-palett-input' 
+        focus.bind='showCommandPalett' 
+      >
+      <button class='command-palett-submit' type='submit' click.delegate="submitCommand()"></button>
+      
+    </form>
+
+    <div class='commands-item-container'>
+      <div repeat.for='suggestion of suggestedList' class="command-item">
+        ${suggestion}
+      </div>
+    </div>
+  </div>
+  
+  <div class='app-container'>
     <router-view></router-view>
   </div>
   
-  <div id="color-palett">
-    <span id="main">Main</span>
-    <span id="pri">Pri</span>
-    <span id="pri-sup">Pri-sup</span>
-    <span id="sec">Sec</span>
-    <span id="sec-sup">Sec-sup</span>
+  <div id='color-palett'>
+    <span id='main'>Main</span>
+    <span id='pri'>Pri</span>
+    <span id='pri-sup'>Pri-sup</span>
+    <span id='sec'>Sec</span>
+    <span id='sec-sup'>Sec-sup</span>
   </div>
 </template>
