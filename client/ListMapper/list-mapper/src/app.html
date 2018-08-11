@@ -12,36 +12,11 @@
 
   <command-palett></command-palett>
   
-  <!-- <div if.bind='showCommandPalett' class='command-palett-container'>
-    <form class='command-palett'>
-      <input 
-        type='text' 
-        autocomplete="value.bind: value; 
-                      list.bind: simpleCommand; 
-                      key.bind: key;
-                      suggested-list.two-way: suggestedList"
-        up-down-navigation
-        value.bind="value"
-        class='command-palett-input' 
-        focus.bind='showCommandPalett' 
-      >
-      <button class='command-palett-submit' type='submit' click.delegate="submitCommand()"></button>
-      
-    </form>
-
-    <div class='commands-item-container'>
-      <div repeat.for='suggestion of suggestedList' class="command-item">
-        ${suggestion}
-      </div>
-    </div>
-
-  </div> -->
-  
-  <div class='app-container'>
+  <div class='hio-app-container'>
     <router-view></router-view>
   </div>
   
-  <div id='color-palett'>
+  <div id='hio-color-palett'>
     <span id='main'>Main</span>
     <span id='pri'>Pri</span>
     <span id='pri-sup'>Pri-sup</span>

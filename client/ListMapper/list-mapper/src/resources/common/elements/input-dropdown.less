@@ -1,0 +1,18 @@
+@import (reference) '../../common/styles/colors.less';
+
+.hio-input-container {
+  background:red;
+
+  .hio-dropdown-container {
+    .hio-dropdown-item {
+      &.active {
+        .active();
+      }
+    }
+  }
+ 
+}
+
+.active() {
+  background: @pri-clr-truthy-hover;
+}

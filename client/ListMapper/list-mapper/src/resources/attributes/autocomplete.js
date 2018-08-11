@@ -19,8 +19,6 @@ export class AutocompleteCustomAttribute {
   
   @debounce(66)
   valueChanged(newValue, oldValue) {
-    console.log(newValue)
-    // this.suggestedList = this.value;
     this.suggestedList = this.filter(newValue);
   }
 

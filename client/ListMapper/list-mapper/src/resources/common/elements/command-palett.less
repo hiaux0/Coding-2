@@ -1,6 +1,6 @@
 @import (reference) '../../common/styles/colors.less';
 
-.command-palett-container {
+.hio-command-palett-container {
   background: @pri-clr;
   
   // following block centers an absolute element
@@ -12,7 +12,7 @@
   
   z-index: 1;
 
-  .command-palett {
+  form {
     background: @pri-clr;
     border: 1px solid white;
     justify-content: center;
@@ -38,26 +38,4 @@
 
   }
 
-  div {
-
-    div {
-
-      &.item-active {
-        .active();
-      }
-
-      &:hover {
-        .active();
-      }
-
-      // &:first-child {
-      //   .active();
-      // }
-    }
-      
-  }
-}
-
-.active() {
-  background: @pri-clr-truthy-hover;
 }
