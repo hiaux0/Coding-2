@@ -16,10 +16,15 @@
     <div
       class='hio-dropdown-container' 
       ref='commandListContainerRef' 
-      up-down-navigation="suggested-list.bind: suggestedList"
+      up-down-navigation="suggested-list.bind: suggestedList; 
+                          command-id.two-way: commandId"
     >
-      <div repeat.for='suggestion of suggestedList' class="hio-dropdown-item">
-        ${suggestion}
+      <div 
+        repeat.for='suggestion of suggestedList' 
+        class="hio-dropdown-item"
+        data-command-id="${suggestion.id}"
+      >
+        ${suggestion.name}
       </div>
     </div>
 

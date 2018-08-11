@@ -1,16 +1,19 @@
 window.DEBUG_MODE = true;
 
-import { PLATFORM } from 'aurelia-pal';
-import {observable} from 'aurelia-framework';
+import {PLATFORM} from 'aurelia-pal';
+import {inject} from 'aurelia-framework';
 
+import {CommandCentral} from './resources/common/command-central';
 import {commandList} from './resources/commandStorage/command-storage'
 import './app.less';
 import 'font-awesome/css/font-awesome.css';
 
+@inject(CommandCentral)
 export class App {
-  @observable value;
 
-  constructor() {
+  constructor(commandCentral) {
+    this.commandCentral = commandCentral;
+
     this.showNavbar = false;
     this.showCommandPalett = false;
     this.suggestedList = null;
@@ -19,6 +22,7 @@ export class App {
 
   attached() {
     this.simpleCommand = commandList.simpleCommand;
+    this.commandCentral.subscribeToCommandEvents();
   }
 
   submitCommand() {

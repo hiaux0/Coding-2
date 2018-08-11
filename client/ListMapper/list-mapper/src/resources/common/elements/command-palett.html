@@ -2,12 +2,15 @@
   <require from='./input-dropdown'></require>
 
   <div if.bind='showCommandPalett' class='hio-command-palett-container'>
+    <!-- change `simple-commmand` into sth more general -->
     <input-dropdown
-      simple-command.bind="simpleCommand"
+      simple-command.bind="simpleCommand" 
       show-command-palett.bind="showCommandPalett"
       key.bind="key"
+      command-id.two-way="commandId"
     >
     </input-dropdown>
   </div>
 
 </template>
+

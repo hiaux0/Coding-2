@@ -1,22 +1,28 @@
 import {bindable, inject} from 'aurelia-framework';
+import {EventAggregator} from 'aurelia-event-aggregator';
 import hotkeys from 'hotkeys-js';
 
-@inject(Element)
+const ACTIVE_CLASS = 'active';
+const INPUT_DROPDOWN_DOWN = 'down, ctrl+j';
+const INPUT_DROPDOWN_UP = 'up, ctrl+k';
+const INPUT_DROPDOWN_ENTER = 'enter';
+
+@inject(Element, EventAggregator)
 export class UpDownNavigationCustomAttribute {
+  @bindable commandId;
   @bindable suggestedList;
-  constructor(element) {
+
+  constructor(element, eventAggregator) {
+    this.element = element;
+    this.eventAggregator = eventAggregator;
     /**
      * Represents the index of the current highlighted item.
      */
     this.currentHighlightIndex = 0;
-    this.nextDownIndex = 0;
-    this.nextUpIndex = 0;
-
-    this.element = element;
     this.hotkey = null;
   }
  
-  suggestedListChanged(newValue) {
+  suggestedListChanged() {
     this.currentHighlightIndex = 0;
   }
 
@@ -24,6 +30,7 @@ export class UpDownNavigationCustomAttribute {
     this.initShortCuts();
     this.upNavigation();
     this.downNavigation();
+    this.activateItem();
   }
 
   initShortCuts() {
@@ -33,15 +40,30 @@ export class UpDownNavigationCustomAttribute {
   }
 
   upNavigation() {
-    this.hotkey('up', () => {
+    this.hotkey(INPUT_DROPDOWN_UP, () => {
       this.goUpListItem(this.element);
     })
   }
 
+  /**
+   * Register up/down movement shortcut for moving in input-dropdown
+   */
   downNavigation() {
-    this.hotkey('down', () => {
+    this.hotkey(INPUT_DROPDOWN_DOWN, () => {
       this.goDownListItem(this.element);
     })
+  }
+
+  /**
+   * On `ENTER` press, execute/accept the given item.
+   */
+  activateItem() {
+    this.hotkey(INPUT_DROPDOWN_ENTER, () => {
+      let currentItem = this.element.children[this.currentHighlightIndex];
+      if (currentItem.classList.contains(ACTIVE_CLASS)) {
+        this.commandId = currentItem.getAttribute('data-command-id');
+      }
+    })  
   }
 
   /**
@@ -85,11 +107,18 @@ export class UpDownNavigationCustomAttribute {
   }
 
   activateDropdownItem(item) {
-    item.classList.add('active');
+    item.classList.add(ACTIVE_CLASS);
   }
 
   deactivateDropdownItem(item) {
-    item.classList.remove('active');
+    item.classList.remove(ACTIVE_CLASS);
   }
 
+  detached() {
+    this.hotkey.unbind(INPUT_DROPDOWN_ENTER);
+    this.hotkey.unbind(INPUT_DROPDOWN_DOWN);
+    this.hotkey.unbind(INPUT_DROPDOWN_UP);
+
+    this.currentHighlightIndex = 0;
+  }
 }

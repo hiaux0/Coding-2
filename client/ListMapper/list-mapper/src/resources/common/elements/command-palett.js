@@ -1,15 +1,25 @@
-import {bindable} from 'aurelia-framework';
+import {bindable, inject, observable} from 'aurelia-framework';
+import { EventAggregator } from 'aurelia-event-aggregator';
 import {commandList} from '../../commandStorage/command-storage';
 import './command-palett.less';
 import hotkeys from 'hotkeys-js';
 
+@inject(EventAggregator)
 export class CommandPalett {
   @bindable value;
+  @observable commandId;
 
-  constructor() {
+  constructor(eventAggregator) {
+    this.eventAggregator = eventAggregator;
     this.simpleCommand = null;
     this.showCommandPalett = false;
     this.key = 'name';
+  }
+
+  commandIdChanged() {
+    this.eventAggregator.publish('command-palett:command-triggered', this.commandId);
+    this.showCommandPalett = false;
+    this.commandId = ''; // reset the commandId
   }
 
   attached() {
