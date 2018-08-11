@@ -2,7 +2,7 @@
   <require from='../../attributes/autocomplete'></require>
   <require from='../../attributes/up-down-navigation'></require>
     
-  <form class='hio-input-container'> <!-- Form is used to automatically register enter -->
+  <div class='hio-input-container'>
     <input
       type='text'
       focus.bind='showCommandPalett'
@@ -12,22 +12,17 @@
                     key.bind: key;
                     suggested-list.two-way: suggestedList"
     >
-    <button
-      type='submit'
-      click.delegate="submitCommand()"
-    ></button>
 
-    <!-- note that classes below are not used in .less right now, keeping it here to indicate custom class usage -->
     <div
       class='hio-dropdown-container' 
       ref='commandListContainerRef' 
-      up-down-navigation
+      up-down-navigation="suggested-list.bind: suggestedList"
     >
       <div repeat.for='suggestion of suggestedList' class="hio-dropdown-item">
         ${suggestion}
       </div>
     </div>
 
-  </form>
+  </div>
 
 </template>

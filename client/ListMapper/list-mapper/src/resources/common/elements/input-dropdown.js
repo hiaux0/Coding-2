@@ -11,4 +11,3 @@ export class InputDropdown {
     console.log('submit command');
   }
 }
-

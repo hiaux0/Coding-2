@@ -1,8 +1,9 @@
-import {inject} from 'aurelia-framework';
+import {bindable, inject} from 'aurelia-framework';
 import hotkeys from 'hotkeys-js';
 
 @inject(Element)
 export class UpDownNavigationCustomAttribute {
+  @bindable suggestedList;
   constructor(element) {
     /**
      * Represents the index of the current highlighted item.
@@ -13,6 +14,10 @@ export class UpDownNavigationCustomAttribute {
 
     this.element = element;
     this.hotkey = null;
+  }
+ 
+  suggestedListChanged(newValue) {
+    this.currentHighlightIndex = 0;
   }
 
   attached() {
