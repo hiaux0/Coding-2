@@ -12,7 +12,6 @@ export class UpDownNavigationCustomAttribute {
     this.nextUpIndex = 0;
 
     this.element = element;
-    window.element = element;
     this.hotkey = null;
   }
 
@@ -20,7 +19,6 @@ export class UpDownNavigationCustomAttribute {
     this.initShortCuts();
     this.upNavigation();
     this.downNavigation();
-    console.log(this.element);
   }
 
   initShortCuts() {
@@ -31,13 +29,12 @@ export class UpDownNavigationCustomAttribute {
 
   upNavigation() {
     this.hotkey('up', () => {
-      console.log('up')
+      this.goUpListItem(this.element);
     })
   }
 
   downNavigation() {
     this.hotkey('down', () => {
-      console.log('down')
       this.goDownListItem(this.element);
     })
   }
@@ -48,16 +45,38 @@ export class UpDownNavigationCustomAttribute {
    */
   goDownListItem(element) {
     let children = element.children;
+    let numOfChildren = children.length;
 
-    // if (this.currentHighlightIndex === 0) {
-    //   children[0].classList.add('active')
-    //   return;
-    // } 
-    
-    this.nextDownIndex = ++this.currentHighlightIndex;
+    if (this.currentHighlightIndex === numOfChildren - 1) { // Current item is last in the list
+      this.deactivateDropdownItem(children[this.currentHighlightIndex]);
+      this.currentHighlightIndex = 0;
+      this.activateDropdownItem(children[this.currentHighlightIndex]);
+      return;
+    }
+
     this.deactivateDropdownItem(children[this.currentHighlightIndex]);
-    this.activateDropdownItem(children[this.nextDownIndex]);
+    this.activateDropdownItem(children[this.currentHighlightIndex+1]);
+    ++this.currentHighlightIndex;
+  }
 
+  /**
+   * Go up list item, by highlighting the the dropdown item
+   * @param {HTML.Element} element - Html element provided by Aurelia, represents the HTML Element, the attribute is used on.
+   */
+  goUpListItem(element) {
+    let children = element.children;
+    let numOfChildren = children.length;
+
+    if (this.currentHighlightIndex === 0) { // Current item is last in the list
+      this.deactivateDropdownItem(children[this.currentHighlightIndex]);
+      this.currentHighlightIndex = numOfChildren - 1;
+      this.activateDropdownItem(children[this.currentHighlightIndex]);
+      return;
+    }
+
+    this.deactivateDropdownItem(children[this.currentHighlightIndex]);
+    this.activateDropdownItem(children[this.currentHighlightIndex - 1]);
+    --this.currentHighlightIndex;
   }
 
   activateDropdownItem(item) {
@@ -65,12 +84,7 @@ export class UpDownNavigationCustomAttribute {
   }
 
   deactivateDropdownItem(item) {
-    console.log('​UpDownNavigationCustomAttribute -> deactivateDropdownItem -> item', item);
     item.classList.remove('active');
   }
 
-  valueChanged(newValue, oldValue) {
-
-  }
 }
-

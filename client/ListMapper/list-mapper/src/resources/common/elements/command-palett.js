@@ -15,6 +15,7 @@ export class CommandPalett {
   attached() {
     this.simpleCommand = commandList.simpleCommand;
     this.initShortCuts();
+    this.debugMode();
   }
 
   initShortCuts() {
@@ -28,6 +29,14 @@ export class CommandPalett {
     });
   }
 
+  
+  debugMode() {
+    if (!window.DEBUG_MODE) return;
+    // debug code, always show command palett. Note that just by setting the constructor value to true, doesn't work, since it seems like component are not loading in order
+    window.setTimeout(() => {
+      this.showCommandPalett = true;
+    }, 0)
+  }
 
 }
 

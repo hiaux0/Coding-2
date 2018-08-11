@@ -2,7 +2,7 @@ import {bindable} from 'aurelia-framework';
 import './input-dropdown.less'
 
 export class InputDropdown {
-  @bindable value;
+  @bindable value = window.DEBUG_MODE ? 'Say' : '';
   @bindable simpleCommand;
   @bindable showCommandPalett;
   @bindable key;

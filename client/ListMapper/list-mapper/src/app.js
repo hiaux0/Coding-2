@@ -1,3 +1,5 @@
+window.DEBUG_MODE = true;
+
 import { PLATFORM } from 'aurelia-pal';
 import {observable} from 'aurelia-framework';
 
