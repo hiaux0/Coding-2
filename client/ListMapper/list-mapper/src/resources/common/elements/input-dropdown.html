@@ -1,0 +1,29 @@
+<template>
+  <require from='../../attributes/autocomplete'></require>
+  <require from='../../attributes/up-down-navigation'></require>
+
+  <form class='command-palett'>
+    <input
+      type='text'
+      focus.bind='showCommandPalett'
+      value.bind="value"
+      autocomplete="value.bind: value;
+                    list.bind: simpleCommand;
+                    key.bind: key;
+                    suggested-list.two-way: suggestedList"
+      up-down-navigation
+    >
+    <button
+      type='submit'
+      click.delegate="submitCommand()"
+    ></button>
+  </form>
+
+  <!-- note that classes below are not used in .less right now, keeping it here to indicate custom class usage -->
+  <div class='commands-item-container'>
+    <div repeat.for='suggestion of suggestedList' class="command-item">
+      ${suggestion}
+    </div>
+  </div>
+
+</template>

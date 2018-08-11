@@ -1,0 +1,13 @@
+<template>
+  <require from='./input-dropdown'></require>
+
+  <div if.bind='showCommandPalett' class='command-palett-container'>
+    <input-dropdown
+      simple-command.bind="simpleCommand"
+      show-command-palett.bind="showCommandPalett"
+      key.bind="key"
+    >
+    </input-dropdown>
+  </div>
+
+</template>

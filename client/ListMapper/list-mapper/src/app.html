@@ -4,12 +4,15 @@
   <require from='./resources/elements/nav-bar'></require>
   <require from='./resources/attributes/autocomplete'></require>
   <require from='./resources/attributes/up-down-navigation'></require>
+  <require from='./resources/common/elements/command-palett'></require>
 
   <nav-bar router.bind='router' show.bind='showNavbar'></nav-bar>
 
   <button class='btn btn-outline-secondary btn-sm' click.delegate='toggleNavbarHandler()'>${showNavbar ? 'Hide' : 'Show'} Navbar</button>
+
+  <command-palett></command-palett>
   
-  <div if.bind='showCommandPalett' class='command-palett-container'>
+  <!-- <div if.bind='showCommandPalett' class='command-palett-container'>
     <form class='command-palett'>
       <input 
         type='text' 
@@ -31,7 +34,8 @@
         ${suggestion}
       </div>
     </div>
-  </div>
+
+  </div> -->
   
   <div class='app-container'>
     <router-view></router-view>
