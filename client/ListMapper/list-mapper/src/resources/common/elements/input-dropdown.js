@@ -6,5 +6,5 @@ export class InputDropdown {
   @bindable key;
   @bindable simpleCommand;
   @bindable showCommandPalett;
-  @bindable value = window.DEBUG_MODE ? 'Say' : '';
+  @bindable value = window.DEBUG_MODE.commandPalett ? 'Say' : '';
 }

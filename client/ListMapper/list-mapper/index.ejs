@@ -7,7 +7,7 @@
     <base href="<%- htmlWebpackPlugin.options.metadata.baseUrl %>">
     <!-- imported CSS are concatenated and added automatically -->
   </head>
-  <body aurelia-app="main">
+  <body aurelia-app="main" id='hio-body'>
     <% if (htmlWebpackPlugin.options.metadata.server) { %>
     <!-- Webpack Dev Server reload -->
     <script src="/webpack-dev-server.js"></script>

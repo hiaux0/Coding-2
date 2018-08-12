@@ -9,6 +9,8 @@
   <nav-bar router.bind='router' show.bind='showNavbar'></nav-bar>
 
   <button class='btn btn-outline-secondary btn-sm' click.delegate='toggleNavbarHandler()'>${showNavbar ? 'Hide' : 'Show'} Navbar</button>
+  <button class='btn btn-outline-secondary btn-sm' click.delegate='darkTheme()'>Dark Theme</button>
+  <button class='btn btn-outline-secondary btn-sm' click.delegate='lightTheme()'>Light Theme</button>
 
   <command-palett></command-palett>
   
