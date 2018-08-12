@@ -1,20 +1,14 @@
 export const commandList = {
   simpleCommand: [
     {
-      name: "Say Hello",
-      id: "sayHello",
+      name: "Change to dark theme",
+      id: "changeToDarkTheme",
+      origin: "app.js darkTheme()"
     },
     {
-      name: "Say Goodbye",
-      id: "sayGoodbye",
-    },
-    {
-      name: "Say you love me",
-      id: "sayYouLoveMe",
-    },
-    {
-      name: "Say you are the best",
-      id: "sayYouAreTheBest",
+      name: "Change to light theme",
+      id: "changeToLightTheme",
+      origin: "app.js lightTheme()"
     },
   ]
 }
