@@ -9,16 +9,6 @@ export class DragDropCa {
     this.listData = db.shortcuts;
   }
 
-  attached() {
-    // this.snap = true;
-    // console.log(this.simpleListVM)
-    // console.log(this.abc)
-  }
-
-  bind() {
-    // this.snap = true;
-  }
-   
   changeSnap() {
     this.snap = !this.snap;
   }

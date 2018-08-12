@@ -1,3 +1,10 @@
 <template>
-  <h1>${value}</h1>
+  <require from='../../../attributes/connect-list-items'></require>
+  <require from='../../simple-list'></require>
+  <require from='../../../attributes/drag-drop-v1'></require>
+
+  <div class="drag-drop-connect-items">
+    <simple-list drag-drop-v1 view-model.ref="simpleListVM" list-data.bind="listData"></simple-list>
+    <simple-list drag-drop-v1 view-model.ref="simpleListVM" list-data.bind="listData"></simple-list>
+  </div>
 </template>

@@ -1,10 +1,12 @@
 import {bindable} from 'aurelia-framework';
+import db from '../../../../../../../../db';
+import './drag-drop-connect-items.less'
 
 export class DragDropConnectItems {
-  @bindable value;
 
-  valueChanged(newValue, oldValue) {
-
+  constructor() {
+    this.listData = db.shortcuts;
   }
+
 }
 
