@@ -8,17 +8,16 @@ export class CommandCentral {
     this.subscribers = [];
   }
 
-  // attached() {
-  //   console.log('command central attached')
-  //   this.subscribeToCommandEvents();
-  // }
-
-  subscribeToCommandEvents() {
-    console.log('sub to command events')
+  subscribeToCommandEvents(commandData) {
     this.subscribers.push(
       this.eventAggregator.subscribe('command-palett:command-triggered', (commandId) => {
-        console.log(commandId);
+        let command = commandData[commandId];
+        if (typeof command === 'function') command();
       })
-    )
+    );
+  }
+
+  detached() {
+    this.subscribers.forEach((subscriber) => subscriber.dispose());
   }
 }

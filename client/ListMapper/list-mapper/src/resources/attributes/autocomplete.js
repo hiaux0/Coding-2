@@ -8,6 +8,24 @@ export class AutocompleteCustomAttribute {
   @bindable suggestedList;
   @bindable key;
 
+  /**
+   * As we allow different types in a `list`, this variable provides the key for the actual content in an Object.
+   */
+  @bindable key;
+  /**
+   * The complete list you want to search in, accepts: ["", "",...], [Object, Object,...]
+   * @param {Array} list.
+   */
+  @bindable list;
+  /**
+   * After filtration, the remaining results.
+   */
+  @bindable suggestList;
+  /**
+   * The current value/symbol in the input field.
+   */
+  @bindable value;
+
   constructor(element) {
     this.element = element;
   }

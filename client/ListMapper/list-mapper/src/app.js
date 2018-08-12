@@ -1,18 +1,22 @@
-window.DEBUG_MODE = true;
+window.DEBUG_MODE = {
+  commandPalett: false,
+}
 
 import {PLATFORM} from 'aurelia-pal';
 import {inject} from 'aurelia-framework';
 
 import {CommandCentral} from './resources/common/command-central';
 import {commandList} from './resources/commandStorage/command-storage'
+import {mainTheme} from './resources/common/styles/main-theme'
 import './app.less';
 import 'font-awesome/css/font-awesome.css';
 
-@inject(CommandCentral)
+@inject(CommandCentral, Element)
 export class App {
 
-  constructor(commandCentral) {
+  constructor(commandCentral, element) {
     this.commandCentral = commandCentral;
+    this.element = element
 
     this.showNavbar = false;
     this.showCommandPalett = false;
@@ -22,15 +26,30 @@ export class App {
 
   attached() {
     this.simpleCommand = commandList.simpleCommand;
-    this.commandCentral.subscribeToCommandEvents();
+    this.commandCentral.subscribeToCommandEvents({
+      changeToDarkTheme: this.darkTheme,
+      changeToLightTheme: this.lightTheme,
+    });
   }
-
+  
   submitCommand() {
     console.log('submit command')
   }
 
   toggleNavbarHandler() {
     this.showNavbar = !this.showNavbar;
+  }
+
+  darkTheme() {
+    let hioBody = document.getElementById("hio-body");
+    hioBody.style.filter = "invert(0%)";
+    document.body.style.background = mainTheme.mainClr;
+  }
+
+  lightTheme() {
+    let hioBody = document.getElementById("hio-body");
+    hioBody.style.filter = "invert(100%)";
+    document.body.style.background = `rgb(203, 197, 191)`; // hardcoded invers of #343A40 (the current main clr theme 2018-08-12 16:24:58)
   }
 
   configureRouter(config, router) {
@@ -87,6 +106,15 @@ export class App {
           settings: {
             dropdownId: 'dragDropLeveling',
             dropdownTitle: 'Drag Drop Leveling',
+          }
+        },
+        {
+          route: ['drag-drop-leveling/drag-drop-connect-itmes'], 
+          moduleId: PLATFORM.moduleName('./resources/elements/drag-drop/leveling/drag-drop-connect-items'),
+          nav: true, title: 'drag-drop-connect-items', 
+          settings: {
+            dropdownId: 'dragDropLeveling',
+            dropdownTitle: 'drag drop connect items',
           }
         },
 
