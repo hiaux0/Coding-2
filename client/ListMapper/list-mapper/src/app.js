@@ -1,41 +1,28 @@
-import { PLATFORM } from 'aurelia-pal';
-import {observable} from 'aurelia-framework';
+window.DEBUG_MODE = true;
 
-import hotkeys from 'hotkeys-js';
+import {PLATFORM} from 'aurelia-pal';
+import {inject} from 'aurelia-framework';
+
+import {CommandCentral} from './resources/common/command-central';
 import {commandList} from './resources/commandStorage/command-storage'
 import './app.less';
 import 'font-awesome/css/font-awesome.css';
 
+@inject(CommandCentral)
 export class App {
-  @observable value;
 
-  constructor() {
+  constructor(commandCentral) {
+    this.commandCentral = commandCentral;
+
     this.showNavbar = false;
     this.showCommandPalett = false;
-    
     this.suggestedList = null;
     this.key = 'name'
-    
-    this.commands = [
-      {name: 'Say Hello', id: 'sayHello'},
-      {name: 'Say Bye', id: 'sayBye'},
-    ]
   }
 
   attached() {
-    this.initShortCuts();
     this.simpleCommand = commandList.simpleCommand;
-  }
-
-  initShortCuts() {
-    // Init hotkeys
-    let hotkey = hotkeys.noConflict();
-    hotkeys.filter = function () { return true }; // 2018-08-09 23:30:46 what does this do?
-
-    hotkey('ctrl+;', () => {
-      this.showCommandPalett = !this.showCommandPalett;
-      console.log('yay')
-    });
+    this.commandCentral.subscribeToCommandEvents();
   }
 
   submitCommand() {
