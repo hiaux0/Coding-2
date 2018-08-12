@@ -1,10 +1,36 @@
-import { PLATFORM } from "aurelia-pal";
+window.DEBUG_MODE = true;
+
+import {PLATFORM} from 'aurelia-pal';
+import {inject} from 'aurelia-framework';
+
+import {CommandCentral} from './resources/common/command-central';
+import {commandList} from './resources/commandStorage/command-storage'
 import './app.less';
 import 'font-awesome/css/font-awesome.css';
 
+@inject(CommandCentral)
 export class App {
-  constructor() {
+
+  constructor(commandCentral) {
+    this.commandCentral = commandCentral;
+
     this.showNavbar = false;
+    this.showCommandPalett = false;
+    this.suggestedList = null;
+    this.key = 'name'
+  }
+
+  attached() {
+    this.simpleCommand = commandList.simpleCommand;
+    this.commandCentral.subscribeToCommandEvents();
+  }
+
+  submitCommand() {
+    console.log('submit command')
+  }
+
+  toggleNavbarHandler() {
+    this.showNavbar = !this.showNavbar;
   }
 
   configureRouter(config, router) {
@@ -13,9 +39,9 @@ export class App {
     config.title = 'List Mapper';
     config.map([
       { route: ['', 'home'], name: 'home', moduleId: PLATFORM.moduleName('./resources/home'), 
-        nav: true, title: "Home" },
+        nav: true, title: 'Home' },
       { route: ['simpleList'], moduleId: PLATFORM.moduleName('./resources/elements/simple-list'), 
-        nav: true, title: "Simple List"},
+        nav: true, title: 'Simple List'},
         // Dropdown items for CSS Leveling
         {
           route: ['css-leveling/flex-box-leveling'], 
@@ -23,7 +49,7 @@ export class App {
           nav:true, title: 'Flexbox Leveling', 
           settings: {
             dropdownId: 'cssLeveling',
-            dropdownTitle: "Css Leveling",
+            dropdownTitle: 'Css Leveling',
           }
         },
         {
@@ -32,7 +58,7 @@ export class App {
           nav:true, title: 'Simple Table', 
           settings: {
             dropdownId: 'cssLeveling',
-            dropdownTitle: "Css Leveling",
+            dropdownTitle: 'Css Leveling',
           }
         },
         // Dropdown items for Drag drop Leveling (interactjs)
@@ -42,7 +68,7 @@ export class App {
           nav:true, title: 'Init', 
           settings: {
             dropdownId: 'dragDropLeveling',
-            dropdownTitle: "Drag Drop Leveling",
+            dropdownTitle: 'Drag Drop Leveling',
           }
         },
         {
@@ -51,7 +77,7 @@ export class App {
           nav:true, title: 'Drag Drop Custom Attribute', 
           settings: {
             dropdownId: 'dragDropLeveling',
-            dropdownTitle: "Drag Drop Leveling",
+            dropdownTitle: 'Drag Drop Leveling',
           }
         },
         {
@@ -60,7 +86,7 @@ export class App {
           nav: true, title: 'drag-drop-v1', 
           settings: {
             dropdownId: 'dragDropLeveling',
-            dropdownTitle: "Drag Drop Leveling",
+            dropdownTitle: 'Drag Drop Leveling',
           }
         },
 
@@ -68,7 +94,4 @@ export class App {
     this.router = router;
   }
 
-  toggleNavbarHandler() {
-    this.showNavbar = !this.showNavbar;
-  }
 }
