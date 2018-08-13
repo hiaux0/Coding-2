@@ -7,9 +7,8 @@ export class SimpleList {
   simpleListRef;
 
   constructor(element) {
-    window.simpleList = this
     this.element = element;
-    this.direction = '';
+    this.direction = 'descending';
   }
 
   /**
@@ -32,14 +31,17 @@ export class SimpleList {
         htmlElement: listItem,
       });
     }
+    return newListData;
   }
 
   sortDescending() {
     this.direction = 'descending';
+    return true;
   }
-
+  
   sortAscending() {
     this.direction = 'ascending';
+    return true;
   }
 }
 
