@@ -3,7 +3,7 @@ module.exports = () => {
   return {
     "plugins": [
       "transform-decorators-legacy",
-      "transform-class-properties"
+      "transform-class-properties",
     ],
     "presets": [
       [
@@ -19,7 +19,11 @@ module.exports = () => {
           },
           "loose": true,
           "modules": process.env.BABEL_TARGET === 'node' ? 'commonjs' : false,
-          "useBuiltIns": true
+          "useBuiltIns": true,
+          "test": {
+            "plugins": ["instanbul"]
+          }
+
         }
       ]
     ]

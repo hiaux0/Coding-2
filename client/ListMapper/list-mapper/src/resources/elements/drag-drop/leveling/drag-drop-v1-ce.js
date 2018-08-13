@@ -1,5 +1,5 @@
 import { bindable } from 'aurelia-framework';
-import db from '../../../../../../../../db'
+import db from '../../../../../db'
 import './drag-drop-v1-ce.less'
 
 export class DragDropV1Ce {

@@ -17,6 +17,7 @@ export class App {
 
   constructor(commandCentral) {
     this.commandCentral = commandCentral;
+    this.message = 'Hello World!'
 
     this.showNavbar = false;
     this.showCommandPalett = false;
@@ -125,4 +126,4 @@ export class App {
       this.lightTheme();
     }
   }
- }
+}
