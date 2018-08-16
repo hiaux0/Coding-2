@@ -2,9 +2,28 @@ import {bindable} from 'aurelia-framework';
 import './input-dropdown.less';
 
 export class InputDropdown {
+  /**
+   * @param {String}
+   */
   @bindable commandId;
+  /**
+   * @param {String}
+   */
   @bindable key;
-  @bindable simpleCommand;
+  /**
+   * @param {Arary}
+   */
+  @bindable commandList;
+  /**
+   * @param {Boolean}
+   */
   @bindable showCommandPalett;
-  @bindable value = window.DEBUG_MODE.commandPalett ? 'Say' : '';
+  /**
+   * @param {String}
+   */
+  constructor() {
+    this.value = window.DEBUG_MODE.commandPalett ? 'Change' : '';
+    this.suggestedList = null;
+  }
+
 }

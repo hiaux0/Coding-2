@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for src/resources/common/styles/main-theme.js</title>
+    <title>Code coverage report for src/resources/common/elements/input-dropdown.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../../prettify.css" />
     <link rel="stylesheet" href="../../../../base.css" />
@@ -16,28 +16,28 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="../../../../index.html">all files</a> / <a href="index.html">src/resources/common/styles/</a> main-theme.js
+      <a href="../../../../index.html">all files</a> / <a href="index.html">src/resources/common/elements/</a> input-dropdown.js
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>1/1</span>
+        <span class='fraction'>2/2</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">50% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/0</span>
+        <span class='fraction'>1/2</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/0</span>
+        <span class='fraction'>1/1</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>1/1</span>
+        <span class='fraction'>2/2</span>
       </div>
     </div>
   </div>
@@ -67,7 +67,11 @@
 22
 23
 24
-25</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+25
+26
+27
+28
+29</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -91,29 +95,37 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">export const mainTheme = {
-//////////////////////////////////////////////////////////////
-//
-//            Main Colors
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {bindable} from 'aurelia-framework';
+import './input-dropdown.less';
 &nbsp;
-  mainClr: "#343A40",
-  priClr: "#121B25",
-  priSupportClr: "#1A1F24",
-  secClr: "#4F575E",
-  secSupportClr: "#6C747C",
-  greyClr: "#bbb",
-&nbsp;
-//////////////////////////////////////////////////////////////
-//
-//            Hovering Colors
-&nbsp;
-  priClrHover: "#24434a",
-  priClrTruthyHover: "#54747B",
-  priClrFalsyHover: "#652820",
-&nbsp;
-  secClrHover: "#697077",
-  secClrTruthyHover: "#8A9095",
-  secClrFalsyHover: "#B8A8A1",
+export class InputDropdown {
+  /**
+   * @param {String}
+   */
+  @bindable commandId;
+  /**
+   * @param {String}
+   */
+  @bindable key;
+  /**
+   * @param {Arary}
+   */
+  @bindable commandList;
+  /**
+   * @param {Boolean}
+   */
+  @bindable showCommandPalett;
+  /**
+   * @param {String}
+   */
+  constructor() {
+    this.value = window.DEBUG_MODE.commandPalett ? 'Change' : <span class="branch-1 cbranch-no" title="branch not covered" >'';</span>
+    this.suggestedList = null;
+  }
 &nbsp;
 }</pre></td></tr>
 </table></pre>

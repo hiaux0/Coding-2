@@ -33,7 +33,7 @@ describe('SIMPLE LIST', function() {
       .boundTo(bindObject)
   });  
 
-  it('sortAscending should set variable correctly', (done) => {
+  it('`sortAscending` should set variable correctly', (done) => {
     component.create(bootstrap).then(() => {
       let vm = component.viewModel;
       vm.sortAscending();
@@ -53,7 +53,7 @@ describe('SIMPLE LIST', function() {
     });
   });
 
-  it('Should get changes after user drag drop ended', (done) => {
+  it('`getDragDropChanges` CASE: descending. Should get changes after user drag drop ended.', (done) => {
     component.create(bootstrap).then(() => {
       let expectation = [
         { content: "C 2", position: 0, },
@@ -61,25 +61,27 @@ describe('SIMPLE LIST', function() {
         { content: "A 0", position: 2, },
       ];
       let vm = component.viewModel;
-      let direction = vm.direction;
 
-      if (direction === 'descending') {
-        let newListData = vm.getDragDropChanges();
+      let newListData = vm.getDragDropChanges();
 
-        for (let listItemIndex in newListData) {
-          let actualContent = newListData[listItemIndex].content;
-          let expectedContent = expectation[listItemIndex].content;
-          expect(actualContent).toBe(expectedContent);
+      for (let listItemIndex in newListData) {
+        let actualContent = newListData[listItemIndex].content;
+        let expectedContent = expectation[listItemIndex].content;
+        expect(actualContent).toBe(expectedContent);
 
-          let actualPosition = newListData[listItemIndex].position;
-          let expectedPosition = expectation[listItemIndex].position;
-          expect(actualPosition).toBe(expectedPosition);
-        }
+        let actualPosition = newListData[listItemIndex].position;
+        let expectedPosition = expectation[listItemIndex].position;
+        expect(actualPosition).toBe(expectedPosition);
       }
       done();
-    }) 
-  })
-})
+    });
+  });
+
+  afterEach(() => {
+    component.dispose();
+  });
+
+});
 
 /**
  * sortAscending
