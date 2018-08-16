@@ -1,6 +1,6 @@
 window.DEBUG_MODE = {
   commandPalett: false,
-  standardTheme: 'light', // should be persisted in db
+  standardTheme: 'dark', // should be persisted in db
 }
 
 import {PLATFORM} from 'aurelia-pal';
@@ -9,6 +9,8 @@ import {inject} from 'aurelia-framework';
 import {CommandCentral} from './resources/common/command-central';
 import {commandList} from './resources/commandStorage/command-storage'
 import {mainTheme} from './resources/common/styles/main-theme'
+import {initJumpable} from './resources/common/jumpable';
+
 import './app.less';
 import 'font-awesome/css/font-awesome.css';
 
@@ -30,13 +32,19 @@ export class App {
     this.commandCentral.subscribeToCommandEvents({
       changeToDarkTheme: this.darkTheme,
       changeToLightTheme: this.lightTheme,
+      jumpable: initJumpable,
     });
     this.initDebugMode();
+    initJumpable();
   }
   
   toggleNavbarHandler() {
     this.showNavbar = !this.showNavbar;
   }
+
+  // initJumpable() {
+  //   initJumpable();
+  // }
 
   darkTheme() {
     let hioBody = document.getElementById("hio-body");
