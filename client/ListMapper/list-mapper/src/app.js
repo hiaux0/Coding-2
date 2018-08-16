@@ -1,5 +1,6 @@
 window.DEBUG_MODE = {
   commandPalett: false,
+  standardTheme: 'light', // should be persisted in db
 }
 
 import {PLATFORM} from 'aurelia-pal';
@@ -11,12 +12,12 @@ import {mainTheme} from './resources/common/styles/main-theme'
 import './app.less';
 import 'font-awesome/css/font-awesome.css';
 
-@inject(CommandCentral, Element)
+@inject(CommandCentral)
 export class App {
 
-  constructor(commandCentral, element) {
+  constructor(commandCentral) {
     this.commandCentral = commandCentral;
-    this.element = element
+    this.message = 'Hello World!'
 
     this.showNavbar = false;
     this.showCommandPalett = false;
@@ -30,12 +31,9 @@ export class App {
       changeToDarkTheme: this.darkTheme,
       changeToLightTheme: this.lightTheme,
     });
+    this.initDebugMode();
   }
   
-  submitCommand() {
-    console.log('submit command')
-  }
-
   toggleNavbarHandler() {
     this.showNavbar = !this.showNavbar;
   }
@@ -122,4 +120,10 @@ export class App {
     this.router = router;
   }
 
+
+  initDebugMode() {
+    if (window.DEBUG_MODE.standardTheme === 'light') {
+      this.lightTheme();
+    }
+  }
 }

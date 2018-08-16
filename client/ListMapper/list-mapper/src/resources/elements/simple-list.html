@@ -6,18 +6,13 @@
     <ul class="simple-list" ref="simpleListRef">
       <strong>Shortcut list</strong>
         
-      <!-- <select ref="direction">
-        <option value="descending">Descending</option>
-        <option value="ascending">Ascending</option>
-      </select> -->
-
       <span class='sort-list'>
         Sort
         <i class="sort-desc fa fa-chevron-down" click.delegate="sortDescending()"></i>
         <i class="sort-asc fa fa-chevron-up" click.delegate="sortAscending()"></i>
       </span>
       
-      <span class="item-container draggable" 
+      <span class="item-container draggable"
         repeat.for="shortcut of listData | sort:direction"
       >
         <li ref="shortcut.htmlElement">

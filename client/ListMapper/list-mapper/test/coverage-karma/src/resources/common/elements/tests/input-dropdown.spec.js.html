@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/resources/common/elements/tests/input-dropdown.spec.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../../index.html">all files</a> / <a href="index.html">src/resources/common/elements/tests/</a> input-dropdown.spec.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">22.86% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>8/35</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/0</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">7.14% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/14</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">22.86% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>8/35</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">//https://stackoverflow.com/questions/32444454/testing-a-class-with-a-bindable-field-in-aurelia
+&nbsp;
+import {StageComponent} from 'aurelia-testing';
+import {bootstrap} from 'aurelia-bootstrapper';
+import {PLATFORM} from 'aurelia-pal';
+&nbsp;
+describe('CE -- input-dropdown --' , () =&gt; {
+  let component;
+  let bindData = {
+    simpleCommandList: [
+      {
+        name: "Change to dark theme",
+        id: "changeToDarkTheme",
+        origin: "app.js darkTheme()"
+      },
+      {
+        name: "Change to light theme",
+        id: "changeToLightTheme",
+        origin: "app.js lightTheme()"
+      },
+  ],
+    showCommandPalett: true,
+    key: 'name',
+    commandId: null,
+  };
+&nbsp;
+  beforeEach(() =&gt; <span class="fstat-no" title="function not covered" >{</span>
+<span class="cstat-no" title="statement not covered" >    window.DEBUG_MODE = {</span>
+      commandPalett: true,
+    }
+    
+<span class="cstat-no" title="statement not covered" >    component = StageComponent</span>
+      .withResources(
+        PLATFORM.moduleName('resources/common/elements/input-dropdown'),
+        PLATFORM.moduleName('resources/attributes/autocomplete'),
+      )
+      .inView(`
+        &lt;input-dropdown
+          command-list.bind="simpleCommandList" 
+          show-command-palett.bind="showCommandPalett"
+          key.bind="key"
+          command-id.two-way="commandId"
+        &gt;
+        &lt;/input-dropdown&gt;
+      `)
+      .boundTo(bindData);
+  });
+&nbsp;
+  /**
+   * Note that the below unit tests only checks if we get something if the users types into the component, the actual autocomplete is tested in its seperate test file `autocomplete.spec.js`
+   */
+  it('Should show something when user types in the input', (done) =&gt; <span class="fstat-no" title="function not covered" >{</span>
+<span class="cstat-no" title="statement not covered" >    component.boundTo(bindData);</span>
+<span class="cstat-no" title="statement not covered" >    component.create(bootstrap).then(() =&gt; <span class="fstat-no" title="function not covered" >{</span></span>
+      
+<span class="cstat-no" title="statement not covered" >      setTimeout(() =&gt; <span class="fstat-no" title="function not covered" >{</span></span>
+        let ele = <span class="cstat-no" title="statement not covered" >component.element;</span>
+        let hioDropdownItem = <span class="cstat-no" title="statement not covered" >ele.getElementsByClassName('hio-dropdown-item')</span>
+        let ddListLen = <span class="cstat-no" title="statement not covered" >hioDropdownItem.length</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        expect(ddListLen).toBe(2)</span>
+<span class="cstat-no" title="statement not covered" >        done();</span>
+      }, 200)
+    });
+  });
+&nbsp;
+  xit('Should not show anything if `key` has no match', (done) =&gt; <span class="fstat-no" title="function not covered" >{</span>
+<span class="cstat-no" title="statement not covered" >    component.boundTo({...bindData, key: 'nothing'});</span>
+<span class="cstat-no" title="statement not covered" >    component.create(bootstrap).then(() =&gt; <span class="fstat-no" title="function not covered" >{</span></span>
+      let t = <span class="cstat-no" title="statement not covered" >() =&gt; <span class="fstat-no" title="function not covered" >{}</span></span>
+<span class="cstat-no" title="statement not covered" >      expect(t).toThrow('s')</span>
+    });
+  });
+&nbsp;
+  // it('Should receive the correct `commandId`', () =&gt;{
+  //   component.create(bootstrap).then(() =&gt; {
+  //     // TODO
+  //     expect(0).toBe(2);
+  //   })
+  // })
+&nbsp;
+  it('Focus input if input-dropdown appears', (done) =&gt; <span class="fstat-no" title="function not covered" >{</span>
+<span class="cstat-no" title="statement not covered" >    component.create(bootstrap).then(() =&gt; <span class="fstat-no" title="function not covered" >{</span></span>
+      let ele = <span class="cstat-no" title="statement not covered" >component.element;</span>
+      let input = <span class="cstat-no" title="statement not covered" >ele.getElementsByTagName('input')[0];</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      expect(input).toBe(document.activeElement)</span>
+<span class="cstat-no" title="statement not covered" >      done();</span>
+    });
+  });
+&nbsp;
+  it('Not Focus input if `showCommandPalett` is false', (done) =&gt; <span class="fstat-no" title="function not covered" >{</span>
+<span class="cstat-no" title="statement not covered" >    component.create(bootstrap).then(() =&gt; <span class="fstat-no" title="function not covered" >{</span></span>
+<span class="cstat-no" title="statement not covered" >      component.viewModel.showCommandPalett = false;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      setTimeout(() =&gt; <span class="fstat-no" title="function not covered" >{</span></span>
+        let ele = <span class="cstat-no" title="statement not covered" >component.element;</span>
+        let input = <span class="cstat-no" title="statement not covered" >ele.getElementsByTagName('input')[0];</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        expect(input).not.toBe(document.activeElement)</span>
+<span class="cstat-no" title="statement not covered" >        done();</span>
+      }, 100);
+    });
+  });
+&nbsp;
+  afterEach(() =&gt; <span class="fstat-no" title="function not covered" >{</span>
+<span class="cstat-no" title="statement not covered" >    component.dispose();</span>
+  })
+});
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Aug 16 2018 22:56:59 GMT+0200 (CEST)
+</div>
+</div>
+<script src="../../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../../sorter.js"></script>
+</body>
+</html>

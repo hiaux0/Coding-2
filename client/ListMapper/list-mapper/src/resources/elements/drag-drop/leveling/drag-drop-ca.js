@@ -1,5 +1,5 @@
 import {bindable} from 'aurelia-framework';
-import db from '../../../../../../../../db'
+import db from '../../../../../db.js';
 
 export class DragDropCa {
   @bindable value;
@@ -9,16 +9,6 @@ export class DragDropCa {
     this.listData = db.shortcuts;
   }
 
-  attached() {
-    // this.snap = true;
-    // console.log(this.simpleListVM)
-    // console.log(this.abc)
-  }
-
-  bind() {
-    // this.snap = true;
-  }
-   
   changeSnap() {
     this.snap = !this.snap;
   }
