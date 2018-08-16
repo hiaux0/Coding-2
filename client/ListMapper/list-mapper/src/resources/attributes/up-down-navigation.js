@@ -14,7 +14,6 @@ export class UpDownNavigationCustomAttribute {
    * @param {String} commandId has the id, in order to execute that item.
    * TODO : Note that currently, `ENTER` does not support simply "accepting" the item.
    */
-  
   @bindable commandId;
   @bindable suggestedList;
 

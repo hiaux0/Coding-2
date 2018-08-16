@@ -10,19 +10,22 @@ export class AutocompleteCustomAttribute {
 
   /**
    * As we allow different types in a `list`, this variable provides the key for the actual content in an Object.
+   * @param {String}
    */
   @bindable key;
   /**
    * The complete list you want to search in, accepts: ["", "",...], [Object, Object,...]
-   * @param {Array} list.
+   * @param {Array}
    */
   @bindable list;
   /**
    * After filtration, the remaining results.
+   * @param {Array}
    */
   @bindable suggestList;
   /**
    * The current value/symbol in the input field.
+   * @param {String}
    */
   @bindable value;
 
@@ -44,7 +47,7 @@ export class AutocompleteCustomAttribute {
 
   filterByUserInput(value) {
     let fileredList = this.preparedList.filter((listItem) => {
-      return listItem.name.includes(this.value)
+      return listItem.name.includes(value)
     });
     return fileredList;
   }
@@ -53,8 +56,13 @@ export class AutocompleteCustomAttribute {
    * Allow the list, which should be autocomplete, to be as flexibel as possible.
    */
   prepareList() {
+    if (!this.list[0][this.key]) throw new Error('Key not present');
+    
+    let key = this.key || ""
+    if (!typeof this.list[0] !== 'object')
+
     return this.list.map((listItem) => ({
-      name: listItem[this.key],
+      name: listItem[key],
       id: listItem.id,
     }));
   }  
