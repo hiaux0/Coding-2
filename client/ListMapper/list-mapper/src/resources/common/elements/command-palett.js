@@ -1,8 +1,13 @@
 import {bindable, inject, observable} from 'aurelia-framework';
-import { EventAggregator } from 'aurelia-event-aggregator';
+import {EventAggregator} from 'aurelia-event-aggregator';
 import {commandList} from '../../commandStorage/command-storage';
-import './command-palett.less';
+import {COMMAND_PALETT} from '../../../application-key-bindings/app.keys';
+import {toggleHotkeyScope} from '../../../application-key-bindings/toggle-scope';
 import hotkeys from 'hotkeys-js';
+
+import './command-palett.less';
+
+const COMMAND_PALETT_SCOPE = 'command-palett';
 
 @inject(EventAggregator)
 export class CommandPalett {
@@ -24,22 +29,26 @@ export class CommandPalett {
 
   attached() {
     this.simpleCommand = commandList.simpleCommand;
-    this.initShortCuts();
+    this.initKeyBinding();
     this.debugMode();
   }
 
-  initShortCuts() {
+  initKeyBinding() {
     // Init hotkeys
-    let hotkey = hotkeys.noConflict();
+    let keyBinding = hotkeys.noConflict();
     hotkeys.filter = function () { return true }; // 2018-08-09 23:30:46 what does this do?
+    let previousScope = hotkeys.getScope();
 
-    hotkey('ctrl+;', () => {
+    keyBinding(COMMAND_PALETT, () => {
       this.showCommandPalett = !this.showCommandPalett;
-      console.log('yay')
+
+      toggleHotkeyScope(this.showCommandPalett, COMMAND_PALETT_SCOPE, previousScope);
+      
+      // TODO a1ab98jhc : Check if hotkeys dont accumulate
+      console.log('COMMAND_PALETT toggling')
     });
   }
 
-  
   debugMode() {
     if (!window.DEBUG_MODE.commandPalett) return;
     // debug code, always show command palett. Note that just by setting the constructor value to true, doesn't work, since it seems like component are not loading in order

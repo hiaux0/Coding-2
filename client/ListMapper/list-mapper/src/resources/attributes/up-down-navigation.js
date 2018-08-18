@@ -2,10 +2,10 @@ import {bindable, inject} from 'aurelia-framework';
 import {EventAggregator} from 'aurelia-event-aggregator';
 import hotkeys from 'hotkeys-js';
 
+import {INPUT_DROPDOWN_DOWN, INPUT_DROPDOWN_UP, INPUT_DROPDOWN_ENTER} from '../../application-key-bindings/app.keys';
+
 const ACTIVE_CLASS = 'active';
-const INPUT_DROPDOWN_DOWN = 'down, ctrl+j';
-const INPUT_DROPDOWN_UP = 'up, ctrl+k';
-const INPUT_DROPDOWN_ENTER = 'enter';
+const UP_DOWN_SCOPE = 'up-down-navigation';
 
 @inject(Element, EventAggregator)
 export class UpDownNavigationCustomAttribute {
@@ -42,10 +42,11 @@ export class UpDownNavigationCustomAttribute {
     // Init hotkeys
     this.hotkey = hotkeys.noConflict();
     hotkeys.filter = function () { return true }; // 2018-08-09 23:30:46 what does this do?
+    hotkeys.setScope(UP_DOWN_SCOPE);
   }
 
   upNavigation() {
-    this.hotkey(INPUT_DROPDOWN_UP, () => {
+    this.hotkey(INPUT_DROPDOWN_UP, UP_DOWN_SCOPE,() => {
       this.goUpListItem(this.element);
     })
   }
@@ -54,7 +55,7 @@ export class UpDownNavigationCustomAttribute {
    * Register up/down movement shortcut for moving in input-dropdown
    */
   downNavigation() {
-    this.hotkey(INPUT_DROPDOWN_DOWN, () => {
+    this.hotkey(INPUT_DROPDOWN_DOWN, UP_DOWN_SCOPE,() => {
       this.goDownListItem(this.element);
     })
   }
@@ -63,10 +64,11 @@ export class UpDownNavigationCustomAttribute {
    * On `ENTER` press, execute/accept the given item.
    */
   activateItem() {
-    this.hotkey(INPUT_DROPDOWN_ENTER, () => {
+    this.hotkey(INPUT_DROPDOWN_ENTER, UP_DOWN_SCOPE,() => {
       let currentItem = this.element.children[this.currentHighlightIndex];
       if (currentItem.classList.contains(ACTIVE_CLASS)) {
         this.commandId = currentItem.getAttribute('data-command-id');
+        hotkeys.deleteScope('UP_DOWN_SCOPE');
       }
     })  
   }

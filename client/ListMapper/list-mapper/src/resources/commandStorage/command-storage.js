@@ -10,5 +10,10 @@ export const commandList = {
       id: "changeToLightTheme",
       origin: "app.js lightTheme()"
     },
+    {
+      name: "Activate jumpable",
+      id: "jumpable",
+      origin: "common/jumpable"
+    },
   ]
 }
