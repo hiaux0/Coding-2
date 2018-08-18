@@ -43,7 +43,6 @@ describe('CE -- input-dropdown --' , () => {
         >
         </input-dropdown>
       `)
-      .boundTo(bindData);
   });
 
   /**
@@ -64,12 +63,17 @@ describe('CE -- input-dropdown --' , () => {
     });
   });
 
-  xit('Should not show anything if `key` has no match', (done) => {
+  it('Should not show anything if `key` has no match', (done) => {
     component.boundTo({...bindData, key: 'nothing'});
-    component.create(bootstrap).then(() => {
-      let t = () => {}
-      expect(t).toThrow('s')
-    });
+    component.manuallyHandleLifecycle().create(bootstrap)
+      .then(() => { })
+      .then(() => component.bind())
+      .then(() => { })
+      .then(() => component.attached())
+      .then(() => { })
+      .catch(e => {
+        if (e.message === 'Key not present') done();
+      });
   });
 
   // it('Should receive the correct `commandId`', () =>{
@@ -80,6 +84,7 @@ describe('CE -- input-dropdown --' , () => {
   // })
 
   it('Focus input if input-dropdown appears', (done) => {
+    component.boundTo(bindData);
     component.create(bootstrap).then(() => {
       let ele = component.element;
       let input = ele.getElementsByTagName('input')[0];
@@ -90,6 +95,7 @@ describe('CE -- input-dropdown --' , () => {
   });
 
   it('Not Focus input if `showCommandPalett` is false', (done) => {
+    component.boundTo(bindData);
     component.create(bootstrap).then(() => {
       component.viewModel.showCommandPalett = false;
 
