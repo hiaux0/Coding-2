@@ -34,6 +34,7 @@ export class AutocompleteCustomAttribute {
   }
 
   attached() {
+    console.log('attached autocomplete')
     this.preparedList = this.prepareList();
   }
   
@@ -46,6 +47,9 @@ export class AutocompleteCustomAttribute {
   }
 
   filterByUserInput(value) {
+    console.log('​AutocompleteCustomAttribute -> filterByUserInput -> filterByUserInput');
+    if (!this.preparedList) return;
+    
     let fileredList = this.preparedList.filter((listItem) => {
       return listItem.name.includes(value)
     });
@@ -67,6 +71,4 @@ export class AutocompleteCustomAttribute {
     }));
   }  
 
-
 }
-
