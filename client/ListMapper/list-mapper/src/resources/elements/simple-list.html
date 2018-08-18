@@ -15,7 +15,7 @@
       <span class="item-container draggable"
         repeat.for="shortcut of listData | sort:direction"
       >
-        <li ref="shortcut.htmlElement">
+        <li contenteditable ref="shortcut.htmlElement">
           ${shortcut.content} ${shortcut.position}
         </li>
         <span class="dropzone"></span>

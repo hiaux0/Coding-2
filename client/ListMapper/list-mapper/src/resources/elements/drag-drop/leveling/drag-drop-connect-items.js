@@ -5,7 +5,7 @@ import './drag-drop-connect-items.less'
 export class DragDropConnectItems {
 
   constructor() {
-    this.listData = db.shortcuts;
+    this.listData = db.breadcrumbs;
   }
 
 }

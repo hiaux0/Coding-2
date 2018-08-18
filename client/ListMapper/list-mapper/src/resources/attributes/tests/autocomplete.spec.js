@@ -2,73 +2,8 @@ import {StageComponent} from 'aurelia-testing';
 import {bootstrap} from 'aurelia-bootstrapper';
 
 /**
- * Want to check methods in custom attribute, but not able to right now 2018-08-15 23:52:03
+ * 
  */
-xdescribe('CA--autocomplete--', () => {
-  let component;
-  let bindData = {
-    value: "A",
-    commandList: [
-      {
-        name: "Change to dark theme",
-        id: "changeToDarkTheme",
-        origin: "app.js darkTheme()"
-      },
-      {
-        name: "Change to light theme",
-        id: "changeToLightTheme",
-        origin: "app.js lightTheme()"
-      },
-    ],
-    key: "name",
-    commandId: null,
-    suggestedList: null,
-  }
-
-  beforeEach(() => {
-    component = StageComponent
-      .withResources('resources/attributes/autocomplete')
-      .inView(
-        "<div class='hio-input-container'>" +
-        "  <input" +
-        "    type='text'" +
-        "    focus.bind='showCommandPalett'" +
-        "    value='laksdj'" +
-        "    autocomplete='value.bind: value; list.bind: commandList; key.bind: key; suggested-list.two-way: suggestedList'" +
-        "  >" +
-        "  <div" +
-        "    class='hio-dropdown-container'" +
-        "    ref='commandListContainerRef'" +
-        "    up-down-navigation='suggested-list.bind: suggestedList;" +
-        "                        command-id.two-way: commandId'" +
-        "  >" +
-        "    <div" +
-        "      repeat.for='suggestion of suggestedList'" +
-        "      class='hio-dropdown-item'" +
-        "      data-command-id='${suggestion.id}'" +
-        "    >" +
-        "      ${suggestion.name}" +
-        "    </div>" +
-        "  </div>" +
-        "</div>"
-      )
-      .boundTo(bindData);
-  });
-
-  it('Spy on fnc', (done) => {
-    component.create(bootstrap).then(() => {
-      let vm = component.viewModel;
-      spyOn(vm, 'valueChanged')
-      console.log('​vm', vm);
-
-      vm.value = 'hi'
-      vm.value = 'bye'
-  
-      expect(vm.valueChanged).toHaveBeenCalledWith('','')
-      done();
-    });
-  });
-})
 
 describe('CA--autocomplete-- 0 suggestions', () => {
   let component;
@@ -299,3 +234,71 @@ describe('CA--autocomplete-- 2 suggestions', () => {
   });
 });
 
+/**
+ * Want to check methods in custom attribute, but not able to right now 2018-08-15 23:52:03
+ */
+// xdescribe('CA--autocomplete--', () => {
+//   let component;
+//   let bindData = {
+//     value: "A",
+//     commandList: [
+//       {
+//         name: "Change to dark theme",
+//         id: "changeToDarkTheme",
+//         origin: "app.js darkTheme()"
+//       },
+//       {
+//         name: "Change to light theme",
+//         id: "changeToLightTheme",
+//         origin: "app.js lightTheme()"
+//       },
+//     ],
+//     key: "name",
+//     commandId: null,
+//     suggestedList: null,
+//   }
+
+//   beforeEach(() => {
+//     component = StageComponent
+//       .withResources('resources/attributes/autocomplete')
+//       .inView(
+//         "<div class='hio-input-container'>" +
+//         "  <input" +
+//         "    type='text'" +
+//         "    focus.bind='showCommandPalett'" +
+//         "    value='laksdj'" +
+//         "    autocomplete='value.bind: value; list.bind: commandList; key.bind: key; suggested-list.two-way: suggestedList'" +
+//         "  >" +
+//         "  <div" +
+//         "    class='hio-dropdown-container'" +
+//         "    ref='commandListContainerRef'" +
+//         "    up-down-navigation='suggested-list.bind: suggestedList;" +
+//         "                        command-id.two-way: commandId'" +
+//         "  >" +
+//         "    <div" +
+//         "      repeat.for='suggestion of suggestedList'" +
+//         "      class='hio-dropdown-item'" +
+//         "      data-command-id='${suggestion.id}'" +
+//         "    >" +
+//         "      ${suggestion.name}" +
+//         "    </div>" +
+//         "  </div>" +
+//         "</div>"
+//       )
+//       .boundTo(bindData);
+//   });
+
+//   it('Spy on fnc', (done) => {
+//     component.create(bootstrap).then(() => {
+//       let vm = component.viewModel;
+//       spyOn(vm, 'valueChanged')
+//       console.log('​vm', vm);
+
+//       vm.value = 'hi'
+//       vm.value = 'bye'
+
+//       expect(vm.valueChanged).toHaveBeenCalledWith('', '')
+//       done();
+//     });
+//   });
+// })
