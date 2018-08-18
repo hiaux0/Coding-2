@@ -1,8 +1,11 @@
 import {bindable, inject, observable} from 'aurelia-framework';
-import { EventAggregator } from 'aurelia-event-aggregator';
+import {EventAggregator} from 'aurelia-event-aggregator';
 import {commandList} from '../../commandStorage/command-storage';
-import './command-palett.less';
 import hotkeys from 'hotkeys-js';
+
+import {COMMAND_PALETT} from '../../../application-key-bindings/app.keys'
+
+import './command-palett.less';
 
 @inject(EventAggregator)
 export class CommandPalett {
@@ -33,13 +36,13 @@ export class CommandPalett {
     let hotkey = hotkeys.noConflict();
     hotkeys.filter = function () { return true }; // 2018-08-09 23:30:46 what does this do?
 
-    hotkey('ctrl+;', () => {
+    hotkey(COMMAND_PALETT, () => {
       this.showCommandPalett = !this.showCommandPalett;
-      console.log('yay')
+      // TODO a1ab98jhc : Check if hotkeys dont accumulate
+      console.log('COMMAND_PALETT toggling')
     });
   }
 
-  
   debugMode() {
     if (!window.DEBUG_MODE.commandPalett) return;
     // debug code, always show command palett. Note that just by setting the constructor value to true, doesn't work, since it seems like component are not loading in order

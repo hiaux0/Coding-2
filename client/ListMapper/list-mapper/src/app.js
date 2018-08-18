@@ -35,16 +35,11 @@ export class App {
       jumpable: initJumpable,
     });
     this.initDebugMode();
-    initJumpable();
   }
   
   toggleNavbarHandler() {
     this.showNavbar = !this.showNavbar;
   }
-
-  // initJumpable() {
-  //   initJumpable();
-  // }
 
   darkTheme() {
     let hioBody = document.getElementById("hio-body");
@@ -128,8 +123,9 @@ export class App {
     this.router = router;
   }
 
-
   initDebugMode() {
+    initJumpable();
+
     if (window.DEBUG_MODE.standardTheme === 'light') {
       this.lightTheme();
     }
