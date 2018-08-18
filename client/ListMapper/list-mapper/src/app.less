@@ -8,9 +8,9 @@
   
   #main { background-color: @main-clr; }
   #pri { background-color: @pri-clr; }
-  #pri-sup { background-color: @pri-support-clr; }
+  #pri-sup { background-color: @pri-sup-clr; }
   #sec { background-color: @sec-clr; }
-  #sec-sup { background-color: @sec-support-clr; }
+  #sec-sup { background-color: @sec-sup-clr; }
 }
 
 #hio-body {
@@ -26,21 +26,22 @@
 
 
 .jumpable {
-  &:after {
+  &:before {
     .jump-mark();
+    .hio-shadow();
   }
 }
 
 .jump-mark() {
   content: attr(data-jump-mark-value);
-  // border-width: 5px;
-  // border-style: solid;
-  // border-color: transparent transparent black transparent;
-  background: #f3b758;
-  color:#fff8d6;
+  
+  background: @sec-sup-clr;
+  border-radius: 3px;
+  border: 1px solid black;
+  color: @coal;
   font: 18px Arial;
   
   padding: 0 5px;
-  transform: translate(-100%, 100%);
+  transform: translate(0%, 120%);
   position: absolute;
 }

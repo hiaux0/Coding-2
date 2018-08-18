@@ -17,3 +17,15 @@
 //   padding: 5px;
 //   color:#fff8d6;
 // }
+
+
+///////////////////////////////////////////////////
+//
+//            BOX SHADOW
+//
+// https://css-tricks.com/almanac/properties/b/box-shadow/
+
+.hio-shadow(@hori-offset: 2px, @vert-offset: 2px, @blur-radius: 0px, @spread-radius: 0px, @color: @coal) {
+  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+  box-shadow: @hori-offset @vert-offset @blur-radius @spread-radius @color;
+}

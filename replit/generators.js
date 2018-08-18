@@ -70,10 +70,12 @@ const ABC = [
 const ABC_JOIN = ABC.join('')
 
 function* gen() {
-  yield* ABC_JOIN;
+  // yield* ABC_JOIN;
+  yield* ABC;
 }
 
 let ok = gen();
 for (let i in [1,2,3,4]) {
   console.log(ok.next().value)
 }
+

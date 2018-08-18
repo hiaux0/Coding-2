@@ -5,7 +5,7 @@ import hotkeys from 'hotkeys-js';
 import {INPUT_DROPDOWN_DOWN, INPUT_DROPDOWN_UP, INPUT_DROPDOWN_ENTER} from '../../application-key-bindings/app.keys';
 
 const ACTIVE_CLASS = 'active';
-const HOTKEYS_SCOPE = 'up-down-navigation';
+const UP_DOWN_SCOPE = 'up-down-navigation';
 
 @inject(Element, EventAggregator)
 export class UpDownNavigationCustomAttribute {
@@ -39,15 +39,14 @@ export class UpDownNavigationCustomAttribute {
   }
 
   initShortCuts() {
-    console.log('​UpDownNavigationCustomAttribute -> initShortCuts -> initShortCuts');
     // Init hotkeys
     this.hotkey = hotkeys.noConflict();
     hotkeys.filter = function () { return true }; // 2018-08-09 23:30:46 what does this do?
-    hotkeys.setScope(HOTKEYS_SCOPE);
+    hotkeys.setScope(UP_DOWN_SCOPE);
   }
 
   upNavigation() {
-    this.hotkey(INPUT_DROPDOWN_UP, HOTKEYS_SCOPE,() => {
+    this.hotkey(INPUT_DROPDOWN_UP, UP_DOWN_SCOPE,() => {
       this.goUpListItem(this.element);
     })
   }
@@ -56,7 +55,7 @@ export class UpDownNavigationCustomAttribute {
    * Register up/down movement shortcut for moving in input-dropdown
    */
   downNavigation() {
-    this.hotkey(INPUT_DROPDOWN_DOWN, HOTKEYS_SCOPE,() => {
+    this.hotkey(INPUT_DROPDOWN_DOWN, UP_DOWN_SCOPE,() => {
       this.goDownListItem(this.element);
     })
   }
@@ -65,11 +64,11 @@ export class UpDownNavigationCustomAttribute {
    * On `ENTER` press, execute/accept the given item.
    */
   activateItem() {
-    this.hotkey(INPUT_DROPDOWN_ENTER, HOTKEYS_SCOPE,() => {
+    this.hotkey(INPUT_DROPDOWN_ENTER, UP_DOWN_SCOPE,() => {
       let currentItem = this.element.children[this.currentHighlightIndex];
       if (currentItem.classList.contains(ACTIVE_CLASS)) {
         this.commandId = currentItem.getAttribute('data-command-id');
-        hotkeys.deleteScope('HOTKEYS_SCOPE');
+        hotkeys.deleteScope('UP_DOWN_SCOPE');
       }
     })  
   }
