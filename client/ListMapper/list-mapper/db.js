@@ -210,8 +210,59 @@ export default {
       "content": "Command-z :",
       "position": 25
     }
+  ],
+  "breadcrumbs": [
+    {
+      "content": "breadcrumbs.focus",
+      "position": 0
+    },
+    {
+      "content": "breadcrumbs.focusAndSelect",
+      "position": 1
+    },
+    {
+      "content": "breadcrumbs.focusNext",
+      "position": 2
+    },
+    {
+      "content": "breadcrumbs.focusNext",
+      "position": 3
+    },
+    {
+      "content": "breadcrumbs.focusPrevious",
+      "position": 4
+    },
+    {
+      "content": "breadcrumbs.focusPrevious",
+      "position": 5
+    },
+    {
+      "content": "breadcrumbs.revealFocused",
+      "position": 6
+    },
+    {
+      "content": "breadcrumbs.revealFocused",
+      "position": 7
+    },
+    {
+      "content": "breadcrumbs.revealFocusedFromTreeAside",
+      "position": 8
+    },
+    {
+      "content": "breadcrumbs.selectEditor",
+      "position": 9
+    },
+    {
+      "content": "breadcrumbs.selectFocused",
+      "position": 10
+    },
+    {
+      "content": "breadcrumbs.selectFocused",
+      "position": 11
+    },
   ]
 }
+
 
 
 

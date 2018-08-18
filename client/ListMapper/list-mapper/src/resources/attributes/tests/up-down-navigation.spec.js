@@ -3,7 +3,7 @@ import {bootstrap} from 'aurelia-bootstrapper';
 import {PLATFORM} from 'aurelia-pal';
 import {keyPress} from '../../../../test/test-helpers/key-event';
 
-fdescribe('CA--up-down-navigation--', () => {
+describe('CA--up-down-navigation--', () => {
   let component;
   let bindingContext = {
     suggestedList: [
