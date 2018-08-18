@@ -46,6 +46,8 @@ export class AutocompleteCustomAttribute {
   }
 
   filterByUserInput(value) {
+    if (!this.preparedList) return;
+    
     let fileredList = this.preparedList.filter((listItem) => {
       return listItem.name.includes(value)
     });
@@ -67,6 +69,4 @@ export class AutocompleteCustomAttribute {
     }));
   }  
 
-
 }
-
