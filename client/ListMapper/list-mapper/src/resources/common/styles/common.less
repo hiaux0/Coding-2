@@ -1,0 +1,31 @@
+// .jumpable {
+//   &:after {
+//     .jump-mark();
+//   }
+// }
+
+// .jump-mark() {
+//   content: attr(data-jump-mark-value);
+//   position: absolute;
+//   bottom: 0%;
+//   // left: 14%;
+//   margin-left: -16px;
+//   // border-width: 5px;
+//   // border-style: solid;
+//   // border-color: transparent transparent black transparent;
+//   background: #f3b758;
+//   padding: 5px;
+//   color:#fff8d6;
+// }
+
+
+///////////////////////////////////////////////////
+//
+//            BOX SHADOW
+//
+// https://css-tricks.com/almanac/properties/b/box-shadow/
+
+.hio-shadow(@hori-offset: 2px, @vert-offset: 2px, @blur-radius: 0px, @spread-radius: 0px, @color: @coal) {
+  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+  box-shadow: @hori-offset @vert-offset @blur-radius @spread-radius @color;
+}

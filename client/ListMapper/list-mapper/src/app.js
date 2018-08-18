@@ -8,7 +8,12 @@ import {inject} from 'aurelia-framework';
 
 import {CommandCentral} from './resources/common/command-central';
 import {commandList} from './resources/commandStorage/command-storage'
-import {mainTheme} from './resources/common/styles/main-theme'
+import {initJumpable} from './resources/common/jumpable';
+import {JUMPABLE} from './application-key-bindings/app.keys';
+import {darkTheme, lightTheme} from './resources/common/styles/themes';
+
+import hotkeys from 'hotkeys-js';
+
 import './app.less';
 import 'font-awesome/css/font-awesome.css';
 
@@ -17,37 +22,36 @@ export class App {
 
   constructor(commandCentral) {
     this.commandCentral = commandCentral;
-    this.message = 'Hello World!'
 
     this.showNavbar = false;
     this.showCommandPalett = false;
     this.suggestedList = null;
     this.key = 'name'
+
+    this.darkTheme = darkTheme;
+    this.lightTheme = lightTheme;
   }
 
   attached() {
     this.simpleCommand = commandList.simpleCommand;
     this.commandCentral.subscribeToCommandEvents({
-      changeToDarkTheme: this.darkTheme,
-      changeToLightTheme: this.lightTheme,
+      changeToDarkTheme: darkTheme,
+      changeToLightTheme: lightTheme,
+      jumpable: initJumpable,
     });
     this.initDebugMode();
+    this.initAppKeybindings();
+  }
+
+  initAppKeybindings() {
+    let keyBinding = hotkeys.noConflict();
+    hotkeys.filter = function () { return true }; // 2018-08-09 23:30:46 what does this do?
+
+    keyBinding(JUMPABLE, () => { initJumpable(); });
   }
   
   toggleNavbarHandler() {
     this.showNavbar = !this.showNavbar;
-  }
-
-  darkTheme() {
-    let hioBody = document.getElementById("hio-body");
-    hioBody.style.filter = "invert(0%)";
-    document.body.style.background = mainTheme.mainClr;
-  }
-
-  lightTheme() {
-    let hioBody = document.getElementById("hio-body");
-    hioBody.style.filter = "invert(100%)";
-    document.body.style.background = `rgb(203, 197, 191)`; // hardcoded invers of #343A40 (the current main clr theme 2018-08-12 16:24:58)
   }
 
   configureRouter(config, router) {
@@ -120,8 +124,9 @@ export class App {
     this.router = router;
   }
 
-
   initDebugMode() {
+    initJumpable();
+
     if (window.DEBUG_MODE.standardTheme === 'light') {
       this.lightTheme();
     }
