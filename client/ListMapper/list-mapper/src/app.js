@@ -105,7 +105,7 @@ export class App {
         {
           route: ['drag-drop-leveling/drag-drop-v1'], 
           moduleId: PLATFORM.moduleName('./resources/elements/drag-drop/leveling/drag-drop-v1-ce'),
-          nav: true, title: 'drag-drop-v1', 
+          nav: true, title: 'enable-drag-drop', 
           settings: {
             dropdownId: 'dragDropLeveling',
             dropdownTitle: 'Drag Drop Leveling',
