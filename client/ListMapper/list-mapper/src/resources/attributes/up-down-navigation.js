@@ -1,5 +1,6 @@
 import {bindable, inject} from 'aurelia-framework';
 import {EventAggregator} from 'aurelia-event-aggregator';
+import {toggleHotkeyScope} from '../../application-key-bindings/toggle-scope';
 import hotkeys from 'hotkeys-js';
 
 import {INPUT_DROPDOWN_DOWN, INPUT_DROPDOWN_UP, INPUT_DROPDOWN_ENTER} from '../../application-key-bindings/app.keys';
@@ -33,16 +34,21 @@ export class UpDownNavigationCustomAttribute {
 
   attached() {
     this.initShortCuts();
+
+    let previousScope = hotkeys.getScope();
+    this.activateItem(previousScope);
+    
     this.upNavigation();
     this.downNavigation();
-    this.activateItem();
+
+    hotkeys.setScope(UP_DOWN_SCOPE);
   }
 
   initShortCuts() {
     // Init hotkeys
     this.hotkey = hotkeys.noConflict();
     hotkeys.filter = function () { return true }; // 2018-08-09 23:30:46 what does this do?
-    hotkeys.setScope(UP_DOWN_SCOPE);
+    // hotkeys.setScope(UP_DOWN_SCOPE);
   }
 
   upNavigation() {
@@ -55,7 +61,7 @@ export class UpDownNavigationCustomAttribute {
    * Register up/down movement shortcut for moving in input-dropdown
    */
   downNavigation() {
-    this.hotkey(INPUT_DROPDOWN_DOWN, UP_DOWN_SCOPE,() => {
+    this.hotkey(INPUT_DROPDOWN_DOWN, UP_DOWN_SCOPE, () => {
       this.goDownListItem(this.element);
     })
   }
@@ -63,11 +69,13 @@ export class UpDownNavigationCustomAttribute {
   /**
    * On `ENTER` press, execute/accept the given item.
    */
-  activateItem() {
+  activateItem(previousScope) {
     this.hotkey(INPUT_DROPDOWN_ENTER, UP_DOWN_SCOPE,() => {
       let currentItem = this.element.children[this.currentHighlightIndex];
       if (currentItem.classList.contains(ACTIVE_CLASS)) {
         this.commandId = currentItem.getAttribute('data-command-id');
+
+        toggleHotkeyScope(true, UP_DOWN_SCOPE, previousScope);
         hotkeys.deleteScope('UP_DOWN_SCOPE');
       }
     })  
@@ -122,10 +130,10 @@ export class UpDownNavigationCustomAttribute {
   }
 
   detached() {
-    this.hotkey.unbind(INPUT_DROPDOWN_ENTER);
-    this.hotkey.unbind(INPUT_DROPDOWN_DOWN);
-    this.hotkey.unbind(INPUT_DROPDOWN_UP);
-
+    this.hotkey.unbind(INPUT_DROPDOWN_ENTER, UP_DOWN_SCOPE);
+    this.hotkey.unbind(INPUT_DROPDOWN_DOWN, UP_DOWN_SCOPE);
+    this.hotkey.unbind(INPUT_DROPDOWN_UP, UP_DOWN_SCOPE);
     this.currentHighlightIndex = 0;
+    hotkeys.deleteScope(UP_DOWN_SCOPE);
   }
 }
