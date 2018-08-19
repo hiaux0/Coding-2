@@ -4,7 +4,7 @@ import interact from 'interactjs';
 const DRAG_SHADOW_CLASS = 'drag-shadow';
 
 @inject(Element)
-export class  EnableDragDropCustomAttribute {
+export class EnableDragDropCustomAttribute {
 
   constructor(element) {
     this.element = element;
@@ -18,13 +18,8 @@ export class  EnableDragDropCustomAttribute {
     }
   }
 
-  get elementsListContainerInfo() {
-    let reffel = this.element.au.controller.viewModel.simpleListRef;
-    let reffelRect = reffel.getBoundingClientRect();
-    return { reffel, reffelRect };
-  }
-
   attached() {
+    console.log('attach enable drag drop')
     this.checkCustomElement(this.element);
     this.initDraggable();
     this.initDropZone();
@@ -38,8 +33,7 @@ export class  EnableDragDropCustomAttribute {
 
     this.dd.isCustomElement   = true;
     this.dd.elementsViewModel = element.au.controller.viewModel;
-    // this.dd.elementsList      = this.dd.elementsViewModel.listData;
-    
+
     this._verifyCorrectDragDropSetup(this.dd.elementsViewModel);
   }
 
@@ -53,9 +47,11 @@ export class  EnableDragDropCustomAttribute {
           throw new Error("EDD: Element's `listData` is empty ");
         }
         // console.error("TODO: Implement verifying of drag drop's element viewmodel")
-      } 
+      }
 
   initDraggable(options) {
+    console.log('​EnableDragDropCustomAttribute -> initDraggable -> initDraggable');
+    window.interactBefore = interact;
     if (typeof options === 'undefined') {
       options = {};
     }
@@ -74,24 +70,28 @@ export class  EnableDragDropCustomAttribute {
       onmove:  this.onDragMove,
       onend:   this.onDragEnd,
     });
+
+    window.interactAfter = interact;
+
   }
 
       /**
        * Handles logic when drag started:
        * * Save the dragged html element to a class variable.
-       * 
+       *
        * * Note the arrow fnc notation, since we are passing this function to an event listener.
-       * @param {Drag.Event.Object} event 
+       * @param {Drag.Event.Object} event
        */
       onDragStart = (event) => {
         let draggelContainer = event.target;
+        let draggelContext = event.target.parentElement;
         let draggel          = draggelContainer.getElementsByTagName('li')[0];
-        let clone            = this._createShadowCopy(draggel);
-        
-        let dragStartLocation = this.dd.elementsViewModel.simpleListRef; 
+        let clone            = this._createShadowCopy(draggel, draggelContext);
+
+        let dragStartLocation = draggelContainer.parentElement;
         dragStartLocation.prepend(clone);
 
-        this._saveDraggelOriginInfo(draggelContainer);
+        // this._saveDraggelOriginInfo(draggelContainer);
         this._addDraggelStyles(draggel);
       }
 
@@ -99,20 +99,21 @@ export class  EnableDragDropCustomAttribute {
            * Before dragging, save location of draggel origin.
            */
           _saveDraggelOriginInfo = (target) => target.getBoundingClientRect();
+
           _addDraggelStyles(draggel) { draggel.classList.add('is-draggel'); }
 
           /**
            * Remove transform dynamic css property (from interactjs).
            * Remove css classes added for drag ui.
-           * 
-           * @param {HTML.Element} draggel 
+           *
+           * @param {HTML.Element} draggel
            */
           _removeDraggelStyles(draggel) {
             draggel.style.transform = null;
             draggel.setAttribute('data-y', 0);
             this._removeDraggelCssClasses(draggel)
           }
-          
+
               _removeDraggelCssClasses(draggel) {
                 draggel.classList.remove('is-draggel');
                 this._removeDragEnterStyling(draggel);
@@ -123,18 +124,19 @@ export class  EnableDragDropCustomAttribute {
            * TODO : Consider creating a custom element.
            *    Though, due to dynamic tags, is this even possible?
            *    Maybe just attach the whole element to a custom element and just add a "drag-shadow" class to it.
-           * @param {HTML.Element} draggel 
+           * @param {HTML.Element} draggel
+           * @param {HTML.Element} draggelContext - The context like the interactjs context.
            */
-          _createShadowCopy(draggel) {
+          _createShadowCopy(draggel, draggelContext) {
             let originalCoords = draggel.getBoundingClientRect();
             let { top, width } = originalCoords;
             let clone = draggel.cloneNode(true) // true : copies descendents as well
 
-            let parentContainer = this.elementsListContainerInfo.reffelRect.top;
+            let contextTop = draggelContext.getBoundingClientRect().top;
 
             clone.classList.add(DRAG_SHADOW_CLASS);
             clone.style.position = "absolute";
-            clone.style.top = `${top - parentContainer}px`;
+            clone.style.top = `${top - contextTop}px`;
             clone.style.width = `${width}px`;
 
             return clone;
@@ -142,8 +144,8 @@ export class  EnableDragDropCustomAttribute {
 
       /**
        * This function was given by the interactjs demo
-       * 
-       * @param {Object} event 
+       *
+       * @param {Object} event
        */
       onDragMove = (event) => {
         let draggelContainer = event.target;
@@ -154,7 +156,7 @@ export class  EnableDragDropCustomAttribute {
         let y = (parseFloat(draggel.getAttribute('data-y')) || 0) + event.dy;
 
         // translate the element
-        draggel.style.webkitTransform = draggel.style.transform = `translate(${0}px, ${y}px)`; 
+        draggel.style.webkitTransform = draggel.style.transform = `translate(${0}px, ${y}px)`;
         //^ `0` only allows vertical movement
 
         // update the position attributes // 2018-08-05 22:11:24 Can be used for history
@@ -169,16 +171,14 @@ export class  EnableDragDropCustomAttribute {
         let draggelContainer = event.target;
         let draggel = draggelContainer.getElementsByTagName('li')[0];
         let clone = document.getElementsByClassName(DRAG_SHADOW_CLASS)[0];
-        
+
         this._removeClone(clone);
         this._removeDraggelStyles(draggel);
-        if (!this.dd.isValidDropLocation) {
-          return;
-        }
+        if (!this.dd.isValidDropLocation) return; // This guard does not make sense 2018-08-19 22:02:49
       }
 
           _removeClone(clone) {
-            let parent = clone.parentNode
+            let parent = clone.parentNode;
             parent.removeChild(clone);
           }
 
@@ -208,7 +208,7 @@ export class  EnableDragDropCustomAttribute {
         let draggelContainer = event.relatedTarget;
         let draggel = draggelContainer.getElementsByTagName('li')[0];
         let dropZone = event.target;
-        
+
         this._addDragLeaveStyling(draggel);
         this._removeDragEnterStyling(draggel);
         this.dd.isValidDropLocation = false;
@@ -220,10 +220,10 @@ export class  EnableDragDropCustomAttribute {
           _removeDragEnterStyling(draggel) { draggel.classList.remove('drag-entered') }
 
       /**
-       * Note, that we are wrapping our <li> with <span class="">. So in the code be aware of 
+       * Note, that we are wrapping our <li> with <span class="">. So in the code be aware of
        * draggel, being the actual dragged element <li>, and `relatedTarget` is the wrapper.
        * Normally, in interactjs, `relatedTarget` has the actual draggel
-       * 
+       *
        * @param {Object} event
        */
       onDrop = (event) => {
