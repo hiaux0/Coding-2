@@ -15,5 +15,10 @@ export const commandList = {
       id: "jumpable",
       origin: "common/jumpable"
     },
+    {
+      name: "Toggle Persist jumpable",
+      id: "togglePersistJumpable",
+      origin: "common/jumpable"
+    },
   ]
 }

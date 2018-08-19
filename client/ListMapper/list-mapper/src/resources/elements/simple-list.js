@@ -1,4 +1,5 @@
 import {bindable} from 'aurelia-framework';
+import {chevronDown, chevronUp} from '../common/styles/icons';
 import './simple-list.less';
 
 export class SimpleList {
@@ -8,7 +9,10 @@ export class SimpleList {
 
   constructor(element) {
     this.element = element;
-    this.direction = 'descending';
+    this.direction = 'ascending';
+    // icons
+    this.chevronDown = chevronDown;
+    this.chevronUp = chevronUp;
   }
 
   /**

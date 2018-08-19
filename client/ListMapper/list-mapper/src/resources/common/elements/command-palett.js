@@ -25,6 +25,11 @@ export class CommandPalett {
     this.eventAggregator.publish('command-palett:command-triggered', this.commandId);
     this.showCommandPalett = false;
     this.commandId = ''; // reset the commandId
+
+    let previousScope = hotkeys.getScope();
+    
+    toggleHotkeyScope(this.showCommandPalett, COMMAND_PALETT_SCOPE, previousScope);
+
   }
 
   attached() {
@@ -42,10 +47,7 @@ export class CommandPalett {
     keyBinding(COMMAND_PALETT, () => {
       this.showCommandPalett = !this.showCommandPalett;
 
-      toggleHotkeyScope(this.showCommandPalett, COMMAND_PALETT_SCOPE, previousScope);
-      
       // TODO a1ab98jhc : Check if hotkeys dont accumulate
-      console.log('COMMAND_PALETT toggling')
     });
   }
 
