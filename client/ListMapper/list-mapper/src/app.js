@@ -1,6 +1,7 @@
 window.DEBUG_MODE = {
   commandPalett: false,
-  standardTheme: 'light', // should be persisted in db
+  standardTheme: 'dark', // should be persisted in db
+  persistJumpable: true,
 }
 
 import {PLATFORM} from 'aurelia-pal';
@@ -8,7 +9,7 @@ import {inject} from 'aurelia-framework';
 
 import {CommandCentral} from './resources/common/command-central';
 import {commandList} from './resources/commandStorage/command-storage'
-import {initJumpable} from './resources/common/jumpable';
+import {toggleJumpable, togglePersistJumpable} from './resources/common/jumpable';
 import {JUMPABLE} from './application-key-bindings/app.keys';
 import {darkTheme, lightTheme} from './resources/common/styles/themes';
 
@@ -24,9 +25,8 @@ export class App {
     this.commandCentral = commandCentral;
 
     this.showNavbar = false;
-    this.showCommandPalett = false;
     this.suggestedList = null;
-    this.key = 'name'
+    this.key = 'name';
 
     this.darkTheme = darkTheme;
     this.lightTheme = lightTheme;
@@ -37,7 +37,8 @@ export class App {
     this.commandCentral.subscribeToCommandEvents({
       changeToDarkTheme: darkTheme,
       changeToLightTheme: lightTheme,
-      jumpable: initJumpable,
+      jumpable: toggleJumpable,
+      togglePersistJumpable: togglePersistJumpable,
     });
     this.initDebugMode();
     this.initAppKeybindings();
@@ -47,7 +48,7 @@ export class App {
     let keyBinding = hotkeys.noConflict();
     hotkeys.filter = function () { return true }; // 2018-08-09 23:30:46 what does this do?
 
-    keyBinding(JUMPABLE, () => { initJumpable(); });
+    keyBinding(JUMPABLE, () => { toggleJumpable(); });
   }
   
   toggleNavbarHandler() {
@@ -125,7 +126,7 @@ export class App {
   }
 
   initDebugMode() {
-    initJumpable();
+    toggleJumpable();
 
     if (window.DEBUG_MODE.standardTheme === 'light') {
       this.lightTheme();
