@@ -1,6 +1,8 @@
 import {inject} from 'aurelia-framework';
 import interact from 'interactjs';
 
+const DRAG_SHADOW_CLASS = 'drag-shadow';
+
 @inject(Element)
 export class  dragDropV1CustomAttribute {
 
@@ -10,9 +12,6 @@ export class  dragDropV1CustomAttribute {
      * Summarizes all options
      */
     this.dd = {
-      dragStarted:         false,
-      draggelShadowClone:   null,
-      // elementsList:        null,
       elementsViewModel:   null,
       isCustomElement:     false,
       isValidDropLocation: false,
@@ -89,12 +88,8 @@ export class  dragDropV1CustomAttribute {
         let draggel          = draggelContainer.getElementsByTagName('li')[0];
         let clone            = this._createShadowCopy(draggel);
         
-        this.dd.dragStarted        = true;
-        this.dd.draggelShadowClone = clone;
-
-        // `dropDestination` does not describe what is happening here...
-        let dropDestination = this.dd.elementsViewModel.simpleListRef; 
-        dropDestination.prepend(clone);
+        let dragStartLocation = this.dd.elementsViewModel.simpleListRef; 
+        dragStartLocation.prepend(clone);
 
         this._saveDraggelOriginInfo(draggelContainer);
         this._addDraggelStyles(draggel);
@@ -137,7 +132,7 @@ export class  dragDropV1CustomAttribute {
 
             let parentContainer = this.elementsListContainerInfo.reffelRect.top;
 
-            clone.classList.add('drag-shadow');
+            clone.classList.add(DRAG_SHADOW_CLASS);
             clone.style.position = "absolute";
             clone.style.top = `${top - parentContainer}px`;
             clone.style.width = `${width}px`;
@@ -159,9 +154,8 @@ export class  dragDropV1CustomAttribute {
         let y = (parseFloat(draggel.getAttribute('data-y')) || 0) + event.dy;
 
         // translate the element
-        draggel.style.webkitTransform =
-          draggel.style.transform =
-          `translate(${0}px, ${y}px)`; // `0` only allows vertical movement
+        draggel.style.webkitTransform = draggel.style.transform = `translate(${0}px, ${y}px)`; 
+        //^ `0` only allows vertical movement
 
         // update the position attributes // 2018-08-05 22:11:24 Can be used for history
         draggel.setAttribute('data-x', x);
@@ -174,7 +168,8 @@ export class  dragDropV1CustomAttribute {
       onDragEnd = (event) => { // `onDragEnd` could also be named `onDrop`
         let draggelContainer = event.target;
         let draggel = draggelContainer.getElementsByTagName('li')[0];
-        let clone = this.dd.draggelShadowClone;
+        let clone = document.getElementsByClassName(DRAG_SHADOW_CLASS)[0];
+        console.log('​dragDropV1CustomAttribute -> onDragEnd -> clone', clone);
         this._removeClone(clone);
         this._removeDraggelStyles(draggel);
         if (!this.dd.isValidDropLocation) {
@@ -199,9 +194,11 @@ export class  dragDropV1CustomAttribute {
       ondDragEnter = (event) => {
         let draggelContainer = event.relatedTarget;
         let draggel = draggelContainer.getElementsByTagName('li')[0];
+        let dropZone = event.target;
+        
+        if (dropZone.parentElement === draggelContainer) return;
 
         this.dd.isValidDropLocation = true;
-
         this._addDragEnterStyling(draggel);
         this._removeDragLeaveStyling(draggel);
       }
@@ -245,3 +242,4 @@ export class  dragDropV1CustomAttribute {
         dropZone.insertAdjacentElement('afterEnd', draggelContainer)
       }
 }
+
