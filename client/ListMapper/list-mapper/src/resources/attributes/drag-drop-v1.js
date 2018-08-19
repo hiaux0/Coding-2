@@ -194,9 +194,6 @@ export class  dragDropV1CustomAttribute {
       ondDragEnter = (event) => {
         let draggelContainer = event.relatedTarget;
         let draggel = draggelContainer.getElementsByTagName('li')[0];
-        let dropZone = event.target;
-        
-        if (dropZone.parentElement === draggelContainer) return;
 
         this.dd.isValidDropLocation = true;
         this._addDragEnterStyling(draggel);
@@ -234,12 +231,13 @@ export class  dragDropV1CustomAttribute {
         let draggel = draggelContainer.getElementsByTagName('li')[0];
         let dropZone = event.target.parentElement;
 
+        if (dropZone === draggelContainer) return;
+
         this._removeDraggelStyles(draggel);
 
         let parent = draggelContainer.parentElement;
-        parent.removeChild(draggelContainer)
-
-        dropZone.insertAdjacentElement('afterEnd', draggelContainer)
+        parent.removeChild(draggelContainer);
+        dropZone.insertAdjacentElement('afterEnd', draggelContainer);
       }
 }
 
