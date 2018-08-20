@@ -1,5 +1,5 @@
 window.DEBUG_MODE = {
-  persistJumpable: false,
+  persistJumpable: true,
 }
 
 import hotkeys from 'hotkeys-js';

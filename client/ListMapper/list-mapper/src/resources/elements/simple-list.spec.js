@@ -53,7 +53,7 @@ describe('SIMPLE LIST', function() {
     });
   });
 
-  fit('`getDragDropChanges` CASE: descending. Should get changes after user drag drop ended.', (done) => {
+  it('`getDragDropChanges` CASE: descending. Should get changes after user drag drop ended.', (done) => {
     component.create(bootstrap).then(() => {
       let expectation;
       let vm = component.viewModel;

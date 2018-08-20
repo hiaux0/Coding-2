@@ -20,7 +20,7 @@ export class EnableDragDropCustomAttribute {
 
   attached() {
     console.log('attach enable drag drop')
-    this.checkCustomElement(this.element);
+    // this.checkCustomElement(this.element);
     this.initDraggable();
     this.initDropZone();
   }
@@ -51,28 +51,22 @@ export class EnableDragDropCustomAttribute {
 
   initDraggable(options) {
     console.log('​EnableDragDropCustomAttribute -> initDraggable -> initDraggable');
-    window.interactBefore = interact;
-    if (typeof options === 'undefined') {
-      options = {};
-    }
+    options = options || {};
 
-    interact('.item-container, .draggable', {
+    return interact('.item-container, .draggable', {
       context: this.element
     }).draggable({
       inertia: options.allowInertia || false,
       autoScroll: true,
       // Restrict to vertical movement of element only
       restrict: {
-        restriction: ".simple-list",
-        elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
+        restriction: ".simple-list", // Change test, if restriction is changed
+        // elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
       },
       onstart: this.onDragStart,
       onmove:  this.onDragMove,
       onend:   this.onDragEnd,
     });
-
-    window.interactAfter = interact;
-
   }
 
       /**
@@ -83,8 +77,9 @@ export class EnableDragDropCustomAttribute {
        * @param {Drag.Event.Object} event
        */
       onDragStart = (event) => {
+        console.log('​EnableDragDropCustomAttribute -> onDragStart -> onDragStart');
         let draggelContainer = event.target;
-        let draggelContext = event.target.parentElement;
+        let draggelContext   = event.target.parentElement;
         let draggel          = draggelContainer.getElementsByTagName('li')[0];
         let clone            = this._createShadowCopy(draggel, draggelContext);
 
@@ -192,6 +187,7 @@ export class EnableDragDropCustomAttribute {
   }
 
       ondDragEnter = (event) => {
+        console.log('​EnableDragDropCustomAttribute -> ondDragEnter -> ondDragEnter');
         let draggelContainer = event.relatedTarget;
         let draggel = draggelContainer.getElementsByTagName('li')[0];
 
@@ -227,6 +223,7 @@ export class EnableDragDropCustomAttribute {
        * @param {Object} event
        */
       onDrop = (event) => {
+        console.log('​EnableDragDropCustomAttribute -> onDrop -> onDrop');
         let draggelContainer = event.relatedTarget;
         let draggel = draggelContainer.getElementsByTagName('li')[0];
         let dropZone = event.target.parentElement;

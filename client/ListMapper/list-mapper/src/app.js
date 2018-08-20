@@ -1,7 +1,6 @@
 window.DEBUG_MODE = {
   commandPalett: false,
   standardTheme: 'dark', // should be persisted in db
-  persistJumpable: true,
 }
 
 import {PLATFORM} from 'aurelia-pal';
