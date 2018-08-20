@@ -186,10 +186,27 @@ export class EnableDragDropCustomAttribute {
     })
   }
 
+      /**
+       * span
+       *  li  
+       *  dropzone
+       */
       ondDragEnter = (event) => {
-        console.log('​EnableDragDropCustomAttribute -> ondDragEnter -> ondDragEnter');
         let draggelContainer = event.relatedTarget;
+        let draggelContext = draggelContainer.parentElement;
         let draggel = draggelContainer.getElementsByTagName('li')[0];
+        let draggelsDropzone = draggelContainer.getElementsByClassName('dropzone')[0];
+        let droppel = event.target;
+        // console.log('​EnableDragDropCustomAttribute -> ondDragEnter -> draggelsDropzone', draggelsDropzone);
+        
+        if (draggelsDropzone === droppel) return;
+
+        let clone = document.getElementsByClassName(DRAG_SHADOW_CLASS)[0];
+        this._adjustDraggelOnDragDown(draggel, droppel)
+        this._adjustCloneOnDragDown(clone, droppel)
+
+        draggelContext.removeChild(draggelContainer);
+        droppel.insertAdjacentElement('afterEnd', draggelContainer);
 
         this.dd.isValidDropLocation = true;
         this._addDragEnterStyling(draggel);
@@ -197,7 +214,26 @@ export class EnableDragDropCustomAttribute {
       }
 
           _addDragEnterStyling(draggel)    { draggel.classList.add('drag-entered'); }
-          _removeDragLeaveStyling(draggel) { draggel.classList.remove('drag-left') }
+          _removeDragLeaveStyling(draggel) { draggel.classList.remove('drag-left'); }
+
+          _adjustCloneOnDragDown(clone, droppel, factor = 1) {
+            let adjustmentTop = droppel.parentElement.getBoundingClientRect().height;
+            let currentTopInPx = clone.style.top;
+            let currentTopString = currentTopInPx.replace("px", "");
+            let currentTop = Number(currentTopString);
+
+            let newTop = currentTop + adjustmentTop;
+            clone.style.top = `${newTop}px`;
+          }
+
+          _adjustDraggelOnDragDown(draggel, droppel) {
+            let adjustmentTop = droppel.parentElement.getBoundingClientRect().height;
+            let y = draggel.getAttribute('data-y')
+            let newTop = Number(y) - adjustmentTop;
+
+            draggel.style.webkitTransform = draggel.style.transform = `translate(${0}px, ${newTop}px)`;
+            draggel.setAttribute('data-y', newTop);
+          }
 
 
       onDragLeave = (event) => {
