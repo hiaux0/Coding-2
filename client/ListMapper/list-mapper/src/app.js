@@ -29,6 +29,13 @@ export class App {
 
     this.darkTheme = darkTheme;
     this.lightTheme = lightTheme;
+
+    this.x = null;
+    this.y = null;
+    document.addEventListener('mousemove', (ev) => {
+      this.x = ev.x;
+      this.y = ev.y;
+    })
   }
 
   attached() {
