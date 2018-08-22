@@ -1,9 +1,11 @@
 import {bindable} from 'aurelia-framework';
 import {chevronDown, chevronUp} from '../common/styles/icons';
 import './simple-list.less';
+import Sortable from 'sortablejs';
 
 export class SimpleList {
   @bindable listData = [];
+  @bindable id;
 
   simpleListRef;
 
@@ -13,6 +15,20 @@ export class SimpleList {
     // icons
     this.chevronDown = chevronDown;
     this.chevronUp = chevronUp;
+
+    setTimeout(() => {
+      this.initSortable();
+    }, 0)
+  }
+
+  initSortable() {
+    this.sortableInstance = new Sortable(this.simpleListRef, {
+      group: "123",
+      draggable: ".list-item",
+      animation: 100,
+
+    });
+    console.log(this.sortableInstance)
   }
 
   /**
