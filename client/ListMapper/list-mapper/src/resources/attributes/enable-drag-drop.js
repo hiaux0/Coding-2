@@ -50,7 +50,6 @@ export class EnableDragDropCustomAttribute {
       }
 
   initDraggable(options) {
-    console.log('​EnableDragDropCustomAttribute -> initDraggable -> initDraggable');
     options = options || {};
 
     return interact('.item-container, .draggable', {
@@ -77,16 +76,13 @@ export class EnableDragDropCustomAttribute {
        * @param {Drag.Event.Object} event
        */
       onDragStart = (event) => {
-        console.log('​EnableDragDropCustomAttribute -> onDragStart -> onDragStart');
         let draggelContainer = event.target;
-        let draggelContext   = event.target.parentElement;
         let draggel          = draggelContainer.getElementsByTagName('li')[0];
-        let clone            = this._createShadowCopy(draggel, draggelContext);
+        let clone            = this._createShadowCopy(draggel, this.element);
 
         let dragStartLocation = draggelContainer.parentElement;
         dragStartLocation.prepend(clone);
 
-        // this._saveDraggelOriginInfo(draggelContainer);
         this._addDraggelStyles(draggel);
       }
 
@@ -132,6 +128,8 @@ export class EnableDragDropCustomAttribute {
             clone.classList.add(DRAG_SHADOW_CLASS);
             clone.style.position = "absolute";
             clone.style.top = `${top - contextTop}px`;
+            console.log('​Clone: Rel top', top - contextTop);
+            console.log('Context Abs top', contextTop);
             clone.style.width = `${width}px`;
 
             return clone;
@@ -195,18 +193,28 @@ export class EnableDragDropCustomAttribute {
         let draggelContainer = event.relatedTarget;
         let draggelContext = draggelContainer.parentElement;
         let draggel = draggelContainer.getElementsByTagName('li')[0];
+
         let draggelsDropzone = draggelContainer.getElementsByClassName('dropzone')[0];
         let droppel = event.target;
-        // console.log('​EnableDragDropCustomAttribute -> ondDragEnter -> draggelsDropzone', draggelsDropzone);
-        
         if (draggelsDropzone === droppel) return;
 
-        let clone = document.getElementsByClassName(DRAG_SHADOW_CLASS)[0];
-        this._adjustDraggelOnDragDown(draggel, droppel)
-        this._adjustCloneOnDragDown(clone, droppel)
-
+        let draggelContainerRect = draggelContainer.getBoundingClientRect();
+        let droppelRect = droppel.getBoundingClientRect();
+        let dragDirection = droppelRect.y - draggelContainerRect.y;
+        
         draggelContext.removeChild(draggelContainer);
-        droppel.insertAdjacentElement('afterEnd', draggelContainer);
+        let clone = document.getElementsByClassName(DRAG_SHADOW_CLASS)[0];
+
+        if (dragDirection > 0) { // move down
+          this._adjustCloneOnDragDown(clone, droppel)
+          this._adjustDraggelOnDragDown(draggel, droppel)
+          droppel.insertAdjacentElement('afterEnd', draggelContainer);
+        } else { // move up
+          this._adjustCloneOnDragUp(clone, droppel)
+          // this._adjustDraggelOnDragUp(draggel, droppel)
+          droppel.insertAdjacentElement('afterEnd', draggelContainer);
+        }
+
 
         this.dd.isValidDropLocation = true;
         this._addDragEnterStyling(draggel);
@@ -216,24 +224,58 @@ export class EnableDragDropCustomAttribute {
           _addDragEnterStyling(draggel)    { draggel.classList.add('drag-entered'); }
           _removeDragLeaveStyling(draggel) { draggel.classList.remove('drag-left'); }
 
-          _adjustCloneOnDragDown(clone, droppel, factor = 1) {
+          _adjustCloneOnDragDown(clone, droppel) {
             let adjustmentTop = droppel.parentElement.getBoundingClientRect().height;
-            let currentTopInPx = clone.style.top;
-            let currentTopString = currentTopInPx.replace("px", "");
-            let currentTop = Number(currentTopString);
-
+            let currentTop = this._removePx(clone.style.top)
+            
             let newTop = currentTop + adjustmentTop;
             clone.style.top = `${newTop}px`;
           }
 
+                _adjustCloneOnDragUp(clone, droppel) {
+                  let droppelParent = droppel.parentElement;
+                  let droppelParentRect = droppelParent.getBoundingClientRect();
+                  let droppelParentHeight = droppelParentRect.height;
+                  let droppelParentTop = droppelParentRect.top;
+
+                  let contextTop = this.element.getBoundingClientRect().top;
+
+                  let newTop = droppelParentTop + droppelParentHeight - contextTop;
+                  clone.style.top = `${newTop}px`;
+                }
+
+                _removePx(string) {
+                  let result = string.replace("px", "");
+                  return Number(result)
+                }
+
           _adjustDraggelOnDragDown(draggel, droppel) {
-            let adjustmentTop = droppel.parentElement.getBoundingClientRect().height;
+            let adjustmentHeight = droppel.parentElement.getBoundingClientRect().height;
             let y = draggel.getAttribute('data-y')
-            let newTop = Number(y) - adjustmentTop;
+            let newTop = Number(y) - adjustmentHeight;
 
             draggel.style.webkitTransform = draggel.style.transform = `translate(${0}px, ${newTop}px)`;
             draggel.setAttribute('data-y', newTop);
           }
+
+                    _adjustDraggelOnDragUp(draggel, droppel) {
+                      let adjustmentTop = droppel.getBoundingClientRect().height;
+                      let y = draggel.getAttribute('data-y')
+                      console.log('​EnableDragDropCustomAttribute -> _adjustDraggelOnDragUp -> y', y);
+                      let newTop = Number(y) + adjustmentTop;
+
+                      // let droppelParent = droppel.parentElement;
+                      let draggelRect = draggel.getBoundingClientRect();
+                      let draggelHeight = draggelRect.height;
+
+                      let testAdjust = 10 * 1
+
+                      draggel.style.webkitTransform = 
+                        draggel.style.transform = `translate(${0}px, ${y}px)`;
+                      // draggel.style.webkitTransform = draggel.style.transform = `translate(${0}px, ${0}px)`;
+                      draggel.setAttribute('data-y', testAdjust);
+                      // draggel.setAttribute('data-y', -newTop);
+                    }
 
 
       onDragLeave = (event) => {
@@ -259,7 +301,6 @@ export class EnableDragDropCustomAttribute {
        * @param {Object} event
        */
       onDrop = (event) => {
-        console.log('​EnableDragDropCustomAttribute -> onDrop -> onDrop');
         let draggelContainer = event.relatedTarget;
         let draggel = draggelContainer.getElementsByTagName('li')[0];
         let dropZone = event.target.parentElement;
