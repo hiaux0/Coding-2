@@ -24,6 +24,7 @@ export class App {
     this.commandCentral = commandCentral;
 
     this.showNavbar = false;
+    this.showMouseCoords = false;
     this.suggestedList = null;
     this.key = 'name';
 
@@ -45,6 +46,7 @@ export class App {
       changeToLightTheme: lightTheme,
       jumpable: toggleJumpable,
       togglePersistJumpable: togglePersistJumpable,
+      toggleMouseCoords: this.toggleMouseCoords.bind(this),
     });
     this.initDebugMode();
     this.initAppKeybindings();
@@ -59,6 +61,11 @@ export class App {
   
   toggleNavbarHandler() {
     this.showNavbar = !this.showNavbar;
+  }
+
+  toggleMouseCoords() {
+    console.log(this.showMouseCoords)
+    this.showMouseCoords = !this.showMouseCoords;
   }
 
   configureRouter(config, router) {
