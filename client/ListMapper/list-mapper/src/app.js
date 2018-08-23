@@ -68,7 +68,7 @@ export class App {
     config.map([
       { route: ['', 'home'], name: 'home', moduleId: PLATFORM.moduleName('./resources/home'), 
         nav: true, title: 'Home' },
-      { route: ['simpleList'], moduleId: PLATFORM.moduleName('./resources/elements/simple-list'), 
+      { route: ['simpleList'], moduleId: PLATFORM.moduleName('./resources/common/elements/simple-list'), 
         nav: true, title: 'Simple List'},
         // Dropdown items for CSS Leveling
         {
@@ -90,24 +90,6 @@ export class App {
           }
         },
         // Dropdown items for Drag drop Leveling (interactjs)
-        {
-          route: ['drag-drop-leveling/initial'], 
-          moduleId: PLATFORM.moduleName('./resources/elements/drag-drop/leveling/init'),
-          nav:true, title: 'Init', 
-          settings: {
-            dropdownId: 'dragDropLeveling',
-            dropdownTitle: 'Drag Drop Leveling',
-          }
-        },
-        {
-          route: ['drag-drop-leveling/drag-drop-ca'], 
-          moduleId: PLATFORM.moduleName('./resources/elements/drag-drop/leveling/drag-drop-ca'),
-          nav:true, title: 'Drag Drop Custom Attribute', 
-          settings: {
-            dropdownId: 'dragDropLeveling',
-            dropdownTitle: 'Drag Drop Leveling',
-          }
-        },
         {
           route: ['drag-drop-leveling/drag-drop-v1'], 
           moduleId: PLATFORM.moduleName('./resources/elements/drag-drop/leveling/drag-drop-v1-ce'),

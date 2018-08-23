@@ -1,5 +1,5 @@
 import {bindable} from 'aurelia-framework';
-import {chevronDown, chevronUp} from '../common/styles/icons';
+import {chevronDown, chevronUp} from '../styles/icons';
 import './simple-list.less';
 import Sortable from 'sortablejs';
 
@@ -28,7 +28,6 @@ export class SimpleList {
       animation: 100,
 
     });
-    console.log(this.sortableInstance)
   }
 
   /**
