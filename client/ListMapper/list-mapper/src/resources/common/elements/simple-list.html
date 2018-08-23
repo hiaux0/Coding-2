@@ -1,9 +1,15 @@
 <template>
   <require from='../../value-converters/sort'></require>
+  <require from='../../attributes/sortable'></require>
 
   <div class="simple-list-container">
 
-    <ul class="simple-list" ref="simpleListRef" id.one-time="id">
+    <ul 
+      ref="simpleListRef"
+      sortable
+      class="simple-list" 
+      id.one-time="id"
+    >
       <strong>Shortcut list</strong>
         
       <span class='sort-list'>
