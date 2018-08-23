@@ -1,7 +1,6 @@
 window.DEBUG_MODE = {
   commandPalett: false,
   standardTheme: 'dark', // should be persisted in db
-  persistJumpable: true,
 }
 
 import {PLATFORM} from 'aurelia-pal';
@@ -25,11 +24,19 @@ export class App {
     this.commandCentral = commandCentral;
 
     this.showNavbar = false;
+    this.showMouseCoords = false;
     this.suggestedList = null;
     this.key = 'name';
 
     this.darkTheme = darkTheme;
     this.lightTheme = lightTheme;
+
+    this.x = null;
+    this.y = null;
+    document.addEventListener('mousemove', (ev) => {
+      this.x = ev.x;
+      this.y = ev.y;
+    })
   }
 
   attached() {
@@ -39,6 +46,7 @@ export class App {
       changeToLightTheme: lightTheme,
       jumpable: toggleJumpable,
       togglePersistJumpable: togglePersistJumpable,
+      toggleMouseCoords: this.toggleMouseCoords.bind(this),
     });
     this.initDebugMode();
     this.initAppKeybindings();
@@ -55,6 +63,11 @@ export class App {
     this.showNavbar = !this.showNavbar;
   }
 
+  toggleMouseCoords() {
+    console.log(this.showMouseCoords)
+    this.showMouseCoords = !this.showMouseCoords;
+  }
+
   configureRouter(config, router) {
     config.options.pushState = true; // responsable for not including # in url
     config.options.root = '/';
@@ -62,7 +75,7 @@ export class App {
     config.map([
       { route: ['', 'home'], name: 'home', moduleId: PLATFORM.moduleName('./resources/home'), 
         nav: true, title: 'Home' },
-      { route: ['simpleList'], moduleId: PLATFORM.moduleName('./resources/elements/simple-list'), 
+      { route: ['simpleList'], moduleId: PLATFORM.moduleName('./resources/common/elements/simple-list'), 
         nav: true, title: 'Simple List'},
         // Dropdown items for CSS Leveling
         {
@@ -85,27 +98,9 @@ export class App {
         },
         // Dropdown items for Drag drop Leveling (interactjs)
         {
-          route: ['drag-drop-leveling/initial'], 
-          moduleId: PLATFORM.moduleName('./resources/elements/drag-drop/leveling/init'),
-          nav:true, title: 'Init', 
-          settings: {
-            dropdownId: 'dragDropLeveling',
-            dropdownTitle: 'Drag Drop Leveling',
-          }
-        },
-        {
-          route: ['drag-drop-leveling/drag-drop-ca'], 
-          moduleId: PLATFORM.moduleName('./resources/elements/drag-drop/leveling/drag-drop-ca'),
-          nav:true, title: 'Drag Drop Custom Attribute', 
-          settings: {
-            dropdownId: 'dragDropLeveling',
-            dropdownTitle: 'Drag Drop Leveling',
-          }
-        },
-        {
           route: ['drag-drop-leveling/drag-drop-v1'], 
           moduleId: PLATFORM.moduleName('./resources/elements/drag-drop/leveling/drag-drop-v1-ce'),
-          nav: true, title: 'drag-drop-v1', 
+          nav: true, title: 'enable-drag-drop', 
           settings: {
             dropdownId: 'dragDropLeveling',
             dropdownTitle: 'Drag Drop Leveling',

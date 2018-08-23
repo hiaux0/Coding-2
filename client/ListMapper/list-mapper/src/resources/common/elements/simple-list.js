@@ -1,9 +1,10 @@
 import {bindable} from 'aurelia-framework';
-import {chevronDown, chevronUp} from '../common/styles/icons';
+import {chevronDown, chevronUp} from '../styles/icons';
 import './simple-list.less';
 
 export class SimpleList {
   @bindable listData = [];
+  @bindable id;
 
   simpleListRef;
 
@@ -25,7 +26,7 @@ export class SimpleList {
     let counter = 0;
 
     for (let child of children) {
-      if (!child.classList.contains("item-container")) continue;
+      if (!child.classList.contains('item-container')) continue;
       
       let listItem = child.getElementsByTagName('li')[0]
       let listItemContent = listItem.innerText;

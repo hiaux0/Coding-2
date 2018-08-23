@@ -24,14 +24,8 @@ export class InputDropdown {
     this.suggestedList = null;
   }
 
-  // attached() {
-  //   console.log(this.commandListContainerRef)
-  //   let children = this.commandListContainerRef.children;
-  //   console.log('​InputDropdown -> attached -> children', children);
-  //   console.log('​InputDropdown -> attached -> children.length', children.length);
-  //   console.log('​InputDropdown -> attached -> children[0]', children[0]);
-  //   if (children) {
-  //     // children[0].classList.add('active');
-  //   }
-  // }
+  detached() {
+    this.value = ""
+  }
+
 }

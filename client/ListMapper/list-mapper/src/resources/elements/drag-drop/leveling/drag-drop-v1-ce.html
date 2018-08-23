@@ -1,10 +1,10 @@
 <template>
-  <require from='../../simple-list'></require>
-  <require from='../../../attributes/drag-drop-v1'></require>
+  <require from='../../../common/elements/simple-list'></require>
+  <require from='../../../attributes/sortable'></require>
 
   <div class='drag-drop-v1-ce'>
-    <simple-list drag-drop-v1  list-data.bind='listData'></simple-list>
-    <simple-list drag-drop-v1  list-data.bind='listDataCommands'></simple-list>
+    <simple-list sortable  list-data.bind='listData'></simple-list>
+    <simple-list sortable  list-data.bind='listDataCommands'></simple-list>
   </div>
 
 </template>

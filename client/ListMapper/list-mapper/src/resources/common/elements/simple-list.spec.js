@@ -55,12 +55,22 @@ describe('SIMPLE LIST', function() {
 
   it('`getDragDropChanges` CASE: descending. Should get changes after user drag drop ended.', (done) => {
     component.create(bootstrap).then(() => {
-      let expectation = [
-        { content: "C 2", position: 0, },
-        { content: "B 1", position: 1, },
-        { content: "A 0", position: 2, },
-      ];
+      let expectation;
       let vm = component.viewModel;
+      
+      if (vm.direction === 'ascending') {
+        expectation = [
+          { content: "A 0", position: 0, },
+          { content: "B 1", position: 1, },
+          { content: "C 2", position: 2, },
+        ];
+      } else {
+        expectation = [
+          { content: "C 2", position: 0, },
+          { content: "A 0", position: 2, },
+          { content: "B 1", position: 1, },
+        ];
+      }
 
       let newListData = vm.getDragDropChanges();
 

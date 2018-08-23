@@ -1,9 +1,15 @@
 <template>
-  <require from='../value-converters/sort'></require>
+  <require from='../../value-converters/sort'></require>
+  <require from='../../attributes/sortable'></require>
 
   <div class="simple-list-container">
-    
-    <ul class="simple-list" ref="simpleListRef">
+
+    <ul 
+      ref="simpleListRef"
+      sortable
+      class="simple-list" 
+      id.one-time="id"
+    >
       <strong>Shortcut list</strong>
         
       <span class='sort-list'>
@@ -12,14 +18,13 @@
         <i class="sort-asc ${chevronUp}" click.delegate="sortAscending()"></i>
       </span>
       
-      <span class="item-container draggable"
-        repeat.for="shortcut of listData | sort:direction"
-      >
-        <li contenteditable ref="shortcut.htmlElement">
+        <li 
+          repeat.for="shortcut of listData | sort:direction"
+          ref="shortcut.htmlElement"
+          class="list-item"
+        >
           ${shortcut.content} ${shortcut.position}
         </li>
-        <span class="dropzone"></span>
-      </span>
     </ul>
     
   </div>

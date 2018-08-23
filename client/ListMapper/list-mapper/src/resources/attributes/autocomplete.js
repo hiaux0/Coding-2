@@ -36,10 +36,26 @@ export class AutocompleteCustomAttribute {
   attached() {
     this.preparedList = this.prepareList();
   }
+
+  /**
+   * Allow the list, which should be autocomplete, to be as flexibel as possible.
+   */
+  prepareList() {
+    if (!this.list[0][this.key]) throw new Error('Key not present');
+
+    let key = this.key || ""
+    // if (!typeof this.list[0] !== 'object') return;
+
+    return this.list.map((listItem) => ({
+      name: listItem[key],
+      id: listItem.id,
+    }));
+  }  
   
   @debounce(66)
   valueChanged(newValue, oldValue) {
-    this.suggestedList = this.filterByUserInput(newValue);
+    let ignoreCase = newValue.toLowerCase();
+    this.suggestedList = this.filterByUserInput(ignoreCase);
   }
 
   suggestedListChanged(newValue) {
@@ -49,24 +65,14 @@ export class AutocompleteCustomAttribute {
     if (!this.preparedList) return;
     
     let fileredList = this.preparedList.filter((listItem) => {
-      return listItem.name.includes(value)
+      let ignoreCase = listItem.name.toLowerCase();
+      return ignoreCase.includes(value)
     });
     return fileredList;
   }
 
-  /**
-   * Allow the list, which should be autocomplete, to be as flexibel as possible.
-   */
-  prepareList() {
-    if (!this.list[0][this.key]) throw new Error('Key not present');
-    
-    let key = this.key || ""
-    if (!typeof this.list[0] !== 'object')
-
-    return this.list.map((listItem) => ({
-      name: listItem[key],
-      id: listItem.id,
-    }));
-  }  
+  detached() {
+    this.suggestedList = this.list;
+  }
 
 }
