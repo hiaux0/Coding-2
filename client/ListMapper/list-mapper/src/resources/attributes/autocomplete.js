@@ -39,7 +39,8 @@ export class AutocompleteCustomAttribute {
   
   @debounce(66)
   valueChanged(newValue, oldValue) {
-    this.suggestedList = this.filterByUserInput(newValue);
+    let ignoreCase = newValue.toLowerCase();
+    this.suggestedList = this.filterByUserInput(ignoreCase);
   }
 
   suggestedListChanged(newValue) {
@@ -49,7 +50,8 @@ export class AutocompleteCustomAttribute {
     if (!this.preparedList) return;
     
     let fileredList = this.preparedList.filter((listItem) => {
-      return listItem.name.includes(value)
+      let ignoreCase = listItem.name.toLowerCase();
+      return ignoreCase.includes(value)
     });
     return fileredList;
   }
