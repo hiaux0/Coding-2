@@ -36,6 +36,21 @@ export class AutocompleteCustomAttribute {
   attached() {
     this.preparedList = this.prepareList();
   }
+
+  /**
+   * Allow the list, which should be autocomplete, to be as flexibel as possible.
+   */
+  prepareList() {
+    if (!this.list[0][this.key]) throw new Error('Key not present');
+
+    let key = this.key || ""
+    // if (!typeof this.list[0] !== 'object') return;
+
+    return this.list.map((listItem) => ({
+      name: listItem[key],
+      id: listItem.id,
+    }));
+  }  
   
   @debounce(66)
   valueChanged(newValue, oldValue) {
@@ -56,19 +71,8 @@ export class AutocompleteCustomAttribute {
     return fileredList;
   }
 
-  /**
-   * Allow the list, which should be autocomplete, to be as flexibel as possible.
-   */
-  prepareList() {
-    if (!this.list[0][this.key]) throw new Error('Key not present');
-    
-    let key = this.key || ""
-    if (!typeof this.list[0] !== 'object')
-
-    return this.list.map((listItem) => ({
-      name: listItem[key],
-      id: listItem.id,
-    }));
-  }  
+  detached() {
+    this.suggestedList = this.list;
+  }
 
 }
