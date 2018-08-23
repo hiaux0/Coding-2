@@ -1,10 +1,19 @@
 <template>
   <require from='../../../attributes/connect-list-items'></require>
-  <require from='../../simple-list'></require>
-  <require from='../../../attributes/drag-drop-v1'></require>
+  <require from='../../../common/elements/simple-list'></require>
+  <require from='../../../attributes/sortable'></require>
 
   <div class="drag-drop-connect-items">
-    <simple-list drag-drop-v1 view-model.ref="simpleListVM" list-data.bind="listData"></simple-list>
-    <simple-list drag-drop-v1 view-model.ref="simpleListVM" list-data.bind="listData"></simple-list>
+    <simple-list 
+      view-model.ref="simpleListVM" 
+      list-data.bind="listData" 
+      id.one-time="123">
+
+    </simple-list>
+    <simple-list 
+      view-model.ref="simpleListVM" 
+      list-data.bind="listData"
+      id.one-time="321"
+    ></simple-list>
   </div>
 </template>

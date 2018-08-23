@@ -20,5 +20,10 @@ export const commandList = {
       id: "togglePersistJumpable",
       origin: "common/jumpable"
     },
+    {
+      name: "Toggle Mouse Coordinates",
+      id: "toggleMouseCoords",
+      origin: "app.js"
+    }
   ]
 }
