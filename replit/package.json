@@ -1,0 +1,15 @@
+{
+  "name": "replit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "generators.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "markdown-it": "^8.4.2",
+    "markdown-it-sub": "^1.0.0"
+  }
+}
