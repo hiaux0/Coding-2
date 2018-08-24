@@ -1,27 +1,30 @@
 import {inject} from 'aurelia-framework';
 import {CommandCentral} from '../../common/command-central'
-import Marked from 'marked';
+import {renderMarkdown} from './markdown-parser-custom';
+
 import './markdown-parser.less';
 
 @inject(CommandCentral)
 export class MarkdownParser {
   autoFocus = true;
-  inputValue = "";
+  inputValue = 'H~2~0';
 
   constructor(commandCentral) {
     this.commandCentral = commandCentral;
+    this.result = "";
   }
 
   attached() {
     this.commandCentral.subscribeToCommandEvents({
       marked_convertToHtml: this.convertToHtml,
     })
+    this.convertToHtml()
   }
 
   convertToHtml = () => {
-    let result = Marked(this.inputValue);
-    console.log(result);
+    this.result = renderMarkdown(this.inputValue) /*?*/
   }
+
 
 }
 

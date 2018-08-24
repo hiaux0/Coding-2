@@ -1,12 +1,17 @@
 <template>
-  <h1>${value}</h1>
-  <div class="markdown-parser">
+  
+  <div class="markdown-parser-container">
     <textarea
+      class="markdown-parser"
       focus.bind="autoFocus"
-      rows="20"
-      cols="80"
       value.bind="inputValue"
     ></textarea>
+
+    <span
+      class="markdown-parser-result"
+      innerhtml.bind="result"
+    >
+    </span>
 
   </div>
 </template>

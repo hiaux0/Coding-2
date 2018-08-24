@@ -1,10 +1,17 @@
 @import (reference) '../../common/styles/colors.less';
 
-.markdown-parser {
-  textarea {
+.markdown-parser-container {
+
+  .markdown-parser {
     background: @sec-clr;
     color: @main-text-clr;
-    // width: 50vw;
-    // height: 70vh;
+    width: 40vw;
+    height: 70vh;
+    padding: 20px;
+  }
+
+  .markdown-parser-result {
+    width: 40vw;
+    float: right;
   }
 }
