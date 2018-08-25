@@ -1,8 +1,3 @@
-window.DEBUG_MODE = {
-  commandPalett: false,
-  standardTheme: 'dark', // should be persisted in db
-}
-
 import {PLATFORM} from 'aurelia-pal';
 import {inject} from 'aurelia-framework';
 
@@ -77,6 +72,16 @@ export class App {
         nav: true, title: 'Home' },
       { route: ['simpleList'], moduleId: PLATFORM.moduleName('./resources/common/elements/simple-list'), 
         nav: true, title: 'Simple List'},
+        // Dropdown items Markdown Parser
+        {
+          route: ['markdown-parser/index'], 
+          moduleId: PLATFORM.moduleName('./resources/common/elements/markdown-parser'),
+          nav:true, title: 'Markdown Parser', 
+          settings: {
+            dropdownId: 'markdownParser',
+            dropdownTitle: 'Markdown Parser',
+          }
+        },
         // Dropdown items for CSS Leveling
         {
           route: ['css-leveling/flex-box-leveling'], 
@@ -121,10 +126,16 @@ export class App {
   }
 
   initDebugMode() {
-    toggleJumpable();
+    // toggleJumpable();
 
     if (window.DEBUG_MODE.standardTheme === 'light') {
       this.lightTheme();
     }
   }
+}
+
+
+window.DEBUG_MODE = {
+  commandPalett: false,
+  standardTheme: 'dark', // should be persisted in db
 }

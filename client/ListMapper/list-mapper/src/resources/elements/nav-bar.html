@@ -23,6 +23,16 @@
 
 
         <!-- Dropdown -->
+        <!-- Markdown Parser -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+            Markdown Parser
+          </a>
+          <div class="dropdown-menu">
+            <a repeat.for="nav of router.navigation" if.bind="nav.settings.dropdownId === 'markdownParser'" class="dropdown-item" href.bind="nav.href">${nav.title}</a>
+          </div>
+        </li>
+
         <!-- CSS LEVLING -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
