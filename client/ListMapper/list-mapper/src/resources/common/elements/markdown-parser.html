@@ -1,0 +1,19 @@
+<template>
+  <require from='../../attributes/sortable'></require>
+  
+  <div class="markdown-parser-container">
+    <textarea
+      class="markdown-parser"
+      focus.bind="autoFocus"
+      value.bind="inputValue"
+    ></textarea>
+
+    <span
+      sortable="active.bind: activateSortable;"
+      class="markdown-parser-result"
+      innerhtml.bind="result"
+    >
+    </span>
+
+  </div>
+</template>

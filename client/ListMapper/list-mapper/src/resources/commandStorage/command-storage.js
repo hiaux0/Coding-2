@@ -24,6 +24,12 @@ export const commandList = {
       name: "Toggle Mouse Coordinates",
       id: "toggleMouseCoords",
       origin: "app.js"
+    },
+    // Marked
+    {
+      name: "Marked: Convert to html",
+      id: "marked_convertToHtml",
+      origin: "markdown-parser"
     }
   ]
 }
