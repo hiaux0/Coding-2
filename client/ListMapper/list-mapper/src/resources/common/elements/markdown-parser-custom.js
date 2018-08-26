@@ -2,9 +2,24 @@ import MarkdownIt from 'markdown-it';
 import defList from 'markdown-it-deflist';
 import sub from 'markdown-it-sub';
 import container from 'markdown-it-container'
+import hljs from 'highlight.js/lib/highlight';
+import javascript from 'highlight.js/lib/languages/javascript';
+hljs.registerLanguage('javascript', javascript);
 
-const markdownIt = MarkdownIt();
+// Configure code highlighting
+const markdownIt = MarkdownIt({
+  highlight: function (str, lang) {
+    if (lang && hljs.getLanguage(lang)) {
+      try {
+        let result = hljs.highlight(lang, str).value;
+        return result;
+      } catch (__) { }
+    }
+    return ''; // use external default escaping
+  }
+});
 
+// Container
 markdownIt.use(container, 'name');
 markdownIt.use(container, 'spoiler', {
 
@@ -26,8 +41,12 @@ markdownIt.use(container, 'spoiler', {
   }
 });
 
+// Definition list plugin
 markdownIt.use(defList);
+// Subscript plugin
 markdownIt.use(sub);
+
+// Custom plugin
 markdownIt.core.ruler.push('addClassToListTag', addClassToListTag);
 
 
@@ -37,7 +56,7 @@ let inputList = "- hello"
 let inputContainer = '::: spoiler click me\n*content*\n:::\n';
 
 const renderMarkdown = (input) => {
-  // console.log('​renderMarkdown -> markdownIt', markdownIt);
+  console.log('​renderMarkdown -> markdownIt', markdownIt);
   let result = markdownIt.render(input);
   return result;
 }
@@ -53,7 +72,6 @@ function addClassToListTag(tokens, idx, options, env, renderer) {
   })
   // return renderedHTML;
 }
-
 
 renderMarkdown(inputContainer) /*?*/
 // renderMarkdown(inputList) /*?*/

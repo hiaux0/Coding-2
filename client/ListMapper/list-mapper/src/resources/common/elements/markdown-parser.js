@@ -40,6 +40,5 @@ export class MarkdownParser {
     this.activateSortable = true;
   }
 
-
 }
 
