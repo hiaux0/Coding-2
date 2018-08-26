@@ -6,6 +6,8 @@ const project = require('./aurelia_project/aurelia.json');
 const { AureliaPlugin, ModuleDependenciesPlugin } = require('aurelia-webpack-plugin');
 const { ProvidePlugin } = require('webpack');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
+
 
 // config helpers:
 const ensureArray = (config) => config && (Array.isArray(config) ? config : [config]) || [];
@@ -91,6 +93,7 @@ module.exports = ({production, server, extractCss, coverage, analyze} = {}) => (
     ]
   },
   plugins: [
+    new MonacoWebpackPlugin(),
     new AureliaPlugin(),
     new ProvidePlugin({
       'Promise': 'bluebird'
