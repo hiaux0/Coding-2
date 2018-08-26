@@ -4,7 +4,7 @@
   <require from='highlight.js/styles/monokai.css'></require>
   <!-- <require from='highlight.js/styles/solarized-dark.css'></require> -->
 
-  <div class="markdown-parser-container">
+  <div class="markdown-parser-container" >
     <textarea
       class="markdown-parser"
       focus.bind="autoFocus"
@@ -12,11 +12,18 @@
     ></textarea>
 
     <span
-      sortable="active.bind: activateSortable;"
+      ref="mardownParserResultRef"
+      sortable="active.bind: activateSortable; 
+                draggable-name.bind: draggableName;
+                sortable-context.bind:sortableContext;"
       class="markdown-parser-result"
-      innerhtml.bind="result"
-    >
+      >
+      <pre>
+        <code class="language-js" ref="insertCodeRef"></code>
+      </pre>
     </span>
+
+    <div id="monaco-container"></div>
 
   </div>
 </template>

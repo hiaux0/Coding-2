@@ -4,6 +4,8 @@ import Sortable from 'sortablejs';
 @inject(Element)
 export class SortableCustomAttribute {
   @bindable active = true;
+  @bindable sortableContext;
+  @bindable draggableName;
   @bindable ordered = false;
 
   constructor(element) {
@@ -11,9 +13,11 @@ export class SortableCustomAttribute {
   }
 
   get context() {
+    console.log('​SortableCustomAttribute -> getcontext -> this.sortableContext', this.sortableContext);
     // Handle mixed case 
     let listAnchor = 
-      this.element.getElementsByTagName('ul') 
+      this.element.getElementsByTagName(this.sortableContext) 
+      || this.element.getElementsByTagName('ul') 
       || this.element.getElementsByTagName('ol');
     return listAnchor || this.element;
   }
@@ -31,14 +35,14 @@ export class SortableCustomAttribute {
 
   initSortable() {
     if (!this.active) return;
+    console.log(this.context)
 
     // Make multiple lists draggable
-    // console.log(this.context)
     if (this.context.constructor.name === "HTMLCollection" ) {
       for (let listAnchor of this.context) {
         this.sortableInstance = new Sortable(listAnchor, {
           group: '123',
-          draggable: 'li',
+          draggable: this.draggableName || 'li',
           animation: 100,
         });
       }

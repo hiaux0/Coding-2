@@ -19,6 +19,9 @@
 
       code {
         .code_selection();
+        .line-number {
+          .code_line_hover();
+        }
 
         span {
           .code_selection();
@@ -26,11 +29,21 @@
       }
     }
   }
+
+  #monaco-container {
+    height: 60vh;
+  }
 }
 
 .code_selection() {
   &::selection {
     background: blue;
     opacity: 0.5;
+  }
+}
+
+.code_line_hover() {
+  &:hover {
+    background: @pri-clr-hover;
   }
 }

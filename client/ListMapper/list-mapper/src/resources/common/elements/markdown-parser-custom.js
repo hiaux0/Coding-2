@@ -1,7 +1,8 @@
 import MarkdownIt from 'markdown-it';
 import defList from 'markdown-it-deflist';
 import sub from 'markdown-it-sub';
-import container from 'markdown-it-container'
+import container from 'markdown-it-container';
+
 import hljs from 'highlight.js/lib/highlight';
 import javascript from 'highlight.js/lib/languages/javascript';
 hljs.registerLanguage('javascript', javascript);
@@ -12,7 +13,6 @@ const markdownIt = MarkdownIt({
     if (lang && hljs.getLanguage(lang)) {
       try {
         let result = hljs.highlight(lang, str).value;
-        console.log('​result', result);
         return result;
       } catch (__) { }
     }
