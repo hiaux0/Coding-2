@@ -12,12 +12,15 @@ const markdownIt = MarkdownIt({
     if (lang && hljs.getLanguage(lang)) {
       try {
         let result = hljs.highlight(lang, str).value;
+        console.log('​result', result);
         return result;
       } catch (__) { }
     }
     return ''; // use external default escaping
   }
 });
+
+// const markdownIt = MarkdownIt();
 
 // Container
 markdownIt.use(container, 'name');

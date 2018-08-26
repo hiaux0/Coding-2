@@ -9,7 +9,21 @@ import './markdown-parser.less';
 export class MarkdownParser {
   @bindable activateSortable = false;
 
-  @observable inputValue = '- asdasd\n- asdad\n- 23isdjasd\n';
+  @observable inputValue = `
+\`\`\` js
+function addClassToListTag(tokens, idx, options, env, renderer) {
+  // console.log('​functionhello_world -> tokens', tokens);
+  let flatTokens = tokens.tokens; /*?*/
+  // console.log('​addClassToListTag -> flatTokens', flatTokens);
+  flatTokens.forEach((token) => {
+    if (token.type === 'bullet_list_open') {
+      // token.attrPush(['sortable', ''])
+    }
+  })
+  // return renderedHTML;
+}
+\`\`\`
+`;
 
   @debounce(250)
   inputValueChanged() {
