@@ -19,7 +19,14 @@
       class="markdown-parser-result"
       >
       <pre>
-        <code class="language-js" ref="insertCodeRef"></code>
+        <code class="language-js" ref="insertCodeRef">
+          <div 
+            repeat.for="line of splittedLines"
+            innerhtml.bind="line"
+            class="line-number"
+            dblclick.delegate="highlightLine($event)"
+          ></div>
+        </code>
       </pre>
     </span>
 

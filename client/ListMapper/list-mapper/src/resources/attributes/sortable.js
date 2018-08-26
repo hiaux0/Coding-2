@@ -13,7 +13,6 @@ export class SortableCustomAttribute {
   }
 
   get context() {
-    console.log('​SortableCustomAttribute -> getcontext -> this.sortableContext', this.sortableContext);
     // Handle mixed case 
     let listAnchor = 
       this.element.getElementsByTagName(this.sortableContext) 
@@ -35,7 +34,6 @@ export class SortableCustomAttribute {
 
   initSortable() {
     if (!this.active) return;
-    console.log(this.context)
 
     // Make multiple lists draggable
     if (this.context.constructor.name === "HTMLCollection" ) {
@@ -55,7 +53,6 @@ export class SortableCustomAttribute {
       animation: 100,
     });
 
-    // console.log(this.sortableInstance)
   }
 
 }

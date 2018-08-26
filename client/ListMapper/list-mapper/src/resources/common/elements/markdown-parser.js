@@ -6,6 +6,7 @@ import {debounce} from 'lodash-decorators';
 import './markdown-parser.less';
 
 const LINE_NUMBER_CLASS = 'line-number';
+const HIGHLIGHT_CODE_LINE_CLASS = 'highlight-code-line-class';
 
 @inject(CommandCentral)
 export class MarkdownParser {
@@ -52,28 +53,59 @@ function addClassToListTag(tokens, idx, options, env, renderer) {
     this.convertToHtml()
   }
 
+  /**
+   * Use markdown-it to convert given markdown to html.
+   */
   convertToHtml = () => {
     this.result = renderMarkdown(this.inputValue)
-    this.createLineNumbers(this.result);
+    this.splittedLines = this.createLineNumbers(this.result);
 
     this.draggableName = `.${LINE_NUMBER_CLASS}`;
     this.sortableContext = 'code';
     this.activateSortable = true;
   }
 
+  /**
+   * Split the lines from `result` in order to be able to better manipulate them.
+   * @param {String} result - The result returned from markdown-it renderer
+   */
   createLineNumbers(result) {
+    let resultArr = [];
+    // There is surely a better way how to do that..
     let filter = result.replace(/<pre><code (.*?)>/g, "")
                        .replace("</code></pre>", "")
     let splittedLine = filter.split(/[\n\r]/g);
     
     splittedLine.forEach((line) => {
-      let lineNumberSpan = document.createElement('div');
-      lineNumberSpan.classList.add(LINE_NUMBER_CLASS);
-      lineNumberSpan.style.whiteSpace = 'pre-wrap';
-      lineNumberSpan.innerHTML = line;
-
-      this.insertCodeRef.appendChild(lineNumberSpan)
+      resultArr.push(line);
     })
-    console.log('line numbers created')
+    return resultArr;
+  }
+
+  highlightLine(event) {
+    console.log('​MarkdownParser -> highlightLine -> event', event);
+    console.log('hello')
+    let lineNumberDiv = this.correctHighlightElement(event.target, LINE_NUMBER_CLASS)
+    if (lineNumberDiv) {
+      console.log('check passed')
+      lineNumberDiv.classList.toggle(HIGHLIGHT_CODE_LINE_CLASS)
+    }
+    event.stopPropagation();
+  }
+
+  /**
+   * Check if the (double) click target has specific class.
+   * TODO_LATER: The logic can certainly be prettier --> do while loop
+   * @param {HTMLElement} target 
+   */
+  correctHighlightElement(target, className) {
+    if (target.classList.contains(className)) {
+      return target;
+    } else if (target.parentElement.classList.contains(className)) {
+      return target.parentElement;
+    } else if (target.parentElement.parentElement.classList.contains(className)) {
+      return target.parentElement.parentElement;
+    }
+    return false;
   }
 }
