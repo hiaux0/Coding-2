@@ -19,7 +19,7 @@ export default class ElementGenerator {
         this.project.elements.add(
           ProjectItem.text(`${fileName}.js`, this.generateJSSource(className)),
           ProjectItem.text(`${fileName}.html`, this.generateHTMLSource(className, fileName)),
-          ProjectItem.text(`${fileName}.less`, this.generateJSSource(className))
+          ProjectItem.text(`${fileName}.less`, this.generateCSSSource(fileName))
         );
 
         return this.project.commitChanges()
@@ -28,26 +28,30 @@ export default class ElementGenerator {
   }
 
   generateJSSource(className, fileName) {
-    return `
-      import {bindable} from 'aurelia-framework';
-      import './${fileName}.less
+    return `import {bindable} from 'aurelia-framework';
+import './${fileName}.less'
 
-      export class ${className} {
-        @bindable value;
+export class ${className} {
+  @bindable value;
 
-        valueChanged(newValue, oldValue) {
+  valueChanged(newValue, oldValue) {
 
-        }
-      }
-
-    `;
+  }
+}
+`;
   }
 
   generateHTMLSource(className) {
-    return `
-    <template>
-      <h1>\${value}</h1>
-    </template>
-    `;
+    return `<template>
+  <h1>\${value}</h1>
+</template>`;
   }
+
+  generateCSSSource(fileName) {
+    return `
+.${fileName} {
+
+}`;
+  }
+  
 }

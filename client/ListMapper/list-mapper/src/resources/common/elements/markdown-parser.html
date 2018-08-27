@@ -3,32 +3,37 @@
   <!-- <require from='highlight.js/styles/monokai-sublime.css'></require> -->
   <require from='highlight.js/styles/monokai.css'></require>
   <!-- <require from='highlight.js/styles/solarized-dark.css'></require> -->
+  <require from='./hio-context-menu'></require>
 
-  <div class="markdown-parser-container" >
+  <div class="markdown-parser-container">
+    <hio-context-menu 
+      show.bind="showContextMenu"
+      css="top: ${mouseY+20}px; left: ${mouseX+20}px;"
+    >
+
+    </hio-context-menu>
+
     <textarea
       class="markdown-parser"
       focus.bind="autoFocus"
       value.bind="inputValue"
     ></textarea>
-
-    <span
+    <div
       ref="mardownParserResultRef"
       sortable="active.bind: activateSortable; 
                 draggable-name.bind: draggableName;
                 sortable-context.bind:sortableContext;"
       class="markdown-parser-result"
       >
-      <pre>
-        <code class="language-js" ref="insertCodeRef">
-          <div 
-            repeat.for="line of splittedLines"
-            innerhtml.bind="line"
-            class="line-number"
-            dblclick.delegate="highlightLine($event)"
-          ></div>
-        </code>
-      </pre>
-    </span>
+      <!-- This is unfortunately an ugly way of writing code. -->
+      <!-- Reason is pre preserves white space. EVERY white space -->
+      <pre><code class="language-js" ref="insertCodeRef"><div 
+        repeat.for="line of splittedLines"
+        innerhtml.bind="line"
+        class="line-number"
+        dblclick.delegate="highlightLine($event)"
+      ></div></code></pre>
+    </div>
 
     <div id="monaco-container"></div>
 

@@ -59,7 +59,6 @@ let inputList = "- hello"
 let inputContainer = '::: spoiler click me\n*content*\n:::\n';
 
 const renderMarkdown = (input) => {
-  console.log('​renderMarkdown -> markdownIt', markdownIt);
   let result = markdownIt.render(input);
   return result;
 }
