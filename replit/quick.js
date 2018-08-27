@@ -1,13 +1,6 @@
-let string = `
-<pre><code class="language-js"><span class="hljs-function"><span
+let a = {
+  b: 2,
+  c: 3
 }
-</code></pre>
-`
 
-
-let filter = string.replace("</code></pre>", "")
-                   .replace(/<pre><code (.*?)>/g, "");
-
-filter /*?*/
-let split = filter.split(/[\n\r]/g)
-split /*?*/
+let d = {...a};

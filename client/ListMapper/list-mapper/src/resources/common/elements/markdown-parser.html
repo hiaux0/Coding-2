@@ -7,8 +7,9 @@
 
   <div class="markdown-parser-container">
     <hio-context-menu 
-      show.bind="showContextMenu"
-      css="top: ${mouseY+20}px; left: ${mouseX+20}px;"
+      if.bind="showContextMenu"
+      mouse-x.bind="mouseX"
+      mouse-y.bind="mouseY"
     >
 
     </hio-context-menu>

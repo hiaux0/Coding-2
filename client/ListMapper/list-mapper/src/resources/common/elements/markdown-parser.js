@@ -12,8 +12,7 @@ const HIGHLIGHT_CODE_LINE_CLASS = 'highlight-code-line-class';
 export class MarkdownParser {
   @bindable activateSortable = false;
 
-  @observable inputValue = `
-\`\`\` js
+  @observable inputValue = `\`\`\` js
 function addClassToListTag(tokens, idx, options, env, renderer) {
   // console.log('​functionhello_world -> tokens', tokens);
   let flatTokens = tokens.tokens; /*?*/
@@ -25,8 +24,7 @@ function addClassToListTag(tokens, idx, options, env, renderer) {
   })
   // return renderedHTML;
 }
-\`\`\`
-`;
+\`\`\``;
 
   @debounce(250)
   inputValueChanged() {
@@ -44,6 +42,11 @@ function addClassToListTag(tokens, idx, options, env, renderer) {
     this.insertCodeRef = null;
     this.draggableName = "";
     this.sortableContext = "";
+
+    this.mouseX = 0;
+    this.mouseY = 0;
+    this.showContextMenu = false;
+
   }
 
   attached() {
@@ -83,11 +86,13 @@ function addClassToListTag(tokens, idx, options, env, renderer) {
   }
 
   highlightLine(event) {
-    console.log('​MarkdownParser -> highlightLine -> event', event);
-    console.log('hello')
+    console.log('​MarkdownParser -> highlightLine -> highlightLine');
+    this.mouseX = event.x;
+    this.mouseY = event.y;
+    this.showContextMenu = true;
+
     let lineNumberDiv = this.correctHighlightElement(event.target, LINE_NUMBER_CLASS)
     if (lineNumberDiv) {
-      console.log('check passed')
       lineNumberDiv.classList.toggle(HIGHLIGHT_CODE_LINE_CLASS)
     }
     event.stopPropagation();
