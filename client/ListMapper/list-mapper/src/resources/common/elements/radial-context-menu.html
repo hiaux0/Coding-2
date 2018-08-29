@@ -1,11 +1,11 @@
 <template>
   <div 
-    class="hio-context-menu"
+    class="radial-context-menu"
     css="top: ${mouseY-75}px; left: ${mouseX-75}px;"
   >
     <div class="circular-menu">
     
-      <div class="circle">
+      <div class="circle" ref="circleRef">
         <div href="" class="fa fa-home fa-2x"></div>
         <div href="" class="fa fa-facebook fa-2x"></div>
         <!-- <a href="" class="fa fa-twitter fa-2x"></a>
