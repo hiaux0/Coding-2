@@ -7,7 +7,8 @@
 
   <div class="markdown-parser-container">
     <radial-context-menu 
-      if.bind="showContextMenu"
+      if.bind="showRadialContextMenu"
+      show-radial-context-menu.two-way="showRadialContextMenu"
       mouse-x.bind="mouseX"
       mouse-y.bind="mouseY"
     >

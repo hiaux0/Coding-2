@@ -4,6 +4,7 @@ import './radial-context-menu.less';
 
 @inject(Element)
 export class RadialContextMenu {
+  @bindable showRadialContextMenu;
   @bindable value;
   @bindable mouseX;
   @bindable mouseY;
@@ -11,12 +12,15 @@ export class RadialContextMenu {
   constructor(element) {
     this.element = element;
 
+    this.showRadialContextMenu = false;
     this.circleRef = null;
     this.onOutsideClick = null;
   }
 
   attached() {
     this.onOutsideClick = close(this.circleRef, () => {
+      this.showRadialContextMenu = false;
+      this.circleRef.classList.toggle('open');
       console.log('Close now');
     })
     window.addEventListener('click', this.onOutsideClick)
@@ -32,10 +36,15 @@ export class RadialContextMenu {
     }
 
     setTimeout(() => {
-      document.querySelector('.circle').classList.toggle('open');
+      this.showRadialContextMenu = true;
+      this.circleRef.classList.toggle('open');
     }, 0)
   }
 
+
+  detached() {
+    window.removeEventListener('click', this.onOutsideClick)
+  }
 
 }
 

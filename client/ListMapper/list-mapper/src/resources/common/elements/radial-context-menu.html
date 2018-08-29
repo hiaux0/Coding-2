@@ -3,17 +3,12 @@
     class="radial-context-menu"
     css="top: ${mouseY-75}px; left: ${mouseX-75}px;"
   >
-    <div class="circular-menu">
+    <div class="circular-menu" ref="circularMenuRef" show.bind="showRadialContextMenu">
     
       <div class="circle" ref="circleRef">
-        <div href="" class="fa fa-home fa-2x"></div>
-        <div href="" class="fa fa-facebook fa-2x"></div>
-        <!-- <a href="" class="fa fa-twitter fa-2x"></a>
-        <a href="" class="fa fa-linkedin fa-2x"></a>
-        <a href="" class="fa fa-github fa-2x"></a>
-        <a href="" class="fa fa-rss fa-2x"></a>
-        <a href="" class="fa fa-pinterest fa-2x"></a> -->
-        <div href="" class="fa fa-asterisk fa-2x"></div>
+        <div class="fa fa-home fa-2x"></div>
+        <div class="fa fa-facebook fa-2x"></div>
+        <div class="fa fa-asterisk fa-2x"></div>
       </div>
     
       <!-- <div href="" class="menu-button"></div> -->
