@@ -5,6 +5,7 @@
   <!-- <require from='highlight.js/styles/solarized-dark.css'></require> -->
   <require from='./radial-context-menu'></require>
   <require from='./segmented-button'></require>
+  <require from='./more-options-menu'></require>
 
   <div class="markdown-parser-container">
     <radial-context-menu 
@@ -16,45 +17,57 @@
     >
     </radial-context-menu>
 
-    <button 
-      class="btn btn-outline-secondary btn-sm" 
-      click.delegate="toggleEditMode()"
-    >Toggle View Mode
-    </button>
+                      <button 
+                        class="btn btn-outline-secondary btn-sm" 
+                        click.delegate="toggleEditMode()"
+                      >Toggle View Mode
+                      </button>
 
-    <segmented-button
-      button-text.bind="segmentedButtonText"
-    >
-      <div class="dropdown-item" click.delegate="setSegmentedButtonText('Code')">Code</div>
-      <div class="dropdown-item" click.delegate="setSegmentedButtonText('Text')">Text</div>
-    </segmented-button>
-    
-    <br/>
-    <br/>
+                      <segmented-button
+                        button-text.bind="segmentedButtonText"
+                      >
+                        <div class="dropdown-item" click.delegate="setSegmentedButtonText('Code')">Code</div>
+                        <div class="dropdown-item" click.delegate="setSegmentedButtonText('Text')">Text</div>
+                      </segmented-button>
+                      
+                      <br/>
+                      <br/>
 
-    <textarea
-      show.bind="isEditMode"
-      wrap="off"
-      class="markdown-parser"
-      focus.bind="autoFocus"
-      value.bind="inputValue"
-    ></textarea>
-    <div
-      ref="mardownParserResultRef"
-      show.bind="!isEditMode"
-      sortable="active.bind: activateSortable; 
-                draggable-name.bind: draggableName;
-                sortable-context.bind:sortableContext;"
-      class="markdown-parser-result"
-      >
-      <!-- This is unfortunately an ugly way of writing code. -->
-      <!-- Reason is pre preserves white space. EVERY white space -->
-      <pre><code class="language-js" ref="insertCodeRef"><div 
-        repeat.for="line of splittedLines"
-        innerhtml.bind="line"
-        class="line-number"
-        dblclick.delegate="highlightLine($event)"
-      ></div></code></pre>
+    <div class="markdown-parser-result-container">
+      <more-options-menu>
+        <button type="button" class="btn btn-dark">
+          <i class="${iconPencil}"></i>
+        </button>
+        <button type="button" class="btn btn-dark">
+          <i class="${iconArrows}"></i>
+        </button>
+      </more-options-menu>
+
+      <textarea
+        show.bind="isEditMode"
+        wrap="off"
+        class="markdown-parser"
+        focus.bind="autoFocus"
+        value.bind="inputValue"
+      ></textarea>
+      <!--  --> <!--  --> <!--  --> <!--  --> <!--  --> <!--  -->
+      <div
+        ref="mardownParserResultRef"
+        show.bind="!isEditMode"
+        sortable="active.bind: activateSortable; 
+                  draggable-name.bind: draggableName;
+                  sortable-context.bind:sortableContext;"
+        class="markdown-parser-result"
+        >
+        <!-- This is unfortunately an ugly way of writing code. -->
+        <!-- Reason is pre preserves white space. EVERY white space -->
+        <pre><code class="language-js" ref="insertCodeRef"><div 
+          repeat.for="line of splittedLines"
+          innerhtml.bind="line"
+          class="line-number"
+          dblclick.delegate="highlightLine($event)"
+        ></div></code></pre>
+      </div>
     </div>
 
     <div id="monaco-container"></div>

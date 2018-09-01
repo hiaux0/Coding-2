@@ -7,7 +7,7 @@
     
       <div class="circle" ref="circleRef">
         <div repeat.for="item of contextMenuItems" click.delegate="sayHello()">
-          <i class="fa ${item.icon}"></i>
+          <i class="${item.icon}"></i>
           <span class="tooltip"></span>
         </div>
       </div>

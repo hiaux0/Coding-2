@@ -2,6 +2,7 @@ import {bindable, inject, observable} from 'aurelia-framework';
 import {CommandCentral} from '../../common/command-central'
 import {initMonaco, renderMarkdown} from './markdown-parser-custom';
 import {functionMapRCM} from '../../storages/radial-context-menus';
+import {arrows, pencil} from '../styles/icons';
 import {debounce} from 'lodash-decorators';
 
 import './markdown-parser.less';
@@ -46,12 +47,16 @@ highlightLine(event) {
     this.insertCodeRef = null;
     this.draggableName = "";
     this.sortableContext = "";
-    this.segmentedButtonText = "Code";
+    this.segmentedButtonText = "Text";
+    // this.segmentedButtonText = "Code";
+
+    this.iconArrows = arrows;
+    this.iconPencil = pencil;
 
     this.mouseX = 0;
     this.mouseY = 0;
     this.showRadialContextMenu = false;
-    this.isEditMode = true;
+    this.isEditMode = false;
   }
 
   attached() {

@@ -3,37 +3,40 @@
 
 .markdown-parser-container {
 
-  textarea.markdown-parser {
-    .code_font();
-    display: block;
-    background: @sec-clr;
-    color: @main-text-clr;
+  .markdown-parser-result-container{
+    position: relative;
     width: 80vw;
-    height: 45vh;
-    padding: 10px;
-  }
 
-  .markdown-parser-result {
-    border: 1px solid;
-    padding: 10px;
-    width: 80vw;
-    // float: right;
+    textarea.markdown-parser {
+      .code_font();
+      width: inherit;
+      display: block;
+      background: @sec-clr;
+      color: @main-text-clr;
+      height: 45vh;
+      padding: 10px;
+    }
 
-    pre {
-      color: @light-text-clr;
+    .markdown-parser-result {
+      border: 1px solid;
+      padding: 10px;
 
-      code {
-        .code_selection();
-        .line-number {
-          .code_line_hover();
-        }
+      pre {
+        color: @light-text-clr;
 
-        .highlight-code-line-class {
-          background: @pri-clr;
-        }
-
-        span {
+        code {
           .code_selection();
+          .line-number {
+            .code_line_hover();
+          }
+
+          .highlight-code-line-class {
+            background: @pri-clr;
+          }
+
+          span {
+            .code_selection();
+          }
         }
       }
     }

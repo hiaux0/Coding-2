@@ -5,10 +5,12 @@ https://fontawesome.com/v4.7.0/icons/
 */
 
 /* Arrows and Chevrons */
-export const chevronDown = "fa fa-chevron-down"
-export const chevronUp = "fa fa-chevron-up"
-export const arrows = "fa fa-arrows"
+export const chevronDown = "fa fa-chevron-down";
+export const chevronUp = "fa fa-chevron-up";
+export const arrows = "fa fa-arrows";
 
 
 /* Editing */
-export const pencil = "fa fa-pencil"
+export const pencil = "fa fa-pencil";
+export const eraser = "fa fa-eraser";
+export const paintBrush = "fa fa-paint-brush";
