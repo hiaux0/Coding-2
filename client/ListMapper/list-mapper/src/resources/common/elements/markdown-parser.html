@@ -3,16 +3,17 @@
   <!-- <require from='highlight.js/styles/monokai-sublime.css'></require> -->
   <require from='highlight.js/styles/monokai.css'></require>
   <!-- <require from='highlight.js/styles/solarized-dark.css'></require> -->
-  <require from='./hio-context-menu'></require>
+  <require from='./radial-context-menu'></require>
 
   <div class="markdown-parser-container">
-    <hio-context-menu 
-      if.bind="showContextMenu"
+    <radial-context-menu 
+      if.bind="showRadialContextMenu"
+      show-radial-context-menu.two-way="showRadialContextMenu"
       mouse-x.bind="mouseX"
       mouse-y.bind="mouseY"
     >
 
-    </hio-context-menu>
+    </radial-context-menu>
 
     <textarea
       class="markdown-parser"

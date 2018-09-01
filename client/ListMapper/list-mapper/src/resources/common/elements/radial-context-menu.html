@@ -1,0 +1,19 @@
+<template>
+  <div 
+    class="radial-context-menu"
+    css="top: ${mouseY-75}px; left: ${mouseX-75}px;"
+  >
+    <div class="circular-menu" ref="circularMenuRef" show.bind="showRadialContextMenu">
+    
+      <div class="circle" ref="circleRef">
+        <div class="fa fa-home fa-2x"></div>
+        <div class="fa fa-facebook fa-2x"></div>
+        <div class="fa fa-asterisk fa-2x"></div>
+      </div>
+    
+      <i class="fa fa-times menu-button"></i>
+    
+    </div>
+    
+  </div>
+</template>

@@ -1,6 +1,6 @@
 @import (reference) '../styles/colors.less';
 
-.hio-context-menu {
+.radial-context-menu {
   position: absolute;
 
   // background: @pri-sup-clr;
@@ -19,6 +19,10 @@
 
 
 .circular-menu {
+  background: @background-low-op-green;
+  border: solid;
+  border-radius: 75px;
+
   // width: 250px;
   // height: 250px;
   margin: 0 auto;
@@ -42,10 +46,6 @@
 .open.circle {
   opacity: 1;
 
-  background: @background-low-op-green;
-  border: solid;
-  border-radius: 75px;
-
   -webkit-transform: scale(1);
   -moz-transform: scale(1);
   transform: scale(1);
@@ -66,6 +66,7 @@
 }
 
 .circle div:hover {
+  cursor: pointer;
   color: #eef;
 }
 
@@ -73,22 +74,22 @@
   cursor: pointer;
   
   position: absolute;
-  top: calc(50% - 30px);
-  left: calc(50% - 30px);
-  text-decoration: none;
-  text-align: center;
-  color: #444;
-  border-radius: 50%;
-  display: block;
-  height: 40px;
-  width: 40px;
-  line-height: 40px;
-  padding: 10px;
-  background: #dde;
+  top: calc(50% - 8px);
+  left: calc(50% - 8px);
+  // text-decoration: none;
+  // text-align: center;
+  // color: #444;
+  // border-radius: 50%;
+  // display: block;
+  // height: 40px;
+  // width: 40px;
+  // line-height: 40px;
+  // padding: 10px;
+  // background: #dde;
 }
 
 .menu-button:hover {
-  background-color: #eef;
+  color: #eef;
 }
 
   .radial-menu-item {

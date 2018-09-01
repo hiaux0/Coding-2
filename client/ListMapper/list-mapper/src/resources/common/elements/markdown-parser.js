@@ -45,7 +45,7 @@ function addClassToListTag(tokens, idx, options, env, renderer) {
 
     this.mouseX = 0;
     this.mouseY = 0;
-    this.showContextMenu = false;
+    this.showRadialContextMenu = false;
 
   }
 
@@ -89,7 +89,7 @@ function addClassToListTag(tokens, idx, options, env, renderer) {
     console.log('​MarkdownParser -> highlightLine -> highlightLine');
     this.mouseX = event.x;
     this.mouseY = event.y;
-    this.showContextMenu = true;
+    this.showRadialContextMenu = true;
 
     let lineNumberDiv = this.correctHighlightElement(event.target, LINE_NUMBER_CLASS)
     if (lineNumberDiv) {
