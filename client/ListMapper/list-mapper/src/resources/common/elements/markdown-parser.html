@@ -4,24 +4,44 @@
   <require from='highlight.js/styles/monokai.css'></require>
   <!-- <require from='highlight.js/styles/solarized-dark.css'></require> -->
   <require from='./radial-context-menu'></require>
+  <require from='./segmented-button'></require>
 
   <div class="markdown-parser-container">
     <radial-context-menu 
       if.bind="showRadialContextMenu"
       show-radial-context-menu.two-way="showRadialContextMenu"
+      context-menu-items.bind="functionMapRCM"
       mouse-x.bind="mouseX"
       mouse-y.bind="mouseY"
     >
-
     </radial-context-menu>
 
+    <button 
+      class="btn btn-outline-secondary btn-sm" 
+      click.delegate="toggleEditMode()"
+    >Toggle View Mode
+    </button>
+
+    <segmented-button
+      button-text.bind="segmentedButtonText"
+    >
+      <div class="dropdown-item" click.delegate="setSegmentedButtonText('Code')">Code</div>
+      <div class="dropdown-item" click.delegate="setSegmentedButtonText('Text')">Text</div>
+    </segmented-button>
+    
+    <br/>
+    <br/>
+
     <textarea
+      show.bind="isEditMode"
+      wrap="off"
       class="markdown-parser"
       focus.bind="autoFocus"
       value.bind="inputValue"
     ></textarea>
     <div
       ref="mardownParserResultRef"
+      show.bind="!isEditMode"
       sortable="active.bind: activateSortable; 
                 draggable-name.bind: draggableName;
                 sortable-context.bind:sortableContext;"

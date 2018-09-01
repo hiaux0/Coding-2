@@ -6,9 +6,10 @@
     <div class="circular-menu" ref="circularMenuRef" show.bind="showRadialContextMenu">
     
       <div class="circle" ref="circleRef">
-        <div class="fa fa-home fa-2x"></div>
-        <div class="fa fa-facebook fa-2x"></div>
-        <div class="fa fa-asterisk fa-2x"></div>
+        <div repeat.for="item of contextMenuItems" click.delegate="sayHello()">
+          <i class="fa ${item.icon}"></i>
+          <span class="tooltip"></span>
+        </div>
       </div>
     
       <i class="fa fa-times menu-button"></i>

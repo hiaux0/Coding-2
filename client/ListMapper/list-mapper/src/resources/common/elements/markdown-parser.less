@@ -1,16 +1,21 @@
 @import (reference) '../../common/styles/colors.less';
+@import (reference) '../../common/styles/common.less';
 
 .markdown-parser-container {
 
-  .markdown-parser {
+  textarea.markdown-parser {
+    .code_font();
+    display: block;
     background: @sec-clr;
     color: @main-text-clr;
-    width: 100%;
-    // height: 70vh;
-    padding: 20px;
+    width: 50vw;
+    height: 50vh;
+    padding: 10px;
   }
 
   .markdown-parser-result {
+    border: 1px solid;
+    padding: 10px;
     width: 50vw;
     // float: right;
 

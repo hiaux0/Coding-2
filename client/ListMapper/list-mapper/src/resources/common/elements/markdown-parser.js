@@ -1,6 +1,7 @@
 import {bindable, inject, observable} from 'aurelia-framework';
 import {CommandCentral} from '../../common/command-central'
 import {initMonaco, renderMarkdown} from './markdown-parser-custom';
+import {functionMapRCM} from '../../storages/radial-context-menus';
 import {debounce} from 'lodash-decorators';
 
 import './markdown-parser.less';
@@ -10,19 +11,20 @@ const HIGHLIGHT_CODE_LINE_CLASS = 'highlight-code-line-class';
 
 @inject(CommandCentral)
 export class MarkdownParser {
-  @bindable activateSortable = false;
+  @bindable null = false;
 
   @observable inputValue = `\`\`\` js
-function addClassToListTag(tokens, idx, options, env, renderer) {
-  // console.log('​functionhello_world -> tokens', tokens);
-  let flatTokens = tokens.tokens; /*?*/
-  // console.log('​addClassToListTag -> flatTokens', flatTokens);
-  flatTokens.forEach((token) => {
-    if (token.type === 'bullet_list_open') {
-      // token.attrPush(['sortable', ''])
-    }
-  })
-  // return renderedHTML;
+highlightLine(event) {
+  this.mouseX = event.x;
+  this.mouseY = event.y;
+  this.showRadialContextMenu = true;
+
+  let target = event.target
+  let lineNumberDiv = this.correctHighlightElement(target, LINE_NUMBER_CLASS);
+  if (lineNumberDiv) {
+    lineNumberDiv.classList.toggle(HIGHLIGHT_CODE_LINE_CLASS);
+  }
+  event.stopPropagation();
 }
 \`\`\``;
 
@@ -38,15 +40,18 @@ function addClassToListTag(tokens, idx, options, env, renderer) {
 
   constructor(commandCentral) {
     this.commandCentral = commandCentral;
+    this.functionMapRCM = functionMapRCM;
+
     this.result = "";
     this.insertCodeRef = null;
     this.draggableName = "";
     this.sortableContext = "";
+    this.segmentedButtonText = "Code";
 
     this.mouseX = 0;
     this.mouseY = 0;
     this.showRadialContextMenu = false;
-
+    this.isEditMode = true;
   }
 
   attached() {
@@ -60,7 +65,18 @@ function addClassToListTag(tokens, idx, options, env, renderer) {
    * Use markdown-it to convert given markdown to html.
    */
   convertToHtml = () => {
-    this.result = renderMarkdown(this.inputValue)
+    let input;
+    console.log('TCL: MarkdownParser -> convertToHtml -> this.inputValue', this.inputValue);
+    if (this.segmentedButtonText === 'Code') {
+      console.log('in code mode')
+      input = `\`\`\` js\n${this.inputValue}`;
+    } else {
+      input = this.inputValue;
+    }
+    
+    console.log('TCL: MarkdownParser -> convertToHtml -> input', input);
+    this.result = renderMarkdown(input)
+    console.log('MarkdownParser -> convertToHtml -> this.result', this.result);
     this.splittedLines = this.createLineNumbers(this.result);
 
     this.draggableName = `.${LINE_NUMBER_CLASS}`;
@@ -76,9 +92,9 @@ function addClassToListTag(tokens, idx, options, env, renderer) {
     let resultArr = [];
     // There is surely a better way how to do that..
     let filter = result.replace(/<pre><code (.*?)>/g, "")
-                       .replace("</code></pre>", "")
+                       .replace("</code></pre>", "");
     let splittedLine = filter.split(/[\n\r]/g);
-    
+
     splittedLine.forEach((line) => {
       resultArr.push(line);
     })
@@ -86,14 +102,14 @@ function addClassToListTag(tokens, idx, options, env, renderer) {
   }
 
   highlightLine(event) {
-    console.log('​MarkdownParser -> highlightLine -> highlightLine');
     this.mouseX = event.x;
     this.mouseY = event.y;
     this.showRadialContextMenu = true;
 
-    let lineNumberDiv = this.correctHighlightElement(event.target, LINE_NUMBER_CLASS)
+    let target = event.target
+    let lineNumberDiv = this.correctHighlightElement(target, LINE_NUMBER_CLASS);
     if (lineNumberDiv) {
-      lineNumberDiv.classList.toggle(HIGHLIGHT_CODE_LINE_CLASS)
+      lineNumberDiv.classList.toggle(HIGHLIGHT_CODE_LINE_CLASS);
     }
     event.stopPropagation();
   }
@@ -101,7 +117,8 @@ function addClassToListTag(tokens, idx, options, env, renderer) {
   /**
    * Check if the (double) click target has specific class.
    * TODO_LATER: The logic can certainly be prettier --> do while loop
-   * @param {HTMLElement} target 
+   * @param {HTMLElement} target
+   * @returns {HTMLElement || Boolean} Returns HtmlElement on positive result.
    */
   correctHighlightElement(target, className) {
     if (target.classList.contains(className)) {
@@ -111,6 +128,14 @@ function addClassToListTag(tokens, idx, options, env, renderer) {
     } else if (target.parentElement.parentElement.classList.contains(className)) {
       return target.parentElement.parentElement;
     }
-    return false;
+    return null;
+  }
+
+  toggleEditMode() {
+    this.isEditMode = !this.isEditMode;
+  }
+
+  setSegmentedButtonText(text) {
+    this.segmentedButtonText = text;
   }
 }

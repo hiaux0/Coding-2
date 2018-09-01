@@ -4,6 +4,7 @@ import './radial-context-menu.less';
 
 @inject(Element)
 export class RadialContextMenu {
+  @bindable contextMenuItems;
   @bindable showRadialContextMenu;
   @bindable value;
   @bindable mouseX;
@@ -40,7 +41,6 @@ export class RadialContextMenu {
       this.circleRef.classList.toggle('open');
     }, 0)
   }
-
 
   detached() {
     window.removeEventListener('click', this.onOutsideClick)

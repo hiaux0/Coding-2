@@ -12,6 +12,7 @@ export default close = (context, cb) => (ev) => {
 
   let parent = target.parentElement;
   do {
+    parent = parent.parentElement
     if (parent === context) {
       return;
     }
@@ -19,7 +20,6 @@ export default close = (context, cb) => (ev) => {
       break;
     }
 
-    parent = parent.parentElement
   } while (parent !== context);
 
   if (typeof cb === 'function') cb();
