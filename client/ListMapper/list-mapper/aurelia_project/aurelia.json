@@ -16,7 +16,7 @@
     "id": "web",
     "displayName": "Web",
     "port": 8080,
-    "hmr": false,
+    "hmr": true,
     "open": false,
     "output": "dist"
   },
