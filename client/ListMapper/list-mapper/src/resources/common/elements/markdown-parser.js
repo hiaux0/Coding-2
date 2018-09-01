@@ -75,7 +75,7 @@ highlightLine(event) {
     }
     
     console.log('TCL: MarkdownParser -> convertToHtml -> input', input);
-    this.result = renderMarkdown(input)
+    this.result = renderMarkdown(input);
     console.log('MarkdownParser -> convertToHtml -> this.result', this.result);
     this.splittedLines = this.createLineNumbers(this.result);
 
@@ -96,6 +96,7 @@ highlightLine(event) {
     let splittedLine = filter.split(/[\n\r]/g);
 
     splittedLine.forEach((line) => {
+      line = line || '\n';
       resultArr.push(line);
     })
     return resultArr;
