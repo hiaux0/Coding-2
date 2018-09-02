@@ -14,7 +14,9 @@ const DATA_JUMP_MARK_VALUE = 'data-jump-mark-value';
 const ABC = [
   "f", "j", "d", "k", "s", "l", "a", "g", "h", // home row
   "e", "i", "o", "w", "n", // upper
-  "v", "c", "m", "q", "p" // lower
+  "v", "c", "m", "q", "p", // lower
+  "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" // numbers
+  // "ff", "fj", "fd", "fk", "fs", "fl", "fa", "fg", "fh", // f + home row
 ]
 
 const ABC_JOINED = ABC.join(", ");

@@ -6,6 +6,12 @@
   .markdown-parser-result-container{
     position: relative;
     width: 80vw;
+    background-color: @monokai-dark-background;
+    &:hover {
+      more-options-menu {
+        display: block;
+      }
+    }
 
     textarea.markdown-parser {
       .code_font();

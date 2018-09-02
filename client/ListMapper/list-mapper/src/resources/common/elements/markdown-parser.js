@@ -9,12 +9,12 @@ import './markdown-parser.less';
 
 const LINE_NUMBER_CLASS = 'line-number';
 const HIGHLIGHT_CODE_LINE_CLASS = 'highlight-code-line-class';
+const DRAG_BUTTON_CLASS = 'drag-button';
 
-@inject(CommandCentral)
-export class MarkdownParser {
-  @bindable null = false;
-
-  @observable inputValue = `\`\`\` js
+const codeBlocks = [
+  {
+    id: "NybJ_1rwH",
+    content: `
 highlightLine(event) {
   this.mouseX = event.x;
   this.mouseY = event.y;
@@ -26,8 +26,20 @@ highlightLine(event) {
     lineNumberDiv.classList.toggle(HIGHLIGHT_CODE_LINE_CLASS);
   }
   event.stopPropagation();
-}
-\`\`\``;
+}`
+  }
+];
+
+
+
+
+
+
+@inject(CommandCentral)
+export class MarkdownParser {
+  @bindable null = false;
+
+  @observable inputValue;
 
   @debounce(250)
   inputValueChanged() {
@@ -42,13 +54,18 @@ highlightLine(event) {
   constructor(commandCentral) {
     this.commandCentral = commandCentral;
     this.functionMapRCM = functionMapRCM;
+    this.DRAG_BUTTON_CLASS = DRAG_BUTTON_CLASS;
 
+    this.codeBlocks = codeBlocks;
+    console.log('TCL: MarkdownParser -> constructor -> this.codeBlocks', this.codeBlocks);
+    this.inputValue = this.codeBlocks[0].content
+    
     this.result = "";
     this.insertCodeRef = null;
     this.draggableName = "";
     this.sortableContext = "";
-    this.segmentedButtonText = "Text";
-    // this.segmentedButtonText = "Code";
+    // this.segmentedButtonText = "Text";
+    this.segmentedButtonText = "Code";
 
     this.iconArrows = arrows;
     this.iconPencil = pencil;
@@ -57,6 +74,7 @@ highlightLine(event) {
     this.mouseY = 0;
     this.showRadialContextMenu = false;
     this.isEditMode = false;
+
   }
 
   attached() {
@@ -71,18 +89,19 @@ highlightLine(event) {
    */
   convertToHtml = () => {
     let input;
-    console.log('TCL: MarkdownParser -> convertToHtml -> this.inputValue', this.inputValue);
+    // console.log('TCL: MarkdownParser -> convertToHtml -> this.inputValue', this.inputValue);
     if (this.segmentedButtonText === 'Code') {
-      console.log('in code mode')
+      // console.log('in code mode')
       input = `\`\`\` js\n${this.inputValue}`;
     } else {
       input = this.inputValue;
     }
     
-    console.log('TCL: MarkdownParser -> convertToHtml -> input', input);
+    // console.log('TCL: MarkdownParser -> convertToHtml -> input', input);
     this.result = renderMarkdown(input);
     console.log('MarkdownParser -> convertToHtml -> this.result', this.result);
     this.splittedLines = this.createLineNumbers(this.result);
+    console.log('TCL: MarkdownParser -> convertToHtml -> this.splittedLines', this.splittedLines);
 
     this.draggableName = `.${LINE_NUMBER_CLASS}`;
     this.sortableContext = 'code';
@@ -143,5 +162,13 @@ highlightLine(event) {
 
   setSegmentedButtonText(text) {
     this.segmentedButtonText = text;
+  }
+
+  addCodeBlock() {
+    let newCodeBlock = {
+      id: Date.now().toString(25),
+      content: 'Hello World',
+    }
+    this.codeBlocks.push(newCodeBlock);
   }
 }

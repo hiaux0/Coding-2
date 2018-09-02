@@ -11,6 +11,6 @@ export const arrows = "fa fa-arrows";
 
 
 /* Editing */
-export const pencil = "fa fa-pencil";
 export const eraser = "fa fa-eraser";
+export const pencil = "fa fa-pencil";
 export const paintBrush = "fa fa-paint-brush";
