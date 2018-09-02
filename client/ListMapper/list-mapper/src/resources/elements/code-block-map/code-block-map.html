@@ -1,0 +1,17 @@
+<template>
+  <require from='../../common/elements/markdown-parser'></require>
+
+                      <button 
+                        class="btn btn-outline-secondary btn-sm"
+                        click.delegate="addCodeBlock()"
+                      >Add new .md Parser
+                      </button>
+
+
+
+  <markdown-parser
+    repeat.for="codeBlock of codeBlocks"
+    code-block-content.bind="codeBlock.content"
+    parserMode = "Code"
+  ></markdown-parser>
+</template>

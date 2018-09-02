@@ -11,33 +11,10 @@ const LINE_NUMBER_CLASS = 'line-number';
 const HIGHLIGHT_CODE_LINE_CLASS = 'highlight-code-line-class';
 const DRAG_BUTTON_CLASS = 'drag-button';
 
-const codeBlocks = [
-  {
-    id: "NybJ_1rwH",
-    content: `
-highlightLine(event) {
-  this.mouseX = event.x;
-  this.mouseY = event.y;
-  this.showRadialContextMenu = true;
-
-  let target = event.target
-  let lineNumberDiv = this.correctHighlightElement(target, LINE_NUMBER_CLASS);
-  if (lineNumberDiv) {
-    lineNumberDiv.classList.toggle(HIGHLIGHT_CODE_LINE_CLASS);
-  }
-  event.stopPropagation();
-}`
-  }
-];
-
-
-
-
-
-
 @inject(CommandCentral)
 export class MarkdownParser {
-  @bindable null = false;
+  @bindable codeBlockContent;
+  @bindable parserMode = "Code";
 
   @observable inputValue;
 
@@ -56,9 +33,8 @@ export class MarkdownParser {
     this.functionMapRCM = functionMapRCM;
     this.DRAG_BUTTON_CLASS = DRAG_BUTTON_CLASS;
 
-    this.codeBlocks = codeBlocks;
-    console.log('TCL: MarkdownParser -> constructor -> this.codeBlocks', this.codeBlocks);
-    this.inputValue = this.codeBlocks[0].content
+    // this.codeBlocks = codeBlocks;
+    // console.log('TCL: MarkdownParser -> constructor -> this.codeBlocks', this.codeBlocks);
     
     this.result = "";
     this.insertCodeRef = null;
@@ -78,6 +54,9 @@ export class MarkdownParser {
   }
 
   attached() {
+    this.inputValue = this.codeBlockContent;
+    console.log('TCL: MarkdownParser -> constructor -> this.inputValue', this.inputValue);
+
     this.commandCentral.subscribeToCommandEvents({
       marked_convertToHtml: this.convertToHtml,
     })
@@ -164,11 +143,4 @@ export class MarkdownParser {
     this.segmentedButtonText = text;
   }
 
-  addCodeBlock() {
-    let newCodeBlock = {
-      id: Date.now().toString(25),
-      content: 'Hello World',
-    }
-    this.codeBlocks.push(newCodeBlock);
-  }
 }

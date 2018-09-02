@@ -68,10 +68,19 @@ export class App {
     config.options.root = '/';
     config.title = 'List Mapper';
     config.map([
-      { route: ['', 'home'], name: 'home', moduleId: PLATFORM.moduleName('./resources/home'), 
-        nav: true, title: 'Home' },
-      { route: ['simpleList'], moduleId: PLATFORM.moduleName('./resources/common/elements/simple-list'), 
-        nav: true, title: 'Simple List'},
+      { route: ['', 'home'], 
+        name: 'home', 
+        moduleId: PLATFORM.moduleName('./resources/home'), 
+        nav: true, title: 'Home' 
+      },
+      { route: ['simpleList'], 
+        moduleId: PLATFORM.moduleName('./resources/common/elements/simple-list'), 
+        nav: true, title: 'Simple List'
+      },
+      { route: ['code-block-map'], 
+        moduleId: PLATFORM.moduleName('./resources/elements/code-block-map/code-block-map'), 
+        nav: true, title: 'Code Block Map'
+      },
         // Dropdown items Markdown Parser
         {
           route: ['markdown-parser/index'], 
