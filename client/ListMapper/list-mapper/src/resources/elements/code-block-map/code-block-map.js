@@ -24,13 +24,41 @@ highlightLine(event) {
   }
 ];
 
-
+const zoomLevels = [
+  ["0.15", "0.3", "0.45"],
+  ["0.75", "1", "1.25"],
+  ["1.50", "1.75", "2"],
+]
 
 export class CodeBlockMap {
   @bindable value;
 
   constructor() {
     this.codeBlocks = codeBlocks;
+    
+    const zoomer = function* increaseZoom() {
+      for (let i = 0; i < 100; i++) {
+        let hundredth = i / 100;
+        let reset = yield hundredth;
+        console.log('TCL: CodeBlockMap -> zoomer -> reset', reset);
+        if (reset) {
+          i = 0;
+        }
+      }
+    }
+    let zoom = zoomer();
+    
+    // window.addEventListener('wheel', (ev) => {
+    //   let zoomValuePlus = zoom.next().value;
+    //   if (zoomValuePlus < 0.9) {
+    //     console.log('TCL: CodeBlockMap -> constructor -> zoomValuePlus', zoomValuePlus);
+    //     this.codeBlockMapContainerRef.style.zoom = 1 + zoomValuePlus;
+    //   } else {
+    //     console.log('reset zoom')
+    //     zoom.next(true)
+    //   }
+    //   ev.preventDefault();
+    // })
   }
 
   addCodeBlock() {
@@ -41,5 +69,10 @@ export class CodeBlockMap {
     this.codeBlocks.push(newCodeBlock);
   }
 
+  setZoomLevel(zoomValue) {
+    console.log('TCL: CodeBlockMap -> setZoomLevel -> zoomValue', zoomValue);
+    this.codeBlockMapContainerRef.style.zoom = zoomValue;
+  }
   
 }
+

@@ -1,5 +1,6 @@
 <template>
   <require from='../../common/elements/markdown-parser'></require>
+  <require from='../../common/elements/segmented-button'></require>
 
                       <button 
                         class="btn btn-outline-secondary btn-sm"
@@ -7,11 +8,41 @@
                       >Add new .md Parser
                       </button>
 
+                      <segmented-button
+                        button-text="Far"
+                        on-click.call="setZoomLevel(0.3)"
+                      >
+                        <div class="dropdown-item" click.delegate="setZoomLevel(0.15)">sm</div>
+                        <div class="dropdown-item" click.delegate="setZoomLevel(0.3)">md</div>
+                        <div class="dropdown-item" click.delegate="setZoomLevel(0.45)">lg</div>
+                      </segmented-button>
+                      <segmented-button
+                        button-text="Normal"
+                        on-click.call="setZoomLevel(1)"
+                        >
+                        <!-- click.delegate="setZoomLevel(1)" -->
+                        <div class="dropdown-item" click.delegate="setZoomLevel(0.75)">sm</div>
+                        <div class="dropdown-item" click.delegate="setZoomLevel(1)">md</div>
+                        <div class="dropdown-item" click.delegate="setZoomLevel(1.25)">lg</div>
+                      </segmented-button>
+                      <segmented-button
+                        button-text="Near"
+                        on-click.call="setZoomLevel(1.75)"
+                      >
+                         <!-- click.delegate="setZoomLevel(1.75)" -->
+                        <div class="dropdown-item" click.delegate="setZoomLevel(1.50)">sm</div>
+                        <div class="dropdown-item" click.delegate="setZoomLevel(1.75)">md</div>
+                        <div class="dropdown-item" click.delegate="setZoomLevel(2)">lg</div>
+                      </segmented-button>
 
-
-  <markdown-parser
-    repeat.for="codeBlock of codeBlocks"
-    code-block-content.bind="codeBlock.content"
-    parserMode = "Code"
-  ></markdown-parser>
+  <div 
+    ref="codeBlockMapContainerRef"
+    class="code-block-map-container"
+  >
+    <markdown-parser
+      repeat.for="codeBlock of codeBlocks"
+      code-block-content.bind="codeBlock.content"
+      parserMode = "Code"
+    ></markdown-parser>
+  </div>
 </template>

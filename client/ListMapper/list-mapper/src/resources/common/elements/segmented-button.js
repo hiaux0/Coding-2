@@ -3,5 +3,6 @@ import './segmented-button.less';
 
 export class SegmentedButton {
   @bindable buttonText;
+  @bindable onClick;
 
 }

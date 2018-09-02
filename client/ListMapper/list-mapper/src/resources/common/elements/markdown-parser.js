@@ -55,7 +55,7 @@ export class MarkdownParser {
 
   attached() {
     this.inputValue = this.codeBlockContent;
-    console.log('TCL: MarkdownParser -> constructor -> this.inputValue', this.inputValue);
+    // console.log('TCL: MarkdownParser -> constructor -> this.inputValue', this.inputValue);
 
     this.commandCentral.subscribeToCommandEvents({
       marked_convertToHtml: this.convertToHtml,
@@ -78,9 +78,9 @@ export class MarkdownParser {
     
     // console.log('TCL: MarkdownParser -> convertToHtml -> input', input);
     this.result = renderMarkdown(input);
-    console.log('MarkdownParser -> convertToHtml -> this.result', this.result);
+    // console.log('MarkdownParser -> convertToHtml -> this.result', this.result);
     this.splittedLines = this.createLineNumbers(this.result);
-    console.log('TCL: MarkdownParser -> convertToHtml -> this.splittedLines', this.splittedLines);
+    // console.log('TCL: MarkdownParser -> convertToHtml -> this.splittedLines', this.splittedLines);
 
     this.draggableName = `.${LINE_NUMBER_CLASS}`;
     this.sortableContext = 'code';
