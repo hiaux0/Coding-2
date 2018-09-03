@@ -4,6 +4,9 @@ import interact from 'interactjs';
 @inject(Element)
 export class EnableDragCustomAttribute {
   @bindable allowFrom = '.drag-button';
+  // Note that when I later want to save the block coords into history, the zoom
+  // modes need to be taken into consideration as well.
+  @bindable scaleCoords;
 
   constructor(element) {
     this.element = element;
@@ -32,8 +35,8 @@ export class EnableDragCustomAttribute {
   onDragMove = (event) => {
     var target = event.target,
       // keep the dragged position in the data-x/data-y attributes
-      x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
-      y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+      x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx * this.scaleCoords,
+      y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy * this.scaleCoords;
 
     // translate the element
     target.style.webkitTransform =

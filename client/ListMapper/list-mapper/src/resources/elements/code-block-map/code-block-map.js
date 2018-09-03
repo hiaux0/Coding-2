@@ -35,30 +35,7 @@ export class CodeBlockMap {
 
   constructor() {
     this.codeBlocks = codeBlocks;
-    
-    const zoomer = function* increaseZoom() {
-      for (let i = 0; i < 100; i++) {
-        let hundredth = i / 100;
-        let reset = yield hundredth;
-        console.log('TCL: CodeBlockMap -> zoomer -> reset', reset);
-        if (reset) {
-          i = 0;
-        }
-      }
-    }
-    let zoom = zoomer();
-    
-    // window.addEventListener('wheel', (ev) => {
-    //   let zoomValuePlus = zoom.next().value;
-    //   if (zoomValuePlus < 0.9) {
-    //     console.log('TCL: CodeBlockMap -> constructor -> zoomValuePlus', zoomValuePlus);
-    //     this.codeBlockMapContainerRef.style.zoom = 1 + zoomValuePlus;
-    //   } else {
-    //     console.log('reset zoom')
-    //     zoom.next(true)
-    //   }
-    //   ev.preventDefault();
-    // })
+    this.scaleCoords = 1;
   }
 
   addCodeBlock() {
@@ -72,6 +49,7 @@ export class CodeBlockMap {
   setZoomLevel(zoomValue) {
     console.log('TCL: CodeBlockMap -> setZoomLevel -> zoomValue', zoomValue);
     this.codeBlockMapContainerRef.style.zoom = zoomValue;
+    this.scaleCoords = 1 / zoomValue;
   }
   
 }

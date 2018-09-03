@@ -15,6 +15,7 @@ const DRAG_BUTTON_CLASS = 'drag-button';
 export class MarkdownParser {
   @bindable codeBlockContent;
   @bindable parserMode = "Code";
+  @bindable scaleCoords;
 
   @observable inputValue;
 

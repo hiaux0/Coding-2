@@ -20,7 +20,6 @@
                         button-text="Normal"
                         on-click.call="setZoomLevel(1)"
                         >
-                        <!-- click.delegate="setZoomLevel(1)" -->
                         <div class="dropdown-item" click.delegate="setZoomLevel(0.75)">sm</div>
                         <div class="dropdown-item" click.delegate="setZoomLevel(1)">md</div>
                         <div class="dropdown-item" click.delegate="setZoomLevel(1.25)">lg</div>
@@ -29,7 +28,6 @@
                         button-text="Near"
                         on-click.call="setZoomLevel(1.75)"
                       >
-                         <!-- click.delegate="setZoomLevel(1.75)" -->
                         <div class="dropdown-item" click.delegate="setZoomLevel(1.50)">sm</div>
                         <div class="dropdown-item" click.delegate="setZoomLevel(1.75)">md</div>
                         <div class="dropdown-item" click.delegate="setZoomLevel(2)">lg</div>
@@ -43,6 +41,7 @@
       repeat.for="codeBlock of codeBlocks"
       code-block-content.bind="codeBlock.content"
       parserMode = "Code"
+      scale-coords.bind="scaleCoords"
     ></markdown-parser>
   </div>
 </template>
