@@ -79,15 +79,24 @@
 //   console.log(ok.next().value)
 // }
 
-function* increaseZoom {
-  for (let i = 0; i < 100; i++) {
+function* increaseZoom() {
+  let i = 0;
+  for (; i < 100; i++) {
     let hundredth = i / 100;
-    console.log('TCL: function*increaseZoom -> hundredth', hundredth);
-    yield hundredth;
+    let reset = yield hundredth;
+    console.log('TCL: CodeBlockMap -> zoomer -> reset', reset);
+    if (reset) {
+      i = 0;
+    }
   }
 }
 
 let zoomer = increaseZoom()
+zoomer.next() /*?*/
+zoomer.next() /*?*/
+zoomer.next() /*?*/
+zoomer.next(true) /*?*/
+zoomer.next() /*?*/
 zoomer.next() /*?*/
 zoomer.next() /*?*/
 zoomer.next() /*?*/

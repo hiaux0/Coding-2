@@ -47,9 +47,17 @@ export class CodeBlockMap {
   }
 
   setZoomLevel(zoomValue) {
-    console.log('TCL: CodeBlockMap -> setZoomLevel -> zoomValue', zoomValue);
-    this.codeBlockMapContainerRef.style.zoom = zoomValue;
     this.scaleCoords = 1 / zoomValue;
+    let mprc = document.getElementsByClassName('markdown-parser-result-container');
+
+    for (let container of mprc) {
+      let containerX = container.getAttribute('data-x') || 0;
+      let containerY = container.getAttribute('data-y') || 0;
+
+      container.style.transform =
+        `translate(${containerX}px, ${containerY}px) scale(${zoomValue}, ${zoomValue})`
+    }
+
   }
   
 }
