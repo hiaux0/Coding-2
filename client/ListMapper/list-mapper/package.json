@@ -22,7 +22,7 @@
   "peerDependencies": {},
   "devDependencies": {
     "@types/jasmine": "^2.8.6",
-    "aurelia-cli": "^0.33.0",
+    "aurelia-cli": "^0.34.0",
     "aurelia-protractor-plugin": "^1.0.6",
     "aurelia-testing": "^1.0.0-beta.4.0.0",
     "aurelia-tools": "^2.0.0",
@@ -46,6 +46,7 @@
     "eslint": "3.19.0",
     "expose-loader": "^0.7.5",
     "extract-text-webpack-plugin": "next",
+    "mini-css-extract-plugin": "^0.4.1",
     "file-loader": "^1.1.11",
     "font-awesome": "^4.7.0",
     "font-awesome-loader": "^1.0.2",
@@ -91,7 +92,7 @@
     "url-loader": "^1.0.1",
     "vinyl-fs": "^3.0.2",
     "wait-on": "^2.1.0",
-    "webpack": "^4.17.1",
+    "webpack": "^4.1.1",
     "webpack-bundle-analyzer": "latest",
     "webpack-cli": "^2.0.12",
     "webpack-dev-server": "^3.1.1"
