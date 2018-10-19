@@ -1,0 +1,23 @@
+<template>
+  <!-- https://getbootstrap.com/docs/4.0/components/input-group/#segmented-buttons -->
+  <div class="segmented-button">
+    <button 
+      type="button"
+      class="btn btn-outline-secondary btn-sm"
+      click.trigger="onClick()"
+    >${buttonText}
+    </button>
+    <button 
+      type="button" 
+      class="btn btn-outline-secondary btn-sm dropdown-toggle dropdown-toggle-split"
+      data-toggle="dropdown"
+      aria-haspopup="true"
+      aria-expanded="false"
+    >
+      <span class="sr-only">Toggle Dropdown</span>
+    </button>
+    <div class="dropdown-menu">
+      <slot></slot>
+    </div>
+  </div>
+</template>
