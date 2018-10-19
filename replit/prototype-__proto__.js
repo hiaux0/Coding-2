@@ -64,11 +64,16 @@ for (let i in me) {
 function Point(x, y) {
   this.x = x;
   this.y = y;
+
+  this.getX = () => {
+    return this.x;
+  }
 }
 
 Point.prototype /*?*/
 
-var myPoint = new Point();
+var myPoint = new Point(1,2);
+console.log('TCL: myPoint', myPoint);
 
 // the following are all true
 myPoint.__proto__ == Point.prototype /*?*/
@@ -76,6 +81,28 @@ myPoint.__proto__.__proto__ == Object.prototype /*?*/
 myPoint instanceof Point; /*?*/
 myPoint instanceof Object; /*?*/
 
+// Using classes
+
+class PointClass {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  getX() {
+    return this.x
+  }
+}
+
+let myPointClass = new PointClass(1, 2);
+console.log('TCL: PointClass.prototype', PointClass.prototype);
+console.log('TCL: myPointClass', myPointClass);
+console.log('TCL: myPointClass.__proto__', myPointClass.__proto__);
+console.log('TCL: myPointClass.prototype', myPointClass.prototype);
+myPointClass.__proto__ == PointClass.prototype /*?*/
+myPointClass.__proto__.__proto__ == Object.prototype /*?*/
+myPointClass instanceof Point; /*?*/
+myPointClass instanceof Object; /*?*/
 
 // ADditional ressource https://css-tricks.com/understanding-javascript-constructors/
 

@@ -53,7 +53,7 @@ export class App {
 
     keyBinding(JUMPABLE, () => { toggleJumpable(); });
   }
-  
+
   toggleNavbarHandler() {
     this.showNavbar = !this.showNavbar;
   }
@@ -68,15 +68,24 @@ export class App {
     config.options.root = '/';
     config.title = 'List Mapper';
     config.map([
-      { route: ['', 'home'], name: 'home', moduleId: PLATFORM.moduleName('./resources/home'), 
-        nav: true, title: 'Home' },
-      { route: ['simpleList'], moduleId: PLATFORM.moduleName('./resources/common/elements/simple-list'), 
-        nav: true, title: 'Simple List'},
+      { route: ['', 'home'],
+        name: 'home',
+        moduleId: PLATFORM.moduleName('./resources/home'),
+        nav: true, title: 'Home'
+      },
+      { route: ['simpleList'],
+        moduleId: PLATFORM.moduleName('./resources/common/elements/simple-list'),
+        nav: true, title: 'Simple List'
+      },
+      { route: ['code-block-map'],
+        moduleId: PLATFORM.moduleName('./resources/elements/code-block-map/code-block-map'),
+        nav: true, title: 'Code Block Map'
+      },
         // Dropdown items Markdown Parser
         {
-          route: ['markdown-parser/index'], 
+          route: ['markdown-parser/index'],
           moduleId: PLATFORM.moduleName('./resources/common/elements/markdown-parser'),
-          nav:true, title: 'Markdown Parser', 
+          nav:true, title: 'Markdown Parser',
           settings: {
             dropdownId: 'markdownParser',
             dropdownTitle: 'Markdown Parser',
@@ -84,18 +93,18 @@ export class App {
         },
         // Dropdown items for CSS Leveling
         {
-          route: ['css-leveling/flex-box-leveling'], 
+          route: ['css-leveling/flex-box-leveling'],
           moduleId: PLATFORM.moduleName('./resources/elements/flex-box-leveling'),
-          nav:true, title: 'Flexbox Leveling', 
+          nav:true, title: 'Flexbox Leveling',
           settings: {
             dropdownId: 'cssLeveling',
             dropdownTitle: 'Css Leveling',
           }
         },
         {
-          route: ['css-leveling/simple-table'], 
+          route: ['css-leveling/simple-table'],
           moduleId: PLATFORM.moduleName('./resources/elements/simple-table'),
-          nav:true, title: 'Simple Table', 
+          nav:true, title: 'Simple Table',
           settings: {
             dropdownId: 'cssLeveling',
             dropdownTitle: 'Css Leveling',
@@ -103,18 +112,18 @@ export class App {
         },
         // Dropdown items for Drag drop Leveling (interactjs)
         {
-          route: ['drag-drop-leveling/drag-drop-v1'], 
+          route: ['drag-drop-leveling/drag-drop-v1'],
           moduleId: PLATFORM.moduleName('./resources/elements/drag-drop/leveling/drag-drop-v1-ce'),
-          nav: true, title: 'enable-drag-drop', 
+          nav: true, title: 'enable-drag-drop',
           settings: {
             dropdownId: 'dragDropLeveling',
             dropdownTitle: 'Drag Drop Leveling',
           }
         },
         {
-          route: ['drag-drop-leveling/drag-drop-connect-itmes'], 
+          route: ['drag-drop-leveling/drag-drop-connect-itmes'],
           moduleId: PLATFORM.moduleName('./resources/elements/drag-drop/leveling/drag-drop-connect-items'),
-          nav: true, title: 'drag-drop-connect-items', 
+          nav: true, title: 'drag-drop-connect-items',
           settings: {
             dropdownId: 'dragDropLeveling',
             dropdownTitle: 'drag drop connect items',

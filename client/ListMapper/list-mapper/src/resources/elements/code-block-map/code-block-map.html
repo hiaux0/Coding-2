@@ -1,0 +1,47 @@
+<template>
+  <require from='../../common/elements/markdown-parser'></require>
+  <require from='../../common/elements/segmented-button'></require>
+
+                      <button 
+                        class="btn btn-outline-secondary btn-sm"
+                        click.delegate="addCodeBlock()"
+                      >Add new .md Parser
+                      </button>
+
+                      <segmented-button
+                        button-text="Far"
+                        on-click.call="setZoomLevel(0.4)"
+                      >
+                        <div class="dropdown-item" click.delegate="setZoomLevel(0.3)">sm</div>
+                        <div class="dropdown-item" click.delegate="setZoomLevel(0.4)">md</div>
+                        <div class="dropdown-item" click.delegate="setZoomLevel(0.5)">lg</div>
+                      </segmented-button>
+                      <segmented-button
+                        button-text="Normal"
+                        on-click.call="setZoomLevel(1)"
+                        >
+                        <div class="dropdown-item" click.delegate="setZoomLevel(0.8)">sm</div>
+                        <div class="dropdown-item" click.delegate="setZoomLevel(1)">md</div>
+                        <div class="dropdown-item" click.delegate="setZoomLevel(1.2)">lg</div>
+                      </segmented-button>
+                      <segmented-button
+                        button-text="Near"
+                        on-click.call="setZoomLevel(1.75)"
+                      >
+                        <div class="dropdown-item" click.delegate="setZoomLevel(1.50)">sm</div>
+                        <div class="dropdown-item" click.delegate="setZoomLevel(1.75)">md</div>
+                        <div class="dropdown-item" click.delegate="setZoomLevel(2)">lg</div>
+                      </segmented-button>
+
+  <div 
+    ref="codeBlockMapContainerRef"
+    class="code-block-map-container"
+  >
+    <markdown-parser
+      repeat.for="codeBlock of codeBlocks"
+      code-block-content.bind="codeBlock.content"
+      parserMode = "Code"
+      scale-coords.bind="scaleCoords"
+    ></markdown-parser>
+  </div>
+</template>
