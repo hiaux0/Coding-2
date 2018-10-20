@@ -6,7 +6,7 @@ const project = require('./aurelia_project/aurelia.json');
 const { AureliaPlugin, ModuleDependenciesPlugin } = require('aurelia-webpack-plugin');
 const { ProvidePlugin } = require('webpack');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
+// const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 
 // config helpers:
@@ -69,15 +69,15 @@ module.exports = ({production, server, extractCss, coverage, analyze} = {}) => (
         // because Aurelia would try to require it again in runtime
         use: cssRules
       },
-      { 
-        test: /\.less$/i, 
+      {
+        test: /\.less$/i,
         use: ['style-loader', 'css-loader', 'less-loader'],
         issuer: /\.[tj]s$/i
       },
-      { 
-        test: /\.less$/i, 
+      {
+        test: /\.less$/i,
         use: ['css-loader', 'less-loader'],
-        issuer: /\.html?$/i 
+        issuer: /\.html?$/i
       },
       { test: /\.html$/i, loader: 'html-loader' },
       { test: /\.js$/i, loader: 'babel-loader', exclude: nodeModulesDir,
@@ -94,7 +94,7 @@ module.exports = ({production, server, extractCss, coverage, analyze} = {}) => (
     ]
   },
   plugins: [
-    new MonacoWebpackPlugin(),
+    // new MonacoWebpackPlugin(),
     new AureliaPlugin(),
     new ProvidePlugin({
       'Promise': 'bluebird'
