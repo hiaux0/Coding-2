@@ -1,7 +1,7 @@
 import { bindable, inject } from 'aurelia-framework';
 
 @inject(Element)
-export class ZoomingCaCustomAttribute {
+export class EnableZoomingCustomAttribute {
   /**
    * @param {String=".zoom-container"} context the element which should be zoomed
    */
