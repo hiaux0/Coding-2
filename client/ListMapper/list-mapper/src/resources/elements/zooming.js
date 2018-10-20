@@ -1,20 +1,6 @@
 import { bindable } from 'aurelia-framework';
+import { throttle } from 'lodash-decorators';
 import './zooming.less'
-// import {debounce} from 'lodash-decorators';
-import {throttle} from 'lodash-decorators';
-import {range} from 'lodash';
-
-// function* getZoomInValues(current) {
-//   let zoomInRange = range(current, 100, 0.01);
-//   yield* zoomInRange;
-// }
-
-// function* getZoomOutValues(current) {
-//   console.log('TCL: function*getZoomOutValues -> current', current);
-//   let zoomOutRange = range(0, current, 0.01).reverse();
-//   console.log('TCL: function*getZoomOutValues -> zoomOutRange', zoomOutRange);
-//   yield* zoomOutRange;
-// }
 
 export class Zooming {
   @bindable value = "Hello world";
@@ -32,11 +18,11 @@ export class Zooming {
     }
   }
 
-  // @debounce(66)
   @throttle(10)
   zoom(event) {
     if (event.deltaY > 0) {
       this.zoomOut();
+
     } else {
       this.zoomIn();
     }
@@ -74,13 +60,6 @@ export class Zooming {
     contextElement.style.transform = newZoom;
 
     this.currentZoomValue = zoomLevel;
-  }
-
-  zoomDebug(value) {
-    let context = this.zoomConfig.context;
-    let contextElement = document.querySelectorAll(context)[0];
-    let newZoom = `matrix(${value}, 0, 0, ${value}, ${value}, ${value})`;
-    contextElement.style.transform = newZoom;
   }
 
 }
