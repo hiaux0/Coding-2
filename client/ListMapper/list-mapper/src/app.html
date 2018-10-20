@@ -11,18 +11,18 @@
   <button class='btn btn-outline-secondary btn-sm' click.delegate='toggleNavbarHandler()'>${showNavbar ? 'Hide' : 'Show'} Navbar</button>
   <button class='btn btn-outline-secondary btn-sm' click.delegate='darkTheme()'>Dark Theme</button>
   <button class='btn btn-outline-secondary btn-sm' click.delegate='lightTheme()'>Light Theme</button>
-  <a class='btn btn-outline-secondary btn-sm' href="http://localhost:8080/drag-drop-leveling/drag-drop-connect-itmes">Reload Page</a>
+  <a class='btn btn-outline-secondary btn-sm' href="http://localhost:8080">Reload Page</a>
 
   <span if.bind="showMouseCoords" class="show-mouse-coords" css="top: ${y+20}px; left: ${x+20}px;">
     X: ${x}  Y: ${y}
   </span>
 
   <command-palett></command-palett>
-  
+
   <div class='hio-app-container'>
     <router-view></router-view>
   </div>
-  
+
   <div id='hio-color-palett'>
     <span id='main'>Main</span>
     <span id='pri'>Pri</span>

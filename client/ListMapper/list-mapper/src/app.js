@@ -6,6 +6,7 @@ import {commandList} from './resources/commandStorage/command-storage'
 import {toggleJumpable, togglePersistJumpable} from './resources/common/jumpable';
 import {JUMPABLE} from './application-key-bindings/app.keys';
 import {darkTheme, lightTheme} from './resources/common/styles/themes';
+import ENV_CONFIG from '../env-config'
 
 import hotkeys from 'hotkeys-js';
 
@@ -69,6 +70,7 @@ export class App {
     config.title = 'List Mapper';
     config.map([
       { route: ['', 'home'],
+        redirect: ENV_CONFIG.homeRoute,
         name: 'home',
         moduleId: PLATFORM.moduleName('./resources/home'),
         nav: true, title: 'Home'
@@ -129,7 +131,17 @@ export class App {
             dropdownTitle: 'drag drop connect items',
           }
         },
-
+        // Playground
+        {
+          route: ['playground/index'],
+          name: 'playgroundIndex',
+          moduleId: PLATFORM.moduleName('./resources/elements/zooming'),
+          nav:true, title: 'Playground',
+          settings: {
+            dropdownId: 'playground',
+            dropdownTitle: 'Playground',
+          }
+        },
     ]);
     this.router = router;
   }
