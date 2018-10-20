@@ -136,7 +136,7 @@ describe('CA--up-down-navigation--', () => {
           continue;
         }
         expect(dropdownItem.classList.contains('active')).toBe(false);
-      } 
+      }
 
       done();
     });
@@ -147,7 +147,7 @@ describe('CA--up-down-navigation--', () => {
       keyPress(38);
       keyPress(13);
 
-      let vm = component.viewModel; 
+      let vm = component.viewModel;
       let commandId = vm.commandId;
 
       expect(commandId).toBe('changeToLightTheme');
