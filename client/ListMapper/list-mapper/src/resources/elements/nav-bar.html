@@ -78,6 +78,22 @@
           </div>
         </li>
 
+        <!-- Playground -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+            Playground
+          </a>
+          <div class="dropdown-menu">
+            <a
+              repeat.for="nav of router.navigation"
+              if.bind="nav.settings.dropdownId === 'playground'"
+              class="dropdown-item"
+              href.bind="nav.href"
+            >${nav.title}
+            </a>
+          </div>
+        </li>
+
       </ul>
 
     </div>
