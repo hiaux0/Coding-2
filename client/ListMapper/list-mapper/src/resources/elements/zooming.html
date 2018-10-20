@@ -1,6 +1,10 @@
 <template>
+  <require from='../attributes/zooming-ca'></require>
   <h1>${value}</h1>
-  <div class="zoom-handler" wheel.delegate="zoom($event)">
+  <div
+    class="zoom-handler"
+    zooming-ca="context: .zoom-container"
+  >
     <div class="zoom-container">
       <div
         repeat.for="num of [0,1,2,3,4,5,6,7,8]"
