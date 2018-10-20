@@ -21,39 +21,26 @@ export class Zooming {
   @throttle(10)
   zoom(event) {
     if (event.deltaY > 0) {
-      this.zoomOut();
+      this.setZoom(-1);
 
     } else {
-      this.zoomIn();
+      this.setZoom(1);
     }
   }
 
-  zoomOut() {
-    let context = this.zoomConfig.context;
-    let contextElement = document.querySelectorAll(context)[0];
-    let computedZoomValue = getComputedStyle(contextElement).transform;
-    let zoomValue = (computedZoomValue === 'matrix(1, 0, 0, 1, 1, 1)') ? 1 : this.currentZoomValue;
-
-    this.currentZoomValue = zoomValue;
-
-    let zoomLevel = this.currentZoomValue - this.zoomConfig.zoom.velocity;
-    let scale = zoomLevel;
-    let translate = zoomLevel;
-    let newZoom = `matrix(${scale}, 0, 0, ${scale}, ${translate}, ${translate})`;
-    contextElement.style.transform = newZoom;
-
-    this.currentZoomValue = zoomLevel;
-  }
-
-  zoomIn() {
+  /**
+   * Set zoom for given context.
+   * @param {Number} zoomDirection
+   * @value [1,-1] `1` for 'zoom in' and `-1` for 'zoom out'
+   */
+  setZoom(zoomDirection) {
     let context = this.zoomConfig.context;
     let contextElement = document.querySelector(context);
     let computedZoomValue = getComputedStyle(contextElement).transform;
     let zoomValue = (computedZoomValue === 'matrix(1, 0, 0, 1, 1, 1)') ? 1 : this.currentZoomValue;
+    let velocity = this.zoomConfig.zoom.velocity;
 
-    this.currentZoomValue = zoomValue;
-
-    let zoomLevel = this.currentZoomValue + this.zoomConfig.zoom.velocity;
+    let zoomLevel = velocity * zoomDirection + zoomValue;
     let scale = zoomLevel;
     let translate = zoomLevel;
     let newZoom = `matrix(${scale}, 0, 0, ${scale}, ${translate}, ${translate})`;
