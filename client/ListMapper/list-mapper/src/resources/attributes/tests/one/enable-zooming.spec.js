@@ -1,10 +1,8 @@
 import {StageComponent} from 'aurelia-testing';
 import {bootstrap} from 'aurelia-bootstrapper';
 
-fdescribe('ENABLE-ZOOMING', () => {
+describe('ENABLE-ZOOMING', () => {
   let component;
-  let bindData = {
-  }
 
   beforeEach(() => {
     component = StageComponent
@@ -65,6 +63,7 @@ fdescribe('ENABLE-ZOOMING', () => {
       component.create(bootstrap)
       .then(() => {
         let viewModel = component.viewModel;
+        mockEvent.deltaY = 1;
         spyOn(viewModel, 'setZoom');
 
         viewModel.zoom(mockEvent);
@@ -89,17 +88,37 @@ fdescribe('ENABLE-ZOOMING', () => {
     });
   });
 
-  fdescribe('setZoom', () => {
-    it('Should call `getComputedStyle`', done => {
+  describe('setZoom', () => {
+    it('Should set styles correctly for `contextElement`', done => {
       component.create(bootstrap).then(() => {
-        // const window = {
-        //   getComputedStyle: () => {}
-        // }
         let viewModel = component.viewModel;
-        // spyOn(window, 'getComputedStyle');
+        let zoomDirection = 2;
+        viewModel.velocity = 3;
+        viewModel.currentZoomValue = 4;
 
-        viewModel.setZoom(1);
-        // expect(window.getComputedStyle).toHaveBeenCalled();
+        let zoomLevel = 2 * 3 + 4;
+        let scale = zoomLevel;
+        let translate = zoomLevel;
+        let newZoom = `matrix(${scale}, 0, 0, ${scale}, ${translate}, ${translate})`;
+
+        viewModel.setZoom(zoomDirection);
+        expect(viewModel.contextElement.style.transform).toBe(newZoom);
+        done();
+
+      }).catch(e => console.log(e.toString()));
+    });
+
+    it('Should set `currentZoomValue` correctly', done => {
+      component.create(bootstrap).then(() => {
+        let viewModel = component.viewModel;
+        let zoomDirection = 2;
+        viewModel.velocity = 3;
+        viewModel.currentZoomValue = 4;
+
+        let expected = 2 * 3 + 4;
+
+        viewModel.setZoom(zoomDirection);
+        expect(viewModel.currentZoomValue).toBe(expected);
         done();
 
       }).catch(e => console.log(e.toString()));
@@ -114,18 +133,7 @@ fdescribe('ENABLE-ZOOMING', () => {
     }).catch(e => console.log(e.toString()));
   });
 
-
-
   afterEach(() => {
     component.dispose();
   });
 });
-
-// component.manuallyHandleLifecycle().create(bootstrap)
-//   .then(() => { })
-//   .then(() => component.bind())
-//   .then(() => { })
-//   .then(() => component.attached())
-//   .catch(e => {
-//     if (e.message === 'Key not present') done();
-//   });
