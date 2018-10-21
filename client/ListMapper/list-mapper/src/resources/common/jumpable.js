@@ -1,5 +1,5 @@
 window.DEBUG_MODE = {
-  persistJumpable: false,
+  persistJumpable: true,
 }
 
 import hotkeys from 'hotkeys-js';
@@ -33,8 +33,8 @@ export const toggleJumpable = (context = '#hio-body') => {
   // }
 
   const destroy = makeTagsJumpable();
-  isJumpable ? 
-    jumpableKeyCodesListener(destroy) 
+  isJumpable ?
+    jumpableKeyCodesListener(destroy)
     : destroyKeybinding(destroy);
 }
 
@@ -124,8 +124,8 @@ const jumpableKeyCodesListener = (destroy) => {
     }
 
         /**
-         * 
-         * @param {Function} cb - Callback to deactivate jump ability 
+         *
+         * @param {Function} cb - Callback to deactivate jump ability
          */
         function destroyKeybinding(cb) {
           if (typeof cb === 'function') {
@@ -144,4 +144,4 @@ export function togglePersistJumpable() {
   isPERSISTENT = !isPERSISTENT; // This is bugged for turning off toggel EyeRR_b8B
   // isPERSISTENT ? hotkeys.setScope(JUMP_CLASS) : '';
   hotkeys.setScope(JUMP_CLASS);
-} 
+}
