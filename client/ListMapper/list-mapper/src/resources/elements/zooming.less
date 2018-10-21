@@ -1,4 +1,19 @@
 
-.zooming {
+.zoom-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+  grid-gap: 2em;
+  height: 70vh;
+  transform: matrix(1, 0, 0, 1, 1, 1);
+
+  .zoom-test-0 {
+    border: 1px solid black;
+  }
+
+  div[class*="zoom-test-"] {
+    border: 1px solid black;
+    padding: 1em;
+    text-align: center;
+  }
 
 }
