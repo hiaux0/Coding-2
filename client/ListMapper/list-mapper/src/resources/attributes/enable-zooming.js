@@ -47,10 +47,7 @@ export class EnableZoomingCustomAttribute {
    * @value [1,-1] `1` for 'zoom in' and `-1` for 'zoom out'
    */
   setZoom(zoomDirection) {
-    let computedZoomValue = getComputedStyle(this.contextElement).transform;
-    let zoomValue = (computedZoomValue === 'matrix(1, 0, 0, 1, 1, 1)') ? 1 : this.currentZoomValue;
-
-    let zoomLevel = this.velocity * zoomDirection + zoomValue;
+    let zoomLevel = this.velocity * zoomDirection + this.currentZoomValue;
     let scale = zoomLevel;
     let translate = zoomLevel;
     let newZoom = `matrix(${scale}, 0, 0, ${scale}, ${translate}, ${translate})`;
