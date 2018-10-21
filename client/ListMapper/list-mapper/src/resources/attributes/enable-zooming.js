@@ -19,11 +19,11 @@ export class EnableZoomingCustomAttribute {
 
   attached() {
     this.contextElement = document.querySelector(this.context);
-    window.addEventListener('wheel', this.zoom);
+    this.contextElement.addEventListener('wheel', this.zoom);
   }
 
   detached() {
-    window.removeEventListener('wheel', this.zoom);
+    this.contextElement.removeEventListener('wheel', this.zoom);
   }
 
   /**
