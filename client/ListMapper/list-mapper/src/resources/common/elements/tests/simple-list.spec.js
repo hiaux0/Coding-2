@@ -23,15 +23,15 @@ describe('SIMPLE LIST', function() {
       },
     ]
   }
-  beforeEach(() => { 
+  beforeEach(() => {
     component = StageComponent
-      .withResources(PLATFORM.moduleName('resources/elements/simple-list'))
+      .withResources(PLATFORM.moduleName('resources/common/elements/simple-list'))
       .inView(`
         <simple-list list-data.bind='listData'>
         </simple-list>`
       )
       .boundTo(bindObject)
-  });  
+  });
 
   it('`sortAscending` should set variable correctly', (done) => {
     component.create(bootstrap).then(() => {
@@ -57,7 +57,7 @@ describe('SIMPLE LIST', function() {
     component.create(bootstrap).then(() => {
       let expectation;
       let vm = component.viewModel;
-      
+
       if (vm.direction === 'ascending') {
         expectation = [
           { content: "A 0", position: 0, },
@@ -95,6 +95,6 @@ describe('SIMPLE LIST', function() {
 
 /**
  * sortAscending
- * getDragDropChanges 
+ * getDragDropChanges
  * sortDescending
  */

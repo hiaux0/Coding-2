@@ -1,7 +1,7 @@
 import {StageComponent} from 'aurelia-testing';
 import {bootstrap} from 'aurelia-bootstrapper';
 
-describe('CA--autocomplete--', () => {
+describe('CA--AUTOCOMPLETE--', () => {
   let component;
   let bindData = {
     value: "A",
@@ -51,7 +51,7 @@ describe('CA--autocomplete--', () => {
       )
   });
 
-  it('Should show correct suggestion list: 0', done => {
+  xit('Should show correct suggestion list: 0', done => {
     component.boundTo(bindData);
     component.create(bootstrap).then(() => {
 
@@ -77,7 +77,7 @@ describe('CA--autocomplete--', () => {
       // debugger;
       setTimeout(() => { // Why setTimeout? --> https://github.com/aurelia/testing/issues/70
         let ele = component.element;
-        
+
         let hioDropdownItem = ele.getElementsByClassName('hio-dropdown-item');
         let ddListLen = hioDropdownItem.length;
         // debugger;

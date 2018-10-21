@@ -1,3 +1,17 @@
 <template>
+  <require from='../attributes/enable-zooming'></require>
   <h1>${value}</h1>
+  <div
+    class="zoom-handler"
+    enable-zooming="context: .zoom-container"
+  >
+    <div class="zoom-container">
+      <div
+        repeat.for="num of [0,1,2,3,4,5,6,7,8]"
+        class="zoom-test-${num}"
+      >
+        ${num}
+      </div>
+    </div>
+  </div>
 </template>
