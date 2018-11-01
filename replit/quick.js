@@ -1,16 +1,14 @@
-const indexRange = (start, range = 1, step = 1) => {
-  start = start === -1 ? 0 : start
-  let obj = {length: range};
-  return Array.from(obj, (_, i) => start + (i * step));
+
+// /projects?group_id=&only_root_level=&folder_id=&limit=&offset=
+function getProjects({groupId, onlyRootLevel, folderId, limit, offset} = {}) {
+  let route = 'projects';
+
+  groupId = groupId ? `?group_Id=${groupId}` : '';
+  onlyRootLevel = onlyRootLevel ? `&only_root_level=${onlyRootLevel}` : '';
+  folderId = folderId ? `&folder_id=${folderId}` : '';
+  limit = limit ? `&limit=${limit}` : '';
+  offset = offset ? `&offset=${offset}` : '';
+
+  let url = route + groupId + onlyRootLevel + folderId + limit + offset;
+  return url;
 }
-
-let range = indexRange(0, 100, 0.01); /*?*/
-
-
-function* getZoomValues(range) {
-  yield* range;
-}
-
-// let gen = getZoomValues(range)
-
-[1,2,3].reverse() /*?*/
