@@ -5,7 +5,7 @@ var path = require('path');
 
 @inject(Project, CLIOptions, UI)
 export default class ElementGenerator {
-  constructor(project, options, ui) { 
+  constructor(project, options, ui) {
     this.project = project;
     this.options = options;
     this.ui = ui;
@@ -25,8 +25,9 @@ export default class ElementGenerator {
             let className = this.project.makeClassName(name);
 
             self.project.root.add(
-              ProjectItem.text(path.join(subFolders, fileName + ".js"), this.generateJSSource(className)),
-              ProjectItem.text(path.join(subFolders, fileName + ".html"), this.generateHTMLSource(className))
+              ProjectItem.text(path.join(subFolders, fileName + ".js"), this.generateJSSource(className, fileName)),
+              ProjectItem.text(path.join(subFolders, fileName + ".html"), this.generateHTMLSource(className)),
+              ProjectItem.text(path.join(subFolders, fileName + ".less"), this.generateCSSSource(fileName))
             );
 
             return this.project.commitChanges()
@@ -35,17 +36,30 @@ export default class ElementGenerator {
       });
   }
 
-  generateJSSource(className) {
-    return `export class ${className} {     
-  constructor() {
-    this.message = 'Hello world';
+  generateJSSource(className, fileName) {
+    return `import {bindable} from 'aurelia-framework';
+import './${fileName}.less'
+
+export class ${className} {
+  @bindable value;
+
+  valueChanged(newValue, oldValue) {
+
   }
-}`
+}
+`;
   }
 
   generateHTMLSource(className) {
     return `<template>
-  <h1>\${message}</h1>
-</template>`
+  <h1>\${value}</h1>
+</template>`;
+  }
+
+  generateCSSSource(fileName) {
+    return `
+.${fileName} {
+
+}`;
   }
 }
