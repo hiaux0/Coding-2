@@ -17,7 +17,7 @@ export default class ElementGenerator {
         let className = this.project.makeClassName(name);
 
         this.project.elements.add(
-          ProjectItem.text(`${fileName}.js`, this.generateJSSource(className)),
+          ProjectItem.text(`${fileName}.js`, this.generateJSSource(className, fileName)),
           ProjectItem.text(`${fileName}.html`, this.generateHTMLSource(className, fileName)),
           ProjectItem.text(`${fileName}.less`, this.generateCSSSource(fileName))
         );
@@ -53,5 +53,5 @@ export class ${className} {
 
 }`;
   }
-  
+
 }
