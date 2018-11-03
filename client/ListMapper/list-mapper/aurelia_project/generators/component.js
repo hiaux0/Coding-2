@@ -25,9 +25,9 @@ export default class ElementGenerator {
             let className = this.project.makeClassName(name);
 
             self.project.root.add(
-              ProjectItem.text(path.join(subFolders, fileName + ".js"), this.generateJSSource(className, fileName)),
-              ProjectItem.text(path.join(subFolders, fileName + ".html"), this.generateHTMLSource(className)),
-              ProjectItem.text(path.join(subFolders, fileName + ".less"), this.generateCSSSource(fileName))
+              ProjectItem.text(path.join(subFolders, fileName, fileName + ".js"), this.generateJSSource(className, fileName)),
+              ProjectItem.text(path.join(subFolders, fileName, fileName + ".html"), this.generateHTMLSource(fileName)),
+              ProjectItem.text(path.join(subFolders, fileName, fileName + ".less"), this.generateCSSSource(fileName))
             );
 
             return this.project.commitChanges()
@@ -50,8 +50,11 @@ export class ${className} {
 `;
   }
 
-  generateHTMLSource(className) {
+  generateHTMLSource(fileName) {
     return `<template>
+  <require from='./${fileName}/${fileName}'></require>
+  <a role="button" class='btn btn-outline-secondary btn-sm' href="#/sandbox/${fileName}">Css Animation</a>
+
   <h1>\${value}</h1>
 </template>`;
   }
