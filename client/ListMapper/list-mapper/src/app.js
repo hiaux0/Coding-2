@@ -65,10 +65,13 @@ export class App {
   }
 
   configureRouter(config, router) {
-    config.options.pushState = true; // responsable for not including # in url
-    config.options.root = '/';
-    config.title = 'List Mapper';
+    // config.options.pushState = true; // responsable for not including # in url
+    // config.options.root = '/';
+    // config.title = 'List Mapper';
     config.map([
+      // sandbox
+      { route: ['sandbox'], name: 'sandbox-root', moduleId: PLATFORM.moduleName('./sb/sandbox') },
+      { route: ['sandbox/*viewModel'], name: 'sandbox', moduleId: PLATFORM.moduleName('./sb/sandbox') },
       { route: ['', 'home'],
         redirect: ENV_CONFIG.homeRoute,
         name: 'home',
