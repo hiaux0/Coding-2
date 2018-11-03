@@ -1,0 +1,11 @@
+<template>
+  <require from='./css-animation/css-animation'></require>
+
+  <a role="button" class='btn btn-outline-secondary btn-sm' href="#/sandbox/css-animation">Css Animation</a>
+  <!-- <a route-href="route: notebookDetail;"></a> -->
+
+
+  <div class="sandbox-view">
+    <compose if.bind="viewModel" view-model.bind="viewModel"></compose>
+  </div>
+</template>
