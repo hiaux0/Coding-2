@@ -41,7 +41,7 @@ export default class ElementGenerator {
 import './${fileName}.less'
 
 export class ${className} {
-  @bindable value;
+  @bindable value = ${className};
 
   valueChanged(newValue, oldValue) {
 
@@ -53,7 +53,7 @@ export class ${className} {
   generateHTMLSource(fileName) {
     return `<template>
   <require from='./${fileName}/${fileName}'></require>
-  <a role="button" class='btn btn-outline-secondary btn-sm' href="#/sandbox/${fileName}">Css Animation</a>
+  <a role="button" class='btn btn-outline-secondary btn-sm' href="#/sandbox/${fileName}">${fileName}</a>
 
   <h1>\${value}</h1>
 </template>`;
