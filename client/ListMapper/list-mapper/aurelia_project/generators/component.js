@@ -41,7 +41,7 @@ export default class ElementGenerator {
 import './${fileName}.less'
 
 export class ${className} {
-  @bindable value = ${className};
+  @bindable value = '${className}';
 
   valueChanged(newValue, oldValue) {
 
