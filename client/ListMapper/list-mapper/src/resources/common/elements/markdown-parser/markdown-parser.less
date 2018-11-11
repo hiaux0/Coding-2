@@ -1,0 +1,68 @@
+@import (reference) '../../styles/colors.less';
+@import (reference) '../../styles/common.less';
+
+.markdown-parser-container {
+
+  .markdown-parser-result-container{
+    position: relative;
+    width: 45vw;
+    // min-width: 150px;
+    background-color: @monokai-dark-background;
+    &:hover {
+      more-options-menu {
+        display: block;
+      }
+    }
+
+    textarea.markdown-parser {
+      .code_font();
+      display: block;
+      background: @sec-clr;
+      color: @main-text-clr;
+      height: 80vh;
+      width: inherit;
+      padding: 10px;
+    }
+
+    .markdown-parser-result {
+      border: 1px solid;
+      padding: 10px;
+
+      pre {
+        color: @light-text-clr;
+
+        code {
+          .code_selection();
+          .line-number {
+            .code_line_hover();
+          }
+
+          .highlight-code-line-class {
+            background: @pri-clr;
+          }
+
+          span {
+            .code_selection();
+          }
+        }
+      }
+    }
+  }
+
+  #monaco-container {
+    height: 60vh;
+  }
+}
+
+.code_selection() {
+  &::selection {
+    background: blue;
+    opacity: 0.5;
+  }
+}
+
+.code_line_hover() {
+  &:hover {
+    background: @pri-clr-hover;
+  }
+}
