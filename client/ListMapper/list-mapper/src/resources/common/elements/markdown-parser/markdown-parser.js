@@ -2,7 +2,7 @@ import {bindable, inject, observable} from 'aurelia-framework';
 import {CommandCentral} from '../../command-central'
 import {initMonaco, renderMarkdown} from './markdown-parser-custom';
 import {functionMapRCM} from '../../../storages/radial-context-menus';
-import {arrows, pencil} from 'styles/icons';
+import {arrows, pencil} from '../../styles/icons';
 import {debounce} from 'lodash-decorators';
 
 import './markdown-parser.less';

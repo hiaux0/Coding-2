@@ -1,11 +1,11 @@
 import {PLATFORM} from 'aurelia-pal';
 import {inject} from 'aurelia-framework';
 
-import {CommandCentral} from 'common/command-central';
+import {CommandCentral} from './resources/common/command-central';
 import {commandList} from './resources/commandStorage/command-storage'
-import {toggleJumpable, togglePersistJumpable} from 'common/jumpable';
+import {toggleJumpable, togglePersistJumpable} from './resources/common/jumpable';
 import {JUMPABLE} from './application-key-bindings/app.keys';
-import {darkTheme, lightTheme} from 'common/styles/themes';
+import {darkTheme, lightTheme} from './resources/common/styles/themes';
 import ENV_CONFIG from '../env-config'
 
 import hotkeys from 'hotkeys-js';
@@ -79,7 +79,7 @@ export class App {
         nav: true, title: 'Home'
       },
       { route: ['simpleList'],
-        moduleId: PLATFORM.moduleName('common/elements/simple-list'),
+        moduleId: PLATFORM.moduleName('./resources/common/elements/simple-list'),
         nav: true, title: 'Simple List'
       },
       { route: ['code-block-map'],
@@ -89,7 +89,7 @@ export class App {
         // Dropdown items Markdown Parser
         {
           route: ['markdown-parser/index'],
-          moduleId: PLATFORM.moduleName('common/elements/markdown-parser/markdown-parser'),
+          moduleId: PLATFORM.moduleName('./resources/common/elements/markdown-parser/markdown-parser'),
           nav:true, title: 'Markdown Parser',
           settings: {
             dropdownId: 'markdownParser',
