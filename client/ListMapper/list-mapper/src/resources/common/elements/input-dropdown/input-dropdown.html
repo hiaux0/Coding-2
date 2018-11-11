@@ -1,0 +1,33 @@
+<template>
+  <require from='../../../attributes/autocomplete'></require>
+  <require from='../../../attributes/up-down-navigation'></require>
+
+  <div class='hio-input-container'>
+    <input
+      type='text'
+      focus.bind='showCommandPalett'
+      value.bind="value"
+      autocomplete="value.bind: value;
+                    list.bind: commandList;
+                    key.bind: key;
+                    suggested-list.two-way: suggestedList"
+    >
+
+    <div
+      class='hio-dropdown-container'
+      ref='commandListContainerRef'
+      up-down-navigation="suggested-list.bind: suggestedList;
+                          command-id.two-way: commandId"
+    >
+      <div
+        repeat.for='suggestion of suggestedList'
+        class="hio-dropdown-item ${$index === 0 ? 'active' : ''}"
+        data-command-id="${suggestion.id}"
+      >
+        ${suggestion.name}
+      </div>
+    </div>
+
+  </div>
+
+</template>

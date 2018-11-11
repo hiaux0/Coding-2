@@ -1,4 +1,4 @@
-import {pencil, eraser, paintBrush} from '../common/styles/icons';
+import {pencil, eraser, paintBrush} from 'common/styles/icons';
 
 export const functionMapRCM = [
   {

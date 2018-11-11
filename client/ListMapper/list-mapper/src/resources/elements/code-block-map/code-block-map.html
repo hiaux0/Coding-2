@@ -1,8 +1,9 @@
 <template>
-  <require from='../../common/elements/markdown-parser'></require>
-  <require from='../../common/elements/segmented-button'></require>
+  <require from='common/elements/markdown-parser/markdown-parser'></require>
+  <require from='common/elements/segmented-button/segmented-button'></require>
+  <!-- <require from='common/elements/segmented-button/segmented-button'></require> -->
 
-                      <button 
+                      <button
                         class="btn btn-outline-secondary btn-sm"
                         click.delegate="addCodeBlock()"
                       >Add new .md Parser
@@ -33,7 +34,7 @@
                         <div class="dropdown-item" click.delegate="setZoomLevel(2)">lg</div>
                       </segmented-button>
 
-  <div 
+  <div
     ref="codeBlockMapContainerRef"
     class="code-block-map-container"
   >

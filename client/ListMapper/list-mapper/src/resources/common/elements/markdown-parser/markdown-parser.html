@@ -1,0 +1,85 @@
+<template>
+  <require from='../../../attributes/sortable'></require>
+  <require from='../../../attributes/enable-drag'></require>
+  <!-- <require from='highlight.js/styles/monokai-sublime.css'></require> -->
+  <!-- <require from='highlight.js/styles/solarized-dark.css'></require> -->
+  <!-- <require from='highlight.js/styles/atom-one-dark.css'></require> -->
+  <!-- <require from='highlight.js/styles/zenburn.css'></require> -->
+  <require from='highlight.js/styles/monokai.css'></require>
+  <require from='../radial-context-menu/radial-context-menu'></require>
+  <require from='../segmented-button/segmented-button'></require>
+  <require from='../more-options-menu/more-options-menu'></require>
+
+  <div class="markdown-parser-container">
+    <radial-context-menu
+      if.bind="showRadialContextMenu"
+      show-radial-context-menu.two-way="showRadialContextMenu"
+      context-menu-items.bind="functionMapRCM"
+      mouse-x.bind="mouseX"
+      mouse-y.bind="mouseY"
+    >
+    </radial-context-menu>
+
+                      <segmented-button
+                        button-text.bind="segmentedButtonText"
+                      >
+                        <div class="dropdown-item" click.delegate="setSegmentedButtonText('Code')">Code</div>
+                        <div class="dropdown-item" click.delegate="setSegmentedButtonText('Text')">Text</div>
+                      </segmented-button>
+
+                      <br/>
+                      <br/>
+
+    <div
+      class="markdown-parser-result-container"
+      enable-drag="allow-from.bind: DRAG_BUTTON_CLASS;
+                   scale-coords.bind: scaleCoords;
+                  "
+    >
+      <more-options-menu>
+        <button
+          type="button"
+          class="btn btn-dark"
+          click.delegate="toggleEditMode()"
+        >
+          <i class="${iconPencil}"></i>
+        </button>
+        <button
+          type="button"
+          class="btn btn-dark ${DRAG_BUTTON_CLASS}"
+        >
+          <i class="${iconArrows}"></i>
+        </button>
+      </more-options-menu>
+
+      <textarea
+        show.bind="isEditMode"
+        wrap="off"
+        class="markdown-parser"
+        focus.bind="autoFocus"
+        value.bind="inputValue"
+      ></textarea>
+      <!--  --> <!--  --> <!--  --> <!--  --> <!--  --> <!--  -->
+      <div
+        ref="mardownParserResultRef"
+        show.bind="!isEditMode"
+        sortable="active.bind: activateSortable;
+                  draggable-name.bind: draggableName;
+                  sortable-context.bind:sortableContext;"
+        class="markdown-parser-result"
+        >
+        <!-- This is unfortunately an ugly way of writing code. -->
+        <!-- Reason is pre preserves white space. EVERY white space -->
+        <pre><code class="language-js" ref="insertCodeRef"><div
+          repeat.for="line of splittedLines"
+          innerhtml.bind="line"
+          class="line-number"
+          dblclick.delegate="highlightLine($event)"
+        ></div></code></pre>
+      </div>
+    </div>
+
+    <!-- <div id="monaco-container"></div> -->
+
+  </div>
+</template>
