@@ -100,7 +100,7 @@ export class App {
         {
           route: ['playground/index'],
           name: 'playgroundIndex',
-          moduleId: PLATFORM.moduleName('./resources/elements/zooming'),
+          moduleId: PLATFORM.moduleName('./resources/elements/zooming/zooming'),
           nav:true, title: 'Playground',
           settings: {
             dropdownId: 'playground',
