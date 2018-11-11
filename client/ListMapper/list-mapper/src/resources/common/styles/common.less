@@ -1,3 +1,77 @@
+
+///////////////////////////////////////////////////
+//
+//            Global classes
+//
+
+.hio-border {
+  border: 1px solid black;
+  border-radius: 3px;
+  margin: 3px;
+}
+
+.hio-border-fact(@borderWidth: 1px, @borderRadius: 3px) {
+  border: @borderWidth solid black;
+  border-radius: @borderRadius;
+}
+
+// divs inside this class will be 3 boxes in a row.
+// more divs will just start in new rows
+.hio-cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+  grid-gap: 10px;
+
+  div {
+    .hio-border-fact();
+  }
+}
+
+.hio-docs {
+  .doc-item {
+
+    .doc-description {
+    }
+
+    .demo-container {
+      display: flex;
+      justify-content: space-around;
+
+      & > div {
+        min-height: 25vh;
+        min-width: 35vw;
+      }
+
+      .demo {
+        .hio-border-fact();
+      }
+
+      .demo-doc {
+        .hio-border-fact();
+      }
+    }
+  }
+}
+
+///////////////////////////////////////////////////
+//
+//            Mixins
+//
+
+// https://css-tricks.com/almanac/properties/b/box-shadow/
+.hio-shadow(@hori-offset: 2px, @vert-offset: 2px, @blur-radius: 0px, @spread-radius: 0px, @color: @coal) {
+  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+  box-shadow: @hori-offset @vert-offset @blur-radius @spread-radius @color;
+}
+
+
+.code_font() {
+  // taken from highlightjs
+  font-family: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+  font-size: 0.875rem; // highlightjs default
+}
+
+
 // .jumpable {
 //   &:after {
 //     .jump-mark();
@@ -17,22 +91,3 @@
 //   padding: 5px;
 //   color:#fff8d6;
 // }
-
-
-///////////////////////////////////////////////////
-//
-//            BOX SHADOW
-//
-// https://css-tricks.com/almanac/properties/b/box-shadow/
-
-.hio-shadow(@hori-offset: 2px, @vert-offset: 2px, @blur-radius: 0px, @spread-radius: 0px, @color: @coal) {
-  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
-  box-shadow: @hori-offset @vert-offset @blur-radius @spread-radius @color;
-}
-
-
-.code_font() {
-  // taken from highlightjs
-  font-family: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
-  font-size: 0.875rem; // highlightjs default
-}
