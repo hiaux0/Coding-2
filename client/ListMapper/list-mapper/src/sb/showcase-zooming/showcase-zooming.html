@@ -1,0 +1,73 @@
+<template>
+  <require from='../../resources/attributes/enable-zooming'></require>
+
+  <div class="showcase-zooming">
+
+    <div class="hio-docs">
+      <header>Documentation for the zooming custom attribute</header>
+
+      <div class="example-1 doc-item">
+        <div class="doc-description">Example 1</div>
+
+        <div class="demo-container">
+          <div class="demo">
+            demo
+            <span class="hio-border zoom-ex-1" enable-zooming="context: .zoom-ex-1">Zoom me</span>
+          </div>
+          <div class="demo-doc">
+            Doc
+            <p>HTML code should go</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="example-2 doc-item">
+        <div class="doc-description">Example 2</div>
+
+        <div class="demo-container">
+          <div class="demo">
+            demo
+            <div class="hio-border zoom-ex-2" enable-zooming="context: .zoom-ex-2">
+
+              Zoom in the whole container
+              <div class="hio-cards-container">
+                <div>1</div>
+                <div>2</div>
+                <div>3</div>
+              </div>
+            </div>
+          </div>
+          <div class="demo-doc">
+            Doc
+            <p>HTML code should go here</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+    <!-- <div class="example-1">
+      <h4>Example 1</h4>
+
+      <span class="hio-border zoom-ex-1" enable-zooming="context: .zoom-ex-1">Zoom me</span>
+    </div>
+
+    <div class="example-2">
+      <h4>Example 2</h4>
+
+      <div class="hio-border zoom-ex-2 hio-cards-container" enable-zooming="context: .zoom-ex-2">
+        Zoom everything inside this
+        <div>What</div>
+        <div>What</div>
+        <div>What</div>
+      </div>
+    </div>
+
+    <div class="example-3">
+      <h4>Example 3</h4>
+    </div>
+  </div> -->
+</template>
