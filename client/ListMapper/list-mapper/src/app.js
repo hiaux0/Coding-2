@@ -96,44 +96,6 @@ export class App {
             dropdownTitle: 'Markdown Parser',
           }
         },
-        // Dropdown items for CSS Leveling
-        {
-          route: ['css-leveling/flex-box-leveling'],
-          moduleId: PLATFORM.moduleName('./resources/elements/flex-box-leveling'),
-          nav:true, title: 'Flexbox Leveling',
-          settings: {
-            dropdownId: 'cssLeveling',
-            dropdownTitle: 'Css Leveling',
-          }
-        },
-        {
-          route: ['css-leveling/simple-table'],
-          moduleId: PLATFORM.moduleName('./resources/elements/simple-table'),
-          nav:true, title: 'Simple Table',
-          settings: {
-            dropdownId: 'cssLeveling',
-            dropdownTitle: 'Css Leveling',
-          }
-        },
-        // Dropdown items for Drag drop Leveling (interactjs)
-        {
-          route: ['drag-drop-leveling/drag-drop-v1'],
-          moduleId: PLATFORM.moduleName('./resources/elements/drag-drop/leveling/drag-drop-v1-ce'),
-          nav: true, title: 'enable-drag-drop',
-          settings: {
-            dropdownId: 'dragDropLeveling',
-            dropdownTitle: 'Drag Drop Leveling',
-          }
-        },
-        {
-          route: ['drag-drop-leveling/drag-drop-connect-itmes'],
-          moduleId: PLATFORM.moduleName('./resources/elements/drag-drop/leveling/drag-drop-connect-items'),
-          nav: true, title: 'drag-drop-connect-items',
-          settings: {
-            dropdownId: 'dragDropLeveling',
-            dropdownTitle: 'drag drop connect items',
-          }
-        },
         // Playground
         {
           route: ['playground/index'],
@@ -150,7 +112,7 @@ export class App {
   }
 
   initDebugMode() {
-    // toggleJumpable();
+    toggleJumpable();
 
     if (window.DEBUG_MODE.standardTheme === 'light') {
       this.lightTheme();
