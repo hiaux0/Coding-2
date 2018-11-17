@@ -1,6 +1,6 @@
 import {bindable, inject, observable} from 'aurelia-framework';
 import {CommandCentral} from '../../command-central'
-import {renderMarkdown} from './markdown-parser-custom';
+import { renderMarkdown } from './render-markdown';
 import {arrows, pencil} from '../../styles/icons';
 import {debounce} from 'lodash-decorators';
 
@@ -13,7 +13,7 @@ const DRAG_BUTTON_CLASS = 'drag-button';
 @inject(CommandCentral)
 export class MarkdownParser {
   @bindable codeBlockContent;
-  @bindable parserMode = "Code";
+  @bindable parserMode = "js";
   @bindable scaleCoords;
 
   @observable inputValue;
@@ -60,8 +60,9 @@ export class MarkdownParser {
    */
   convertToHtml = () => {
     let input;
-    if (this.segmentedButtonText === 'Code') {
-      input = `\`\`\` js\n${this.inputValue}`;
+    if (this.parserMode) {
+      input = `\`\`\` ${this.parserMode}\n${this.inputValue}\n \`\`\``;
+			console.log("​MarkdownParser -> convertToHtml -> input", input)
     } else {
       input = this.inputValue;
     }
