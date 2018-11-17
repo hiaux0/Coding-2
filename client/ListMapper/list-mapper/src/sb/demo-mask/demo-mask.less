@@ -2,16 +2,22 @@
 
 // Uncomment for easier styling
 // .demo-mask {
-//   & div {
+//   &, & div {
 //     .hio-border-fact();
 //   }
 // }
 
 .demo-mask {
+  position: relative;
   font-size: 14px;
 
+  &:hover {
+    & > more-options-menu {
+      display: block;
+    }
+  }
+
   .demo-container {
-    margin: 2em 0px;
     padding: 1em;
 
     .demo-item-desc {
