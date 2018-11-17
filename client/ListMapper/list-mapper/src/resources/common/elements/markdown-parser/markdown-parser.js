@@ -12,7 +12,7 @@ const DRAG_BUTTON_CLASS = 'drag-button';
 
 @inject(CommandCentral)
 export class MarkdownParser {
-  @bindable codeBlockContent;
+  @bindable content;
   @bindable parserMode = "js";
   @bindable scaleCoords;
 
@@ -47,7 +47,7 @@ export class MarkdownParser {
   }
 
   attached() {
-    this.inputValue = this.codeBlockContent;
+    this.inputValue = this.content;
 
     this.commandCentral.subscribeToCommandEvents({
       marked_convertToHtml: this.convertToHtml,
