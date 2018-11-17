@@ -31,6 +31,7 @@
         </button>
       </more-options-menu>
 
+      <!-- Edit code here -->
       <textarea
         show.bind="isEditMode"
         wrap="off"
@@ -38,7 +39,8 @@
         focus.bind="autoFocus"
         value.bind="inputValue"
       ></textarea>
-      <!--  --> <!--  --> <!--  --> <!--  --> <!--  --> <!--  -->
+
+      <!-- Code is being displayed -->
       <div
         ref="mardownParserResultRef"
         show.bind="!isEditMode"
@@ -56,7 +58,7 @@
           dblclick.delegate="highlightLine($event)"
         ></div></code></pre>
       </div>
-    </div>
 
+    </div>
   </div>
 </template>
