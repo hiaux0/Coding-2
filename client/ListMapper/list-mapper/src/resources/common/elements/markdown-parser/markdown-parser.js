@@ -15,6 +15,7 @@ export class MarkdownParser {
   @bindable content;
   @bindable codeLang = 'xml';
   @bindable scaleCoords;
+  @bindable showMoreOptionsMenu = true;
 
   @observable inputValue;
 
@@ -44,6 +45,10 @@ export class MarkdownParser {
 
   constructor(commandCentral) {
     this.commandCentral = commandCentral;
+  }
+
+  bind() {
+    console.log(this.showMoreOptionsMenu)
   }
 
   attached() {
