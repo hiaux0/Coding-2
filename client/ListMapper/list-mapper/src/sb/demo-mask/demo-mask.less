@@ -1,0 +1,40 @@
+@import (reference) '../../resources/common/styles/common.less';
+
+// Uncomment for easier styling
+// .demo-mask {
+//   & div {
+//     .hio-border-fact();
+//   }
+// }
+
+.demo-mask {
+  font-size: 14px;
+
+  .demo-container {
+    margin: 2em 0px;
+    padding: 1em;
+
+    .demo-item-desc {
+      margin-bottom: 1.5em;
+    }
+
+    .demo-item {
+      margin-top: 1.5em;
+      display: flex;
+      justify-content: space-between;
+
+      & > div {
+        min-height: 25vh;
+        min-width: 40vw;
+      }
+
+      .demo {
+        .hio-border-fact();
+      }
+
+      .demo-doc {
+        .hio-border-fact();
+      }
+    }
+  }
+}
