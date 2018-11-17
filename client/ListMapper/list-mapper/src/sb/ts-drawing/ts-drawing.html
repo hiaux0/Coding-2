@@ -1,0 +1,15 @@
+<template>
+
+  <button click.delegate="undoDraw()" class="btn btn-secondary-outline btn-xs">undo</button>
+
+  <canvas
+    ref="canvas"
+    width="800"
+    height="800"
+    mousedown.delegate="activateDraw($event)"
+    mouseup.delegate="deactivateDraw()"
+    mousemove.delegate="draw($event)"
+  ></canvas>
+
+  <h1>${value}</h1>
+</template>
