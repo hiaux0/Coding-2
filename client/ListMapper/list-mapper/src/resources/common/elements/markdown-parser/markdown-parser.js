@@ -1,7 +1,6 @@
 import {bindable, inject, observable} from 'aurelia-framework';
 import {CommandCentral} from '../../command-central'
-import {initMonaco, renderMarkdown} from './markdown-parser-custom';
-import {functionMapRCM} from '../../../storages/radial-context-menus';
+import { renderMarkdown } from './render-markdown';
 import {arrows, pencil} from '../../styles/icons';
 import {debounce} from 'lodash-decorators';
 
@@ -13,8 +12,8 @@ const DRAG_BUTTON_CLASS = 'drag-button';
 
 @inject(CommandCentral)
 export class MarkdownParser {
-  @bindable codeBlockContent;
-  @bindable parserMode = "Code";
+  @bindable content;
+  @bindable parserMode = "js";
   @bindable scaleCoords;
 
   @observable inputValue;
@@ -28,35 +27,27 @@ export class MarkdownParser {
   }
 
   autoFocus = true;
+  DRAG_BUTTON_CLASS = DRAG_BUTTON_CLASS;
+
+  result = "";
+  insertCodeRef = null;
+  draggableName = "";
+  sortableContext = "";
+
+  iconArrows = arrows;
+  iconPencil = pencil;
+
+  mouseX = 0;
+  mouseY = 0;
+  showRadialContextMenu = false;
+  isEditMode = false;
 
   constructor(commandCentral) {
     this.commandCentral = commandCentral;
-    this.functionMapRCM = functionMapRCM;
-    this.DRAG_BUTTON_CLASS = DRAG_BUTTON_CLASS;
-
-    // this.codeBlocks = codeBlocks;
-    // console.log('TCL: MarkdownParser -> constructor -> this.codeBlocks', this.codeBlocks);
-
-    this.result = "";
-    this.insertCodeRef = null;
-    this.draggableName = "";
-    this.sortableContext = "";
-    // this.segmentedButtonText = "Text";
-    this.segmentedButtonText = "Code";
-
-    this.iconArrows = arrows;
-    this.iconPencil = pencil;
-
-    this.mouseX = 0;
-    this.mouseY = 0;
-    this.showRadialContextMenu = false;
-    this.isEditMode = false;
-
   }
 
   attached() {
-    this.inputValue = this.codeBlockContent;
-    // console.log('TCL: MarkdownParser -> constructor -> this.inputValue', this.inputValue);
+    this.inputValue = this.content;
 
     this.commandCentral.subscribeToCommandEvents({
       marked_convertToHtml: this.convertToHtml,
@@ -69,19 +60,15 @@ export class MarkdownParser {
    */
   convertToHtml = () => {
     let input;
-    // console.log('TCL: MarkdownParser -> convertToHtml -> this.inputValue', this.inputValue);
-    if (this.segmentedButtonText === 'Code') {
-      // console.log('in code mode')
-      input = `\`\`\` js\n${this.inputValue}`;
+    if (this.parserMode) {
+      input = `\`\`\` ${this.parserMode}\n${this.inputValue}\n \`\`\``;
+			console.log("​MarkdownParser -> convertToHtml -> input", input)
     } else {
       input = this.inputValue;
     }
 
-    // console.log('TCL: MarkdownParser -> convertToHtml -> input', input);
     this.result = renderMarkdown(input);
-    // console.log('MarkdownParser -> convertToHtml -> this.result', this.result);
     this.splittedLines = this.createLineNumbers(this.result);
-    // console.log('TCL: MarkdownParser -> convertToHtml -> this.splittedLines', this.splittedLines);
 
     this.draggableName = `.${LINE_NUMBER_CLASS}`;
     this.sortableContext = 'code';
