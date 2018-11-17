@@ -1,6 +1,6 @@
 // This file is actually not meant for use. Just a store for all the existing icons
 
-/* 
+/*
 https://fontawesome.com/v4.7.0/icons/
 */
 
@@ -14,3 +14,4 @@ export const arrows = "fa fa-arrows";
 export const eraser = "fa fa-eraser";
 export const pencil = "fa fa-pencil";
 export const paintBrush = "fa fa-paint-brush";
+export const code = "fa fa-code";
