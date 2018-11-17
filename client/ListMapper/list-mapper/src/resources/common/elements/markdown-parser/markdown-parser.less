@@ -6,9 +6,11 @@
   .markdown-parser-result-container{
     position: relative;
     min-width: 300px;
-    width: 50vw;
-    height: 300px;
+    width: 100%;
+    height: 100%;
     background-color: @monokai-dark-background;
+    overflow: auto;
+
     &:hover {
       more-options-menu {
         display: block;
@@ -28,7 +30,7 @@
     .markdown-parser-result {
       border: 1px solid;
       padding: 10px;
-      height: 100%;
+      // height: 100%;
 
       pre {
         color: @light-text-clr;
