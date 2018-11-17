@@ -112,7 +112,7 @@ export class App {
   }
 
   initDebugMode() {
-    toggleJumpable();
+    // toggleJumpable();
 
     if (window.DEBUG_MODE.standardTheme === 'light') {
       this.lightTheme();

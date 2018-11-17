@@ -27,7 +27,7 @@ const cssRules = [
 
 module.exports = ({production, server, extractCss, coverage, analyze} = {}) => ({
   resolve: {
-    extensions: ['.js'],
+    extensions: ['.js', '.ts'],
     modules: [srcDir, 'node_modules'],
   },
   entry: {
@@ -80,7 +80,7 @@ module.exports = ({production, server, extractCss, coverage, analyze} = {}) => (
         issuer: /\.html?$/i
       },
       { test: /\.html$/i, loader: 'html-loader' },
-      { test: /\.js$/i, loader: 'babel-loader', exclude: nodeModulesDir,
+      { test: /\.[tj]s$/i, loader: 'babel-loader', exclude: nodeModulesDir,
         options: coverage ? { sourceMap: 'inline', plugins: [ 'istanbul' ] } : {},
       },
       // use Bluebird as the global Promise implementation:
