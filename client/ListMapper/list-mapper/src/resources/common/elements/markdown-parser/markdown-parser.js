@@ -13,7 +13,7 @@ const DRAG_BUTTON_CLASS = 'drag-button';
 @inject(CommandCentral)
 export class MarkdownParser {
   @bindable content;
-  @bindable parserMode = "js";
+  @bindable codeLang = 'xml';
   @bindable scaleCoords;
 
   @observable inputValue;
@@ -60,9 +60,8 @@ export class MarkdownParser {
    */
   convertToHtml = () => {
     let input;
-    if (this.parserMode) {
-      input = `\`\`\` ${this.parserMode}\n${this.inputValue}\n \`\`\``;
-			console.log("​MarkdownParser -> convertToHtml -> input", input)
+    if (this.codeLang) {
+      input = `\`\`\` ${this.codeLang}\n${this.inputValue}\n \`\`\``;
     } else {
       input = this.inputValue;
     }

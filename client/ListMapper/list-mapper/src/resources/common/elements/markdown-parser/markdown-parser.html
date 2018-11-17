@@ -51,7 +51,7 @@
         >
         <!-- This is unfortunately an ugly way of writing code. -->
         <!-- Reason is pre preserves white space. EVERY white space -->
-        <pre><code class="language-${parserMode}" ref="insertCodeRef"><div
+        <pre><code class="language-${codeLang}" ref="insertCodeRef"><div
           repeat.for="line of splittedLines"
           innerhtml.bind="line"
           class="line-number"
