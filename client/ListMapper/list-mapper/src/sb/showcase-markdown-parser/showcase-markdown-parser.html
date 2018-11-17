@@ -2,13 +2,28 @@
   <require from='../../resources/common/elements/markdown-parser/markdown-parser'></require>
 
   <markdown-parser
-    code-block-content='<span
-  class="
-    hio-border
-    zoom-ex-1"
-  enable-zooming="context: .zoom-ex-1"
->Zoom me</span>'
-    parser-mode="CSS"
+    content='
+function test() {
+  return "what are you doing?";
+}'
+    parser-mode="js"
+  ></markdown-parser>
+
+  <markdown-parser
+    content='
+<span class="okayman">Hello there</span>
+    '
+    parser-mode="xml"
+  ></markdown-parser>
+
+
+  <markdown-parser
+    content='
+span {
+  color: red;
+}
+    '
+    parser-mode="css"
   ></markdown-parser>
 
   <h1>${value}</h1>
