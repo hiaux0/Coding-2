@@ -1,104 +1,88 @@
 <template>
   <require from='../../resources/attributes/enable-zooming'></require>
   <require from='../../resources/common/elements/features/markdown-parser/markdown-parser'></require>
-
+  <require from='../../resources/common/elements/masks/demo-mask/demo-mask'></require>
 
   <div class="showcase-zooming">
+    <header>
+      <h2>Zooming custom attribute</h2>
+      Documentation for the zooming custom attribute
+    </header>
 
-    <div class="hio-docs">
-      <header>Documentation for the zooming custom attribute</header>
+    <hr>
 
-      <!-- Example 1 -->
-      <div class="example-1 doc-item">
-        <div class="doc-description">Example 1</div>
-        <div class="demo-container">
-          <div class="demo">
-            demo
-            <span class="hio-border zoom-ex-1" enable-zooming="context: .zoom-ex-1">Zoom me</span>
-          </div>
-          <div class="demo-doc">
-            <markdown-parser
-              content='
-<div class="demo">
-  demo
-  <span class="hio-border zoom-ex-1" enable-zooming="context: .zoom-ex-1">Zoom me</span>
-</div>
-              '
-              parser-mode='xml'
-            ></markdown-parser>
-          </div>
-        </div>
+    <demo-mask
+      code-content='
+<span
+  class="hio-border zoom-ex-1"
+  enable-zooming="context: .zoom-ex-1"
+>Zoom me</span>
+      '
+    >
+      <div slot="demo-item-name">Example 1</div>
+      <div slot="demo-item-desc">Simple Zoom</div>
+      <div slot="demo">
+        <span class="hio-border zoom-ex-1" enable-zooming="context: .zoom-ex-1">Zoom me</span>
       </div>
+    </demo-mask>
 
-      <!-- Example 2 -->
-      <div class="example-2 doc-item">
-        <div class="doc-description">Example 2</div>
-        <div class="demo-container">
-          <div class="demo">
-            demo
-            <div class="hio-border zoom-ex-2" enable-zooming="context: .zoom-ex-2">
-              Zoom in the whole container
+    <hr>
 
-              <div class="hio-cards-container">
-                <div>1</div>
-                <div>2</div>
-                <div>3</div>
-              </div>
-            </div>
-          </div>
-          <div class="demo-doc">
-            <markdown-parser
-              content='
-<div class="hio-border zoom-ex-2" enable-zooming="context: .zoom-ex-2">
-  Zoom in the whole container
+    <demo-mask
+      code-content='
+<div
+  class="hio-border zoom-ex-2"
+  enable-zooming="context: .zoom-ex-2"
+>
   <div class="hio-cards-container">
     <div>1</div>
     <div>2</div>
     <div>3</div>
+    Zoom me
   </div>
 </div>
-              '
-              parser-mode='xml'
-            ></markdown-parser>
+      '
+    >
+      <div slot="demo-item-name">Example 2</div>
+      <div slot="demo-item-desc">Zoom in the whole container</div>
+      <div slot="demo">
+        <div class="hio-border zoom-ex-2" enable-zooming="context: .zoom-ex-2">
+          <div class="hio-cards-container">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            Zoom me
           </div>
         </div>
       </div>
+    </demo-mask>
 
-      <!-- Example 3 -->
-      <div class="example-1 doc-item">
-        <div class="doc-description">Example 3</div>
-        <div class="demo-container">
-          <div class="demo">
-            demo
-            <div class="hio-border zoom-ex-3" >
-              Zoom each card individually
-              <div class="hio-cards-container">
-                <div class="div-1" enable-zooming="context: .div-1">1</div>
-                <div class="div-2" enable-zooming="context: .div-2">2</div>
-                <div class="div-3" enable-zooming="context: .div-3">3</div>
-              </div>
-            </div>
-          </div>
-          <div class="demo-doc">
-            <markdown-parser
-              content='
-<div class="demo">
-  demo
-  <div class="hio-border zoom-ex-3" >
-    Zoom each card individually
-    <div class="hio-cards-container">
-      <div id="div-1" enable-zooming="context: #div-1">1</div>
-      <div id="div-2" enable-zooming="context: #div-2">2</div>
-      <div id="div-3" enable-zooming="context: #div-3">3</div>
-    </div>
+    <hr>
+
+    <demo-mask
+      code-content='
+<div class="hio-border zoom-ex-3" >
+  <div class="hio-cards-container">
+    <div class="div-1" enable-zooming="context: .div-1">Zoom me 1</div>
+    <div class="div-2" enable-zooming="context: .div-2">Zoom me 2</div>
+    <div class="div-3" enable-zooming="context: .div-3">Zoom me 3</div>
   </div>
 </div>
-              '
-              parser-mode='xml'
-            ></markdown-parser>
+      '
+    >
+      <div slot="demo-item-name">Example 3</div>
+      <div slot="demo-item-desc">Zoom each card individually</div>
+      <div slot="demo">
+        <div class="hio-border zoom-ex-3">
+          <div class="hio-cards-container">
+            <div class="div-1" enable-zooming="context: .div-1">Zoom me 1</div>
+            <div class="div-2" enable-zooming="context: .div-2">Zoom me 2</div>
+            <div class="div-3" enable-zooming="context: .div-3">Zoom me 3</div>
           </div>
         </div>
       </div>
+    </demo-mask>
+
 
   </div>
 </template>
