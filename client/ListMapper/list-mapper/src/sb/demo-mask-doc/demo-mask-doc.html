@@ -15,12 +15,15 @@
     <hr>
     <h3>What you will get</h3>
 
-    <demo-mask code-content='
-    <span>WHAT</span>
-      '>
-      <div slot="demo-item-name">aaa</div>
-      <div slot="demo-item-desc">aaa</div>
-      <div slot="demo">aaa</div>
+    <demo-mask
+      code-content="
+<span>WHAT</span>
+      ">
+      <div slot="demo-item-name">DOCITEM 1</div>
+      <div slot="demo-item-desc">
+        saepe qui vel vel voluptatem impedit quo repellendus corrupti quibusdam velit quidem distinctio quas cum sed iste culpa vel nam
+      </div>
+      <div slot="demo">Demo</div>
     </demo-mask>
 
     <!-- Code of demo -->
@@ -59,18 +62,18 @@
 
     <markdown-parser
       content='
-  <!-- Note that you will have to adjust the quotes when you copy paste this example -->
-  <require from="../demo-mask/demo-mask"></require>
+<require from="../demo-mask/demo-mask"></require>
 
-  <demo-mask
-    code-content="
-  <span>WHAT</span>
-    ">
-    <div slot="demo-item-name">DOCITEM 1</div>
-    <div slot="demo-item-desc">saepe qui vel vel voluptatem impedit quo repellendus corrupti quibusdam velit quidem distinctio quas cum sed iste culpa
-    vel nam</div>
-    <div slot="demo">DEMO</div>
-  </demo-mask>
+<demo-mask
+  code-content="
+<span>WHAT</span>
+  ">
+  <div slot="demo-item-name">DOCITEM 1</div>
+  <div slot="demo-item-desc">
+    saepe qui vel vel voluptatem impedit quo repellendus corrupti quibusdam velit quidem distinctio quas cum sed iste culpa vel nam
+  </div>
+  <div slot="demo">Demo</div>
+</demo-mask>
       '
     ></markdown-parser>
   </div>
