@@ -84,7 +84,8 @@ export class MarkdownParser {
     // There is surely a better way how to do that..
     let filter = result.replace(/<pre><code (.*?)>/g, "")
                        .replace("</code></pre>", "");
-    let splittedLine = filter.split(/[\n\r]/g);
+    let splittedLine = filter.split(/[\n\r]/g)
+                             .filter(line => line !== '');
 
     splittedLine.forEach((line) => {
       line = line || '\n';
