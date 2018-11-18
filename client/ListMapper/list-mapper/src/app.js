@@ -89,7 +89,7 @@ export class App {
         // Dropdown items Markdown Parser
         {
           route: ['markdown-parser/index'],
-          moduleId: PLATFORM.moduleName('./resources/common/elements/markdown-parser/markdown-parser'),
+          moduleId: PLATFORM.moduleName('./resources/common/elements/features/markdown-parser/markdown-parser'),
           nav:true, title: 'Markdown Parser',
           settings: {
             dropdownId: 'markdownParser',
