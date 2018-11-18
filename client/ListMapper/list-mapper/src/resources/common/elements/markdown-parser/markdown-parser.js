@@ -47,10 +47,6 @@ export class MarkdownParser {
     this.commandCentral = commandCentral;
   }
 
-  bind() {
-    console.log(this.showMoreOptionsMenu)
-  }
-
   attached() {
     this.inputValue = this.content;
 
