@@ -1,5 +1,4 @@
 import {bindable} from 'aurelia-framework';
-import { code } from '../../resources/common/styles/icons';
 import './demo-mask.less'
 
 export class DemoMask {
@@ -10,14 +9,11 @@ export class DemoMask {
 
   /**
    * @type {String} codeConent of what you want to display
+   * Note the `\n`, because in the view it is easier to read the code when we do
+   *   code-content='
+   * <span>...
+   *   '
+   * there is a new line added above.
    */
-  @bindable codeContent = 'Your code goes here.'
-
-  codeIcon = code;
-  showCode = false;
-  showMoreOptionsMenu = false;
-
-  toggleCodeMode() {
-    this.showCode = !this.showCode;
-  }
+  @bindable codeContent = '\n<span>WHAT</span>'
 }

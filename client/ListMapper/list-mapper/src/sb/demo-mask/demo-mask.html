@@ -1,18 +1,9 @@
 <template>
   <require from='../../resources/common/elements/markdown-parser/markdown-parser'></require>
-  <require from='../../resources/common/elements/more-options-menu/more-options-menu'></require>
-
 
   <div class="demo-mask" ref="demoMaskRef">
-    <!-- More options menu -->
-    <more-options-menu>
-      <button class="btn btn-dark" click.delegate="toggleCodeMode()">
-        <i class="${codeIcon}"></i>
-      </button>
-    </more-options-menu>
+    <div class="demo-container">
 
-    <!-- Demo -->
-    <div if.bind="!showCode" class="demo-container">
       <h4> <slot name="demo-item-name">DOCITEM 1</slot> </h4>
       <div class="demo-item-desc">
         <slot name="demo-item-desc">
@@ -32,40 +23,12 @@
           ></markdown-parser>
         </div>
       </div>
-    </div>
 
-    <!-- Code of demo -->
-    <markdown-parser
-      if.bind="showCode"
-      show-more-options-menu.bind="showMoreOptionsMenu"
-      content='
-<div class="demo-container">
-  <h4> <slot name="demo-item-name">DOCITEM 1</slot> </h4>
-  <div class="demo-item-desc">
-    <slot name="demo-item-desc">
-      saepe qui vel vel voluptatem impedit quo repellendus corrupti quibusdam velit quidem distinctio quas cum sed iste culpa vel nam
-    </slot>
-  </div>
-
-  <div class="demo-item">
-    <div class="demo">
-      <slot name="demo">DEMO</slot>
-    </div>
-
-    <div class="demo-doc">
-      <markdown-parser
-        content.bind="codeContent"
-        code-lang.bind="codeLang"
-      ></markdown-parser>
     </div>
   </div>
-</div>
-      '
-    ></markdown-parser>
-
 </template>
 
-How to use This component
+How to use This component (copy paste)
 
 <require from='../demo-mask/demo-mask'></require>
 
