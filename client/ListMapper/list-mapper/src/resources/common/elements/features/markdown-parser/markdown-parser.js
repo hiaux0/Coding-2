@@ -1,7 +1,7 @@
 import {bindable, inject, observable} from 'aurelia-framework';
-import {CommandCentral} from '../../command-central'
+import {CommandCentral} from '../../../command-central'
 import { renderMarkdown } from './render-markdown';
-import {arrows, pencil} from '../../styles/icons';
+import {arrows, pencil} from '../../../styles/icons';
 import {debounce} from 'lodash-decorators';
 
 import './markdown-parser.less';
