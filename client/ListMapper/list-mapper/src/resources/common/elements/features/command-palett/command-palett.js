@@ -1,8 +1,8 @@
 import {bindable, inject, observable} from 'aurelia-framework';
 import {EventAggregator} from 'aurelia-event-aggregator';
-import {commandList} from '../../../commandStorage/command-storage';
-import {COMMAND_PALETT} from '../../../../application-key-bindings/app.keys';
-import {toggleHotkeyScope} from '../../../../application-key-bindings/toggle-scope';
+import {commandList} from '../../../../commandStorage/command-storage';
+import {COMMAND_PALETT} from '../../../../../application-key-bindings/app.keys';
+import {toggleHotkeyScope} from '../../../../../application-key-bindings/toggle-scope';
 import hotkeys from 'hotkeys-js';
 
 import './command-palett.less';
