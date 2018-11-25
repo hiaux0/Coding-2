@@ -10,7 +10,7 @@ import (
 
 func main() {
 	driver := bolt.NewDriver()
-	conn, err := driver.OpenNeo("bolt://username:password@localhost:7687") //CHANGEME username and password
+	conn, err := driver.OpenNeo("bolt://neo4j:moti@localhost:7687")
 	if err != nil {
 		panic(err)
 	}
