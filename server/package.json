@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/hiaux0/Coding-2#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "dependency-tree": "^6.3.0",
     "nodemon": "^1.18.7"
   },
