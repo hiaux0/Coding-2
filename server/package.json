@@ -17,7 +17,8 @@
   },
   "homepage": "https://github.com/hiaux0/Coding-2#readme",
   "dependencies": {
-    "dependency-tree": "^6.3.0"
+    "dependency-tree": "^6.3.0",
+    "nodemon": "^1.18.7"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
