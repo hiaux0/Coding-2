@@ -13,7 +13,7 @@ const DRAG_BUTTON_CLASS = 'drag-button';
 @inject(CommandCentral)
 export class MarkdownParser {
   @bindable content;
-  @bindable codeLang = 'xml';
+  @bindable codeLang;
   @bindable scaleCoords;
   @bindable showMoreOptionsMenu = true;
 
@@ -64,7 +64,7 @@ export class MarkdownParser {
     if (this.codeLang) {
       input = `\`\`\` ${this.codeLang}\n${this.inputValue}\n \`\`\``;
     } else {
-      input = this.inputValue;
+      input = this.inputValue || '';
     }
 
     this.result = renderMarkdown(input);
@@ -84,7 +84,8 @@ export class MarkdownParser {
     // There is surely a better way how to do that..
     let filter = result.replace(/<pre><code (.*?)>/g, "")
                        .replace("</code></pre>", "");
-    let splittedLine = filter.split(/[\n\r]/g);
+    let splittedLine = filter.split(/[\n\r]/g)
+                             .filter(line => line !== '');
 
     splittedLine.forEach((line) => {
       line = line || '\n';

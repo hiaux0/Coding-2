@@ -13,8 +13,8 @@ app.use(bodyParser.json());
 
 const connectionSettings = {
   host: 'localhost',
-  user: 'hdn', 
-  password: "moti",
+  user: 'turbo',
+  password: "singular",
   database: 'list_mapper'
 }
 
@@ -30,7 +30,7 @@ exports.connect = new Promise( (resolve, reject) => {
   // Is it redundant to create a connection AND a Pool?
   const connection = mysql.createConnection(connectionSettings);
   connection.connect(function (err) {
-    if (err) 
+    if (err)
       reject(err);
     else {
       console.log(`MySql connection success. -- Connected to ${connectionSettings.database}`);
@@ -45,19 +45,19 @@ exports.get = function() {
 
 /**
  * Check if Pool is available, if it is
- * 
+ *
  * @return {Pool} pool
  *  ..else @return {Error} error
  */
 const checkPool = function() {
-  return state.pool ? 
+  return state.pool ?
       state.pool
     : done(new Error('Missing database connection.'))
 }
 
 /**
- * 
- * @param {Object} data 
+ *
+ * @param {Object} data
  */
 exports.fixtures = function (data, done) {
   var pool = checkPool();
@@ -65,7 +65,7 @@ exports.fixtures = function (data, done) {
   var names = Object.keys(data.tables)
   async.each(names, function (name, cb) {
     async.each(data.tables[name], function (row, cb) {
-      var keys = Object.keys(row) 
+      var keys = Object.keys(row)
       , values = keys.map(function (key) { return "'" + row[key] + "'" })
 
       pool.query('INSERT INTO ' + name + ' (' + keys.join(',') + ') VALUES (' + values.join(',') + ')', cb)
