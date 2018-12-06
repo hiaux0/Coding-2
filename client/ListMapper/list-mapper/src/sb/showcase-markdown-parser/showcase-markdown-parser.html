@@ -1,30 +1,98 @@
 <template>
   <require from='../../resources/common/elements/features/markdown-parser/markdown-parser'></require>
+  <require from="../../resources/common/elements/masks/demo-mask/demo-mask"></require>
+  <require from='../../resources/value-converters/strings/trim-code-content'></require>
 
-  <markdown-parser
-    content='
-function test() {
-  return "what are you doing?";
-}'
-    code-lang="js"
-  ></markdown-parser>
-
-  <markdown-parser
-    content='
-<span class="okayman">Hello there</span>
-    '
+  <demo-mask
+    code-content="${'
+      <markdown-parser></markdown-parser>
+    ' | trimCodeConent }"
     code-lang="xml"
-  ></markdown-parser>
+  >
+    <div slot="demo-item-name">Example 0</div>
+    <div slot="demo-item-desc">
+      Pure Markdown
+    </div>
+    <div slot="demo">
+      <markdown-parser></markdown-parser>
+    </div>
+  </demo-mask>
 
+  <demo-mask
+    code-content="${'
+      <markdown-parser
+        content=&quot;...&quot;
+        code-lang=&quot;xml&quot;
+      ></markdown-parser>
+    ' | trimCodeConent }"
+    code-lang="xml"
+  >
+    <div slot="demo-item-name">Example 1</div>
+    <div slot="demo-item-desc">
+      HTML (XML) highlighting
+    </div>
+    <div slot="demo">
+      <markdown-parser
+        content="${'
+          <span class=&quot;okayman&quot;>Hello there</span>
+        ' | trimCodeConent }"
+        code-lang="xml"
+      ></markdown-parser>
+    </div>
+  </demo-mask>
 
-  <markdown-parser
-    content='
-span {
-  color: red;
-}
-    '
-    code-lang="css"
-  ></markdown-parser>
+  <hr>
 
-  <h1>${value}</h1>
+  <demo-mask
+    code-content="${'
+      <markdown-parser
+        content=&quot;...&quot;
+        code-lang=&quot;js&quot;
+      ></markdown-parser>
+    ' | trimCodeConent }"
+    code-lang="xml"
+  >
+    <div slot="demo-item-name">Example 2</div>
+    <div slot="demo-item-desc">
+      Js highlighting
+    </div>
+    <div slot="demo">
+      <markdown-parser
+        content="${'
+          function test() {
+            return &quot;what are you doing?&quot;;
+          }
+        ' | trimCodeConent }"
+        code-lang="js"
+      ></markdown-parser>
+    </div>
+  </demo-mask>
+
+  <hr>
+
+  <demo-mask
+    code-content="${'
+      <markdown-parser
+        content=&quot;...&quot;
+        code-lang=&quot;css&quot;
+      ></markdown-parser>
+    ' | trimCodeConent }"
+    code-lang="xml"
+  >
+    <div slot="demo-item-name">Example 3</div>
+    <div slot="demo-item-desc">
+      CSS highlighting
+    </div>
+    <div slot="demo">
+      <markdown-parser
+        content="${'
+          span {
+            color: red;
+          }
+        ' | trimCodeConent }"
+        code-lang="css"
+      ></markdown-parser>
+    </div>
+  </demo-mask>
+
 </template>
