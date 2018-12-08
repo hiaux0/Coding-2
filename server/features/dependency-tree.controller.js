@@ -2,7 +2,7 @@
 // when a path is given, cache it (save to db) and only update when update signal is given
 
 // Replace with actual dep tree
-const appJsDepTree = require('../list-mapper-app-js.json');
+const appJsDepTree = require('../configs/list-mapper-app-js.json');
 const serverConfig = require('../configs/server-config.json');
 
 const basePath = serverConfig.depTree.basePath;
