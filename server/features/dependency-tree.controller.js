@@ -7,15 +7,43 @@ const serverConfig = require('../configs/server-config.json');
 
 const basePath = serverConfig.depTree.basePath;
 
-// getDepTree() /*?*/
+// let depTreeTempMap = getDepTree()
+// console.log("​depTreeTempMap", depTreeTempMap)
+
+
+
+// let itCount=0;
+/**
+ * Keys are only file names and add a path array to the value.
+ * @param {map} depTreeTempMap
+ */
+// function process(depTreeTempMap) {
+//   let newMap = new Map();
+//   for (let [keys, value] of depTreeTempMap) {
+//     // console.log('------------------------------', itCount++, '------------------------------')
+//     let pathArr = keys.split('/');
+//     let fileName = pathArr.pop();
+//     let path = pathArr;
+
+//     value.path = path;
+//     newMap.set(fileName, value)
+//   }
+//   return newMap;
+// }
+
+// process(depTreeTempMap); /*?*/
+
 
 function getDepTree() {
-  let withoutBasePath = removeBasePath(appJsDepTree, basePath); /*?*/
+  let withoutBasePath = removeBasePath(appJsDepTree, basePath);
   let withId = addIdToObject(withoutBasePath);
 
   let resultMap = new Map();
   flattenAndAddParentId(withId, resultMap);
-	console.log("​getDepTree -> resultMap", resultMap)
+
+  // Was used to process the dep tree further
+  let processed = process(resultMap);
+	// console.log("​getDepTree -> resultMap", resultMap)
 
   return Array.from(resultMap);
 }
