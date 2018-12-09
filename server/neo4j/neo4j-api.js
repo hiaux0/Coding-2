@@ -12,15 +12,15 @@ var driver = neo4j.driver('bolt://localhost:7687', neo4j.auth.basic(user, passwo
  *   @param {any} node - element of nodes.
  */
 function createDbNodes(nodes, createNode) {
-  let session;
-  return nodes.reduce((promise, node) => {
+  let nodeCreated, session;
+  let test = nodes.reduce((acc, node) => {
     session = driver.session(neo4j.WRITE);
+    nodeCreated = session.writeTransaction(tx => createNode(tx, node))
+    acc.push(nodeCreated)
+    return acc;
+  }, []);
 
-    let nodeCreated = session.writeTransaction(tx => createNode(tx, node))
-    return promise.then(nodeCreated).then(() => {
-      return session.close()
-    })
-  }, Promise.resolve());
+  return Promise.all(test).then(() => session.close());
 }
 
 /**
@@ -31,30 +31,15 @@ function createDbNodes(nodes, createNode) {
  *   @param {any} node - element of nodes.
  */
 function createDbRelationships(nodes, createRelationship) {
-  let session;
-  return nodes.reduce((promise, node) => {
+  let createdRelationship, session;
+  let test = nodes.reduce((acc, node) => {
     session = driver.session(neo4j.WRITE);
+    createdRelationship = session.writeTransaction(tx => createRelationship(tx, node, nodes))
+    acc.push(createdRelationship)
+    return acc;
+  }, []);
 
-    let createdRelationship = session.writeTransaction(tx => createRelationship(tx, node, nodes)
-      .then(data => {
-        // console.log("​createDbRelationships -> data.records", data.records)
-        // let { records } = data;
-        // console.log('------------------------------')
-        // records.forEach(record => {
-        //   console.log('>>>>>', record)
-        //   console.log(`record.get('f')`, record.get('f'))
-        //   console.log(`record.get('t')`, record.get('t'))
-        // })
-        // // let test = record.get(0)
-				// // console.log("​createDbRelationships -> test", test)
-        // console.log('------------------------------------------------------------')
-      })
-    )
-
-    return promise.then(createdRelationship).then(() => {
-      return session.close();
-    }).catch(err => console.error(err))
-  }, Promise.resolve());
+  return Promise.all(test).then(() => session.close());
 }
 
 module.exports = {
