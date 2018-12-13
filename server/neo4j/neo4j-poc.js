@@ -4,7 +4,7 @@ var user = serverConfig.neo4j.user;
 var password = serverConfig.neo4j.password;
 var driver = neo4j.driver('bolt://localhost:7687', neo4j.auth.basic(user, password));
 
-const { createDbNodes, createDbRelationships } = require('./neo4j-api');
+const { createDbNodesWithNameProp, createDbRelationshipsAImports } = require('./neo4j-api');
 
 const persons = [
   {name: 'yj', id: 1, friends: ['hio']},
@@ -15,14 +15,14 @@ const persons = [
 ]
 dropAllTables(); //fixme dev
 
-createDbNodes(persons, (tx, person) => {
+createDbNodesWithNameProp(persons, (tx, person) => {
   let name = person.name;
   return tx.run('create (p: Person {name: $name}) return p;', {name});
 })
 .then(() => {
-  createDbRelationships(persons, (tx, fromPerson) => {
+  createDbRelationshipsAImports(persons, (tx, fromPerson) => {
     let { friends } = fromPerson;
-    createDbRelationships(friends, (tx, friend) => {
+    createDbRelationshipsAImports(friends, (tx, friend) => {
       return tx
       .run(`
         match (f: Person) where f.name = '${fromPerson.name}'

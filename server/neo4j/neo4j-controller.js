@@ -8,7 +8,7 @@ var password = serverConfig.neo4j.password;
 var driver = neo4j.driver('bolt://localhost:7687', neo4j.auth.basic(user, password));
 var session = driver.session(neo4j.WRITE);
 
-const { createDbNodes, createDbRelationships } = require('./neo4j-api');
+const { createDbNodesWithNameProp, createDbRelationshipsAImports } = require('./neo4j-api');
 
 
 var { getDepTree } = require('../features/dependency-tree.controller');
@@ -47,13 +47,13 @@ function initFileNodes(depTree) {
   // dropAllTables(); //fixme dev
   let fileNames = depTree.map(([fileName, _]) => fileName);
 
-  createDbNodes(fileNames, (tx, fileName) => {
+  createDbNodesWithNameProp(fileNames, (tx, fileName) => {
     return tx.run('create (f: FileName {name: $fileName}) return f;', { fileName });
   })
     .then(() => {
-      createDbRelationships(depTree, (tx, [fileName, fileImports]) => {
+      createDbRelationshipsAImports(depTree, (tx, [fileName, fileImports]) => {
         let keys = Object.keys(fileImports)
-        createDbRelationships(keys, (tx, key) => {
+        createDbRelationshipsAImports(keys, (tx, key) => {
           if (key === '_id' || key === '_parentId') return Promise.resolve();
             return tx.run(`
               match (f: FileName) where f.name = '${fileName}'

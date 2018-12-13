@@ -11,7 +11,7 @@ var driver = neo4j.driver('bolt://localhost:7687', neo4j.auth.basic(user, passwo
  *   @param {object} tx - given by neo4j
  *   @param {any} node - element of nodes.
  */
-function createDbNodes(nodes, createNode) {
+function createDbNodesWithNameProp(nodes, createNode) {
   let nodeCreated, session;
   let test = nodes.reduce((acc, node) => {
     session = driver.session(neo4j.WRITE);
@@ -30,7 +30,7 @@ function createDbNodes(nodes, createNode) {
  *   @param {object} tx - given by neo4j
  *   @param {any} node - element of nodes.
  */
-function createDbRelationships(nodes, createRelationship) {
+function createDbRelationshipsAImports(nodes, createRelationship) {
   let createdRelationship, session;
   let test = nodes.reduce((acc, node) => {
     session = driver.session(neo4j.WRITE);
@@ -43,8 +43,8 @@ function createDbRelationships(nodes, createRelationship) {
 }
 
 module.exports = {
-  createDbNodes,
-  createDbRelationships
+  createDbNodesWithNameProp,
+  createDbRelationshipsAImports
 }
 
 // Concepts learned in this file.
