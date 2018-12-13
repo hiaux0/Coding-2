@@ -8,76 +8,62 @@ var password = serverConfig.neo4j.password;
 var driver = neo4j.driver('bolt://localhost:7687', neo4j.auth.basic(user, password));
 var session = driver.session(neo4j.WRITE);
 
+const { createDbNodes, createDbRelationships } = require('./neo4j-api');
 
 
 var { getDepTree } = require('../features/dependency-tree.controller');
 
+/**
+ * @typedef {Object} FileWithImportsEnhanced
+ * @property {number} id
+ * @property {number} parentId
+ * @property {string} <imported-file-name> (repeat)
+ */
+
+/**
+ * @typedef {Array['<file-name>', FileWithImportsEnhanced]} DepTreeAsArray
+ */
+
+/**
+ * @type {DepTreeAsArray}
+ */
 var depTree = getDepTree();
 
 
 function dropAllTables() {
   session.run('MATCH (n) DETACH DELETE n')
-    .then(result => {
-			// console.log("​dropAllTables -> result", result)
+    .then(_ => {
       session.close()
     });
 }
 
-let count = 0;
-
-function initFileNodes(depTree) {
-  dropAllTables(); //fixme dev
-  let session;
-
-  createFileNodes(depTree).then(()=>{
-    createFileDeps(depTree);
-  })
-
-
-
-  function createFileNodes(depTree) {
-    function createFileNode(tx, fileName) {
-      return tx.run('create (f: FileName {name: $name})', { name: fileName });
-    }
-
-    return depTree.reduce((promise, fileData) => {
-      session = driver.session(neo4j.WRITE);
-      let fileName = fileData[0];
-
-      let createdFileNode = session.writeTransaction(tx => createFileNode(tx, fileName));
-      return promise.then(createdFileNode).then(() => session.close())
-
-    }, Promise.resolve())
-  }
-
-  function createFileDeps(depTree) {
-    function createFileDep(tx, fromFileName, toFileName) {
-      return tx.run(`
-        match (f: FileName) where f.name = '${fromFileName}'
-        match (t: FileName) where t.name = '${toFileName}'
-        create (f) - [:IMPORTS] -> (t);
-      `)
-
-    }
-
-    let count = 0;
-    return depTree.reduce((promise, fileData) => {
-      console.log('-------------------------------', count++, '-------------------------------')
-			console.log("​createFileDeps -> fileData", fileData)
-      session = driver.session(neo4j.WRITE);
-      let fromFileName = fileData[0];
-      let toFileName = Object.keys(fileData[1])[1];
-      console.log("​createFileDeps -> toFileName", toFileName)
-      if (toFileName === '_parentId') return Promise.resolve();
-
-      let createdFileDep = session.writeTransaction(tx => createFileDep(tx, fromFileName, toFileName))
-      return promise.then(createdFileDep).then(() => session.close());
-    }, Promise.resolve());
-  }
-}
-
-
 initFileNodes(depTree);
+
+/**
+ * @param {DepTreeAsArray}
+ * @void create nodes with relationships for files in neo4j
+ */
+function initFileNodes(depTree) {
+  // dropAllTables(); //fixme dev
+  let fileNames = depTree.map(([fileName, _]) => fileName);
+
+  createDbNodes(fileNames, (tx, fileName) => {
+    return tx.run('create (f: FileName {name: $fileName}) return f;', { fileName });
+  })
+    .then(() => {
+      createDbRelationships(depTree, (tx, [fileName, fileImports]) => {
+        let keys = Object.keys(fileImports)
+        createDbRelationships(keys, (tx, key) => {
+          if (key === '_id' || key === '_parentId') return Promise.resolve();
+            return tx.run(`
+              match (f: FileName) where f.name = '${fileName}'
+              match (t: FileName) where t.name = '${key}'
+              create (f)-[:IMPORTS]->(t) return f,t;
+            `);
+        })
+      })
+    });
+}
 
 module.exports = {
   dropAllTables
