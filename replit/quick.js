@@ -16,15 +16,30 @@ string.replace(/{"/g, '{')
 
 function neoParamsBuilder(params) {
   let stringParams = JSON.stringify(params);
-  const removeQuotesFromKey = (match) => match.replace(/"/g, "");
+	console.log("​stringParams", stringParams)
+  const removeQuotesFromKey = (match) => {
+    console.log(match)
+    return match.replace(/"/g, "");
+  }
   // match words between `{...:` and `,...:`.
-  return stringParams.replace(/({|,)"\w+"/g, removeQuotesFromKey);
+  return stringParams.replace(/({|,)"\w+":/g, removeQuotesFromKey);
 }
 
-neoParamsBuilder({ name: 'hello', age: 15, saying: 'hello' }) /*?*/
+neoParamsBuilder({ name: 'hello', age: ['what', 'hello'] }) /*?*/
 
 // properties will need a query
 
 // { name: 'hiau', age: 15 }
 // create(p: person { name: 'hiau', age: 15 }) return p
 // create(p: person { name: $name, age: $age }) return p
+
+function neoRelationshipBuilder({ nodeVars, relationshipName, params }) {
+  params = neoParamsBuilder(params);
+  let firstNode = nodeVars[0];
+  let secondNode = nodeVars[1];
+  return `(${firstNode}) - [:${relationshipName} ${params}] - (${secondNode});`;
+}
+
+neoRelationshipBuilder({ nodeVars: ['a', 'b'], relationshipName: 'KNOWS', params: {since: 2011} }); /*?*/
+
+""+-13
