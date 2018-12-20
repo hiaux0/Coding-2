@@ -14,5 +14,8 @@
     "hotkeys-js": "^3.3.8",
     "markdown-it": "^8.4.2",
     "markdown-it-sub": "^1.0.0"
+  },
+  "devDependencies": {
+    "jasmine": "^3.3.1"
   }
 }
