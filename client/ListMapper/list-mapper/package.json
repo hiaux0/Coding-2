@@ -93,6 +93,7 @@
     "url-loader": "^1.0.1",
     "vinyl-fs": "^3.0.2",
     "wait-on": "^2.1.0",
+    "wallaby-webpack": "^3.9.13",
     "webpack": "^4.1.1",
     "webpack-bundle-analyzer": "latest",
     "webpack-cli": "^2.0.12",
