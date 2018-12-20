@@ -17,13 +17,12 @@
     '10' => [null, '7'],
     '11' => [null, '10', '7']
   }
- *
  * @param {Object} param
  * @property {Array<Object>} tree
  * @property {string = 'id'} idKey
  * @property {Id} rootId
  * @property {string = 'parentId'} parentIdKey
- * @property {Object<Id, Array<Id>>} [branchPathMap] - fill out existing path map.
+ * @property {Object<Id, Array<Id>>} [branchPathMap] - if given, fill out existing path map.
  * @returns {Object<Id, Array<Id>>} branchPathMap
  */
 function buildBranchPath({
