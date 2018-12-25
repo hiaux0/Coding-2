@@ -24,6 +24,7 @@ function loadTestModules() {
     true,
     // tests in /src folder regex:
     /\.spec\.[tj]s$/im
+    // /\.spec.single\.[tj]s$/im
   );
 
   const testContext = require.context(
@@ -33,6 +34,7 @@ function loadTestModules() {
     true,
     // tests in ./unit folder regex:
     /\.spec\.[tj]s$/im
+    // /\.spec.single\.[tj]s$/im
   );
 
   return [srcContext, testContext];
