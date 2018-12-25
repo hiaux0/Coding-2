@@ -17,12 +17,17 @@
   },
   "homepage": "https://github.com/hiaux0/Coding-2#readme",
   "dependencies": {
+    "cors": "^2.8.5",
+    "dependency-tree": "^6.3.0",
+    "neo4j-driver": "^1.5.0",
+    "nodemon": "^1.18.7",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-cli": "^2.0.1",
     "gulp-jasmine": "^4.0.0",
-    "jasmine": "^3.1.0",
+    "jasmine": "^3.3.1",
     "lodash": "^4.17.10",
     "mysql": "^2.15.0",
     "npm": "^6.1.0"

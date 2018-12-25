@@ -1,19 +1,8 @@
-let test = new Map()
+let obj = {
+  a: '1',
+  b: 'hstsht'
+}
 
-test.set(1, 's')
-
-test /*?*/
-
-let newMap = new Map(test);
-newMap.set(test) /
-
-
-
-
-
-
-
-
-
-
-
+for (let key in obj) {
+  key /*?*/
+}
