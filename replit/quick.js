@@ -1,17 +1,8 @@
-let mapper = new Map();
-mapper.size /*?*/
+let obj = {
+  a: '1',
+  b: 'hstsht'
+}
 
-
-
-mapper.set('hi', 'hi')
-mapper.set('what', 'hi')
-mapper.set('eshtn', 'hi')
-mapper.set('ehst', 'hi')
-
-// mapper.forEach((value, key) => {
-//   key
-//   value
-// })
-
-let vals = mapper.values();
-Array.from(vals).some(val => val === 'hi') /*?*/
+for (let key in obj) {
+  key /*?*/
+}
