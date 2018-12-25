@@ -13,7 +13,7 @@ export function configure(aurelia) {
     .feature(PLATFORM.moduleName('resources/index'));
 
   // Uncomment the line below to enable animation.
-  // aurelia.use.plugin(PLATFORM.moduleName('aurelia-animator-css'));
+  aurelia.use.plugin(PLATFORM.moduleName('aurelia-animator-css'));
   // if the css animator is enabled, add swap-order="after" to all router-view elements
 
   // Anyone wanting to use HTMLImports to load views, will need to install the following plugin.
