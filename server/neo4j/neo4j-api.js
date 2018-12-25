@@ -16,6 +16,8 @@ function createDbNodesWithNameProp(nodes, createNode) {
   let test = nodes.reduce((acc, node) => {
     session = driver.session(neo4j.WRITE);
     nodeCreated = session.writeTransaction(tx => createNode(tx, node))
+    // Note: if you want to log query response:
+    // nodeCreated.then(res => ...)
     acc.push(nodeCreated)
     return acc;
   }, []);

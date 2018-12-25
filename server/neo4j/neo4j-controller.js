@@ -65,6 +65,16 @@ function initFileNodes(depTree) {
     });
 }
 
+
+
+neoBuilder({
+  method: 'create',
+  params: {
+    name: 'hiau',
+    age: '25'
+  }
+})
+
 module.exports = {
   dropAllTables
 }
