@@ -33,10 +33,12 @@ I will collect the ashes of all the time you spent, like fertilizer to help me b
 Just to see your blooming smile again x3`
 
 export class LyricsLanguageLearner {
+  @bindable lyrics = testLyrics;
+
   lyricsMap = '';
 
   bind() {
-    this.lyricsMap = tokenizeLyrics(testLyrics);
+    this.lyricsMap = tokenizeLyrics(this.lyrics);
     console.log(this.lyricsMap)
   }
 }
