@@ -1,6 +1,6 @@
 const {resetState} = require('./reset-state');
 
-fdescribe('resetState', () => {
+describe('resetState', () => {
   let initialState = { a: null , b: null , c: null , d: 'no touch' };
   let editedState = { a: 2 , b: 3 , c: 4 , d: 'dirty' };
 
