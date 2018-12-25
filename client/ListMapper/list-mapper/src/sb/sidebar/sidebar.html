@@ -1,5 +1,12 @@
 <template>
 
+  <div if.bind="sidebarOpen" class="sidebar au-animate">
+    I am a sidebar
+  </div>
 
-  <h1>${value}</h1>
+  <button
+    class="btn btn-outline-secondary"
+    click.delegate="toggleSidebar()"
+    style='margin-left: 40vw;'
+  >${sidebarOpen ? 'Close' : 'Open'} sidebar</button>
 </template>

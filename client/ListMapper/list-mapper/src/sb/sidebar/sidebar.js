@@ -7,4 +7,14 @@ export class Sidebar {
    */
   @bindable position = 'left';
 
+  sidebarOpen = false;
+
+  detached() {
+    this.sidebarOpen = false;
+  }
+
+  toggleSidebar() {
+    this.sidebarOpen = !this.sidebarOpen;
+  }
+
 }

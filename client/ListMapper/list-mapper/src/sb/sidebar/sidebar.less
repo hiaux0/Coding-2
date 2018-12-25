@@ -1,4 +1,31 @@
+@import (reference) '../../resources/common/styles/animation.less';
 
 .sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 40vw;
+  height: 100vh;
+  background: #666;
+  border: 1px solid black;
 
+  &.au-enter {
+    transform: translate3d(-120%, 0, 0);
+  }
+  &.au-enter-active {
+    animation: swipeRight .4s;
+  }
+  &.au-leave-active {
+    animation: swipeLeft .4s;
+  }
+}
+
+@keyframes swipeRight {
+  0%   { transform: translate3d(-120%, 0, 0); }
+  100%   { transform: translate3d(0, 0, 0); }
+}
+
+@keyframes swipeLeft {
+  0%   { transform: translate3d(0, 0, 0); }
+  100%   { transform: translate3d(-120%, 0, 0); }
 }
