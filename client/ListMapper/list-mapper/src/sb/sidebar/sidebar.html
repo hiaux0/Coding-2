@@ -2,6 +2,12 @@
 
   <div if.bind="sidebarOpen" class="sidebar au-animate">
     I am a sidebar
+    <button
+      click.delegate="closeSidebar()"
+      class="sidebar-close-button ${doubleArrowLeft}"
+    ></button>
+
+    <slot></slot>
   </div>
 
   <button
