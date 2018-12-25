@@ -3,11 +3,14 @@ module.exports = function (wallaby) {
     files: [
       // { pattern: '**/*.js', load: true },
       { pattern: 'modules/**/*.js', load: true },
+      { pattern: 'jasmine/**/*.js', load: true },
       { pattern: 'modules/**/*spec.js', ignore: true },
+      { pattern: 'jasmine/**/*spec.js', ignore: true },
     ],
 
     tests: [
-      'modules/**/*.spec.js'
+      'modules/**/*.spec.js',
+      'jasmine/**/*.spec.js'
     ],
     testFramework: "jasmine",
     env: {
