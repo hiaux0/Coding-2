@@ -1,4 +1,38 @@
+@import (reference) '../../resources/common/styles/colors.less';
+@import (reference) '../../resources/common/styles/common.less';
 
-.lyrics-language-learner {
+.lyrics-container {
+  & * {
+    border: 1px dashed #333;
+  }
 
+  .lyrics-line {
+    display: flex;
+
+    .lyrics-line-number {
+
+      margin: 0 20px;
+    }
+
+    .lyrics-text {
+
+      .lyrics-original,
+      .lyrics-translated {
+        .lyrics-word {
+          &:hover {
+            color: orange;
+            cursor: pointer;
+          }
+        }
+      }
+
+      .lyrics-original {
+
+      }
+
+      .lyrics-translated {
+
+      }
+    }
+  }
 }

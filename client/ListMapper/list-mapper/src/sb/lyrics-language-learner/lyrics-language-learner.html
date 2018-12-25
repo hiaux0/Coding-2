@@ -1,5 +1,20 @@
 <template>
 
-
-  <h1>${value}</h1>
+  <div class="lyrics-container">
+    <div class="lyrics-line" repeat.for="[lineNumber, lyrics] of lyricsMap">
+      <div class="lyrics-line-number">${lineNumber}</div>
+      <div class="lyrics-text">
+        <div class="lyrics-original">
+          <span class="lyrics-word" repeat.for="word of lyrics.original">
+            ${word}
+          </span>
+        </div>
+        <div class="lyrics-translated">
+          <span class="lyrics-word" repeat.for="word of lyrics.translated">
+            ${word}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
