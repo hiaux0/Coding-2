@@ -1,4 +1,21 @@
 <template>
+  <require from='../sidebar/sidebar'></require>
+
+  <sidebar
+    trigger=".lyrics-word"
+    pass-data-to-sidebar.bind="passDataToSidebar"
+  >
+    <div class="sidebar-content">
+      <h2 class="sidebar-header" slot="sidebar-content">
+        ${sidebarLyricWord}
+      </h2>
+
+      <div ref="sidebarBody" class="sidebar-body">
+        Translation = ${sidebarLyricTranslation[0].translation}
+
+      </div>
+    </div>
+  </sidebar>
 
   <div class="lyrics-container">
     <div class="lyrics-line" repeat.for="[lineNumber, lyrics] of lyricsMap">
