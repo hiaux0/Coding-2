@@ -46,6 +46,7 @@ export class Sidebar {
   closeSidebarOnOutsideClick() {
     this.outsideClickSidebar = closeOnOutsideClick(this.sidebarRef, (ev) => {
       if (ev.target.classList.contains('lyrics-word')) return;
+      if (ev.target.classList.contains('btn')) return;
       this.sidebarOpen = false;
     });
     document.addEventListener('click', this.outsideClickSidebar);
@@ -54,5 +55,25 @@ export class Sidebar {
   closeSidebar() {
     this.sidebarOpen = false;
   }
+
+  //////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////
+  //
+  //      TESTING
+  //^
+  /////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////
+
+  openSidebarLeft() {
+    this.sidebarRef.classList.remove('sidebar-bottom');
+    this.sidebarOpen = true;
+  }
+
+  openSidebarBottom() {
+    this.sidebarRef.classList.add('sidebar-bottom');
+    this.sidebarOpen = true;
+  }
+
+
 
 }

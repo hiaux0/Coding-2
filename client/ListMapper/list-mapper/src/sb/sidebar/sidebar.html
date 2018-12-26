@@ -1,6 +1,6 @@
 <template>
 
-  <div show.bind="sidebarOpen" ref="sidebarRef" class="sidebar au-animate">
+  <div show.bind="sidebarOpen" ref="sidebarRef" class="sidebar sidebar-${position} au-animate">
     <button
       click.delegate="closeSidebar()"
       class="sidebar-close-button ${doubleArrowLeft}"
@@ -8,5 +8,10 @@
 
     <slot></slot>
   </div>
+
+  <button class="btn btn-outline-secondary" click.delegate="openSidebarLeft()">Open sidebar left</button>
+  <button class="btn btn-outline-secondary" click.delegate="openSidebarLeft()">Open sidebar right</button>
+  <button class="btn btn-outline-secondary" click.delegate="openSidebarBottom()">Open sidebar bottom</button>
+  <button class="btn btn-outline-secondary" click.delegate="openSidebarLeft()">Open sidebar top</button>
 
 </template>

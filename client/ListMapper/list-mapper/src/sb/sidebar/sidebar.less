@@ -2,32 +2,40 @@
 
 .sidebar {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 400px;
-  height: 100vh;
   background: #666;
   border: 1px solid black;
 
-  &.au-enter {
-    transform: translate3d(-120%, 0, 0);
+  &.sidebar-left {
+    top: 0;
+    left: 0;
+    width: 400px;
+    height: 100vh;
+
+    &.au-enter            {transform: translate3d(-120%, 0, 0); }
+    &.aurelia-hide-add    {animation: swipeLeft 0.3s ease-out; }
+    &.aurelia-hide-remove {animation: swipeRight 0.3s ease-out; }
   }
 
-  // this styles for if.bind
-  // &.au-enter-active {
-  //   animation: swipeRight .4s;
-  // }
-  // &.au-leave-active {
-  //   animation: swipeLeft .4s;
-  // }
+  /**
+   * this styles for if.bind
+  &.au-enter-active { animation: swipeRight .4s; }
+  &.au-leave-active { animation: swipeLeft .4s; }
+  */
 
-  &.aurelia-hide-add {
-    animation: swipeLeft 0.3s ease-out;
-  }
-  &.aurelia-hide-remove {
-    animation: swipeRight 0.3s ease-out;
+  // Bottom position
+  &.sidebar-bottom {
+    top: unset;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 300px;
+
+    &.au-enter            {transform: translate3d(0, 120%, 0); }
+    &.aurelia-hide-add    {animation: swipeDown 0.3s ease-out; }
+    &.aurelia-hide-remove {animation: swipeUp 0.3s ease-out; }
   }
 
+  // Sidebar close button
   .sidebar-close-button {
     float: right;
     margin: 10px;
@@ -43,5 +51,15 @@
 
 @keyframes swipeLeft {
   0%   { transform: translate3d(0, 0, 0); }
-  100%   { transform: translate3d(-120%, 0, 0); }
+  100% { transform: translate3d(-120%, 0, 0); }
+}
+
+@keyframes swipeUp {
+  0%   { transform: translate3d(0, 120%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+@keyframes swipeDown {
+  0%   { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(0, 120%, 0); }
 }
