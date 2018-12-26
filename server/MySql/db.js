@@ -1,6 +1,7 @@
 const bodyParser = require('body-parser'),
       express = require('express'),
       mysql = require('mysql'),
+      cors = require('cors'),
       async = require('async');
 
 const login = require('../../some.json');
@@ -12,6 +13,7 @@ const app = express();
 // Configure Express
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors());
 
 const connectionSettings = {
   host: 'localhost',
