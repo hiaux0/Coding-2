@@ -3,6 +3,8 @@ const bodyParser = require('body-parser'),
       mysql = require('mysql'),
       async = require('async');
 
+const login = require('../../some.json');
+
 
 // Init express
 const app = express();
@@ -13,9 +15,9 @@ app.use(bodyParser.json());
 
 const connectionSettings = {
   host: 'localhost',
-  user: 'turbo',
-  password: "singular",
-  database: 'list_mapper'
+  user: login.mysql.lyrics.user,
+  password: login.mysql.lyrics.password,
+  database: 'lyrics'
 }
 
 
