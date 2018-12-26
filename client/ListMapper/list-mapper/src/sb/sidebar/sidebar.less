@@ -1,4 +1,5 @@
 @import (reference) '../../resources/common/styles/animation.less';
+@import (reference) '../../resources/common/styles/colors.less';
 
 .sidebar {
   position: fixed;
@@ -39,6 +40,19 @@
   .sidebar-close-button {
     float: right;
     margin: 10px;
+  }
+
+  .sidebar-error {
+    // bottom right
+    position: absolute;
+    bottom: 20px;
+    left: calc(100% - 20px);
+    right: 100%;
+    // Have content be 'align-right'
+    display: flex;
+    justify-content: flex-end;
+
+    color: #f36a6a;
   }
 }
 
