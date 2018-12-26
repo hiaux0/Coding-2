@@ -12,11 +12,20 @@
   &.au-enter {
     transform: translate3d(-120%, 0, 0);
   }
-  &.au-enter-active {
-    animation: swipeRight .4s;
+
+  // this styles for if.bind
+  // &.au-enter-active {
+  //   animation: swipeRight .4s;
+  // }
+  // &.au-leave-active {
+  //   animation: swipeLeft .4s;
+  // }
+
+  &.aurelia-hide-add {
+    animation: swipeLeft 0.3s ease-out;
   }
-  &.au-leave-active {
-    animation: swipeLeft .4s;
+  &.aurelia-hide-remove {
+    animation: swipeRight 0.3s ease-out;
   }
 
   .sidebar-close-button {
@@ -24,6 +33,8 @@
     margin: 10px;
   }
 }
+
+
 
 @keyframes swipeRight {
   0%   { transform: translate3d(-120%, 0, 0); }

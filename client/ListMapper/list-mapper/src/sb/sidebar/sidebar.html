@@ -1,7 +1,6 @@
 <template>
 
-  <div if.bind="sidebarOpen" class="sidebar au-animate">
-    I am a sidebar
+  <div show.bind="sidebarOpen" ref="sidebarRef" class="sidebar au-animate">
     <button
       click.delegate="closeSidebar()"
       class="sidebar-close-button ${doubleArrowLeft}"
@@ -10,9 +9,4 @@
     <slot></slot>
   </div>
 
-  <button
-    class="btn btn-outline-secondary"
-    click.delegate="toggleSidebar()"
-    style='margin-left: 40vw;'
-  >${sidebarOpen ? 'Close' : 'Open'} sidebar</button>
 </template>
