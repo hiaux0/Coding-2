@@ -12,7 +12,36 @@ export const translate = (stringArr) => {
     .then(data => {
       return data.translations;
     });
+}
 
+/**
+ * @type {Object} translation
+ * @prop {string} original
+ * @prop {string} translated
+ */
+export const saveTranslatedWord = (translation) => {
+   const client = Container.instance.get(HttpClient);
+
+  return client.fetch(`http://localhost:3131/lyrics`, {
+    method: 'POST',
+    body: json(translation)
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data === 'ER_DUP_ENTRY') throw new Error('ER_DUP_ENTRY');
+      return data;
+    })
+    .catch(err => err);
+}
+
+export const getTranslatedWords = () => {
+  const client = Container.instance.get(HttpClient);
+
+  return client.fetch('http://localhost:3131/lyrics')
+    .then(response => response.json())
+    .then(data => {
+      console.log(data)
+    })
 }
 
 // {
