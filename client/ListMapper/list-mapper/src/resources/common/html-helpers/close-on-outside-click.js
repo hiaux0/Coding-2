@@ -10,10 +10,11 @@
 export default close = (context, cb) => (ev) => {
   let target = ev.target;
   if (target === context) return;
+  if (target.id === 'hio-body') return;
 
   let parent = target.parentElement;
   do {
-    parent = parent.parentElement
+    parent = parent.parentElement;
     if (parent === context) return;
     else if (parent.id === 'hio-body') break;
 
