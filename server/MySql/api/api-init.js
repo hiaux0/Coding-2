@@ -132,11 +132,14 @@ const schemaValidation = (schema, data) => {
 exports.getEntryByColumn = (pool, { value, columnName, tableName }) => {
   value = JSON.parse(value);
   value = value.join(' ');
-  const query = `SELECT * FROM ${tableName} WHERE ${columnName} = '${value}'`;
 
-  return createQuery(pool, query)
-    .then(response => response.results)
-    .catch(err => err);
+  return knex(tableName)
+  .where(columnName, '=', value)
+  .then(data => {
+    if (data.length === 0) throw new Error(`No entry for ${value} found`)
+    return data;
+  })
+  .catch(err => err);
 }
 
 /**
