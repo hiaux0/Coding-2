@@ -1,4 +1,4 @@
-const { singleInsertInto, listTable } = require('./api/api-init');
+const { singleInsertInto, listTable, getEntryByColumn, updateRowByColumn } = require('./api/api-init');
 
 module.exports = function(app, pool) {
   const tableName = 'lyricTest';
@@ -16,5 +16,30 @@ module.exports = function(app, pool) {
           res.json(data);
         })
         .catch(err => res.json(err.message));
+    });
+
+  app.get('/lyrics/words', (req, res) => {
+    const {words} = req.query;
+    getEntryByColumn(pool, { tableName, value: words, columnName: 'original' })
+    .then(response => {
+			console.log("​response", response)
+      res.json(response)
+    });
+  });
+
+  app.put('/lyrics/words', (req, res) => {
+    const { words } = req.query;
+
+    updateRowByColumn(pool, {
+      tableName,
+      value: words,
+      columnName: 'original',
+      data: req.body
     })
+      .then(response => {
+        console.log("​response", response)
+        res.json(response)
+      });
+  });
+
 }
