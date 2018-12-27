@@ -1,9 +1,12 @@
-const db = require('../db')
-      ;
-
 const appDbName = 'lyrics'
     , isEqualNoOrder = require('../js-utils/array').isEqualNoOrder
       ;
+const { connectionSettings } = require('../db');
+
+const knex = require('knex')({
+  client: 'mysql',
+  connection: connectionSettings
+});
 
 const MAX_LENGTH = 1000;
 
@@ -120,7 +123,25 @@ const schemaValidation = (schema, data) => {
 }
 
 /**
- *
+ * @param {Object} pool
+ * @param {Object} entryOptions
+ *  @prop {string<JSON>} value
+ *  @prop {string} columnName
+ *  @prop {string} tableName
+ */
+exports.getEntryByColumn = (pool, { value, columnName, tableName }) => {
+  value = JSON.parse(value);
+  value = value.join(' ');
+  const query = `SELECT * FROM ${tableName} WHERE ${columnName} = '${value}'`;
+
+  return createQuery(pool, query)
+    .then(response => response.results)
+    .catch(err => err);
+}
+
+/**
+ * NOTE that mysql insert arrays of strings as just string
+ * ['a', 'b'] -> a b
  * @param {MySql.pool} pool - WIKI: is a cache of database connections maintained so that the connections can be reused when future requests to the database are required.
  * @param {String} tableName
  * @param {Object} data
@@ -136,6 +157,24 @@ exports.singleInsertInto = (pool, tableName, data) => {
     `;
   return createQuery(pool, sql)
     .then(response => response)
+    .catch(err => err);
+}
+
+/**
+ * @param {} pool
+ * @param {Object}
+ *  @prop {string} tableName
+ *  @prop {Object} data
+ *  @prop {string<JSON>} value
+ *  @prop {string} columnName
+ */
+exports.updateRowByColumn = (pool, {tableName, data, value, columnName}) => {
+  value = JSON.parse(value);
+  value = value.join(' ');
+  return knex(tableName)
+    .where(columnName, '=', value)
+    .update(data)
+    .then(data => data)
     .catch(err => err);
 }
 
