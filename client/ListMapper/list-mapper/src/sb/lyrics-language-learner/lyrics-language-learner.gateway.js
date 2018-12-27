@@ -1,6 +1,11 @@
 import { HttpClient, json } from 'aurelia-fetch-client';
 import { Container } from 'aurelia-dependency-injection';
 
+const injectClient = (factory) => {
+  const client = Container.instance.get(HttpClient);
+  return factory(client)
+}
+
 export const translate = (stringArr) => {
   const client = Container.instance.get(HttpClient);
 
@@ -43,6 +48,55 @@ export const getTranslatedWords = () => {
       console.log(data)
     })
 }
+
+
+
+// //////////////////////////////
+// GET
+
+export const getTranslatedWordFactory = (client) => (words) => {
+  console.log("​getTranslatedWordFactory -> words", words)
+  const wordsToArray = words.split(' ');
+  const wordsQuery = JSON.stringify(wordsToArray);
+
+  return client.fetch(`http://localhost:3131/lyrics/words?words=${wordsQuery}`)
+    .then(response => response.json())
+    .then(data => {
+      console.log("​getTranslatedWordFactory -> data", data)
+      return data[0];
+    })
+}
+
+/**
+ * @param {string} words
+ * @returns {Promise<Object | String>}
+ */
+export const getTranslatedWord = injectClient(getTranslatedWordFactory);
+
+
+// //////////////////////////////
+// UPDATE
+
+export const updateTranslatedWordFactory = (client) => ({words, updates}) => {
+	console.log("​updateTranslatedWordFactory -> updates", updates)
+  const wordsToArray = words.split(' ');
+  const wordsQuery = JSON.stringify(wordsToArray);
+
+  return client.fetch(`http://localhost:3131/lyrics/words?words=${wordsQuery}`, {
+    method: 'PUT',
+    body: json(updates)
+  })
+  .then(response => response.json())
+  .catch(err => err);
+
+}
+
+/**
+ * @param {Object} args
+ * @prop {string} words
+ * @prop {Object} updates
+ */
+export const updateTranslatedWord = injectClient(updateTranslatedWordFactory);
 
 // {
 //   "translations": [
