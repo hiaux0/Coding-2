@@ -22,6 +22,7 @@ const connectionSettings = {
   database: 'lyrics'
 }
 
+exports.connectionSettings = connectionSettings;
 
 const state = {
   pool: null // To get the state of connection?
