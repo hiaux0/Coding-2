@@ -22,8 +22,15 @@ module.exports = function(app, pool) {
     const {words} = req.query;
     getEntryByColumn(pool, { tableName, value: words, columnName: 'original' })
     .then(response => {
-			console.log("​response", response)
-      res.json(response)
+      if (response instanceof Error) {
+        const notFound = {
+          code: 200,
+          message: response.message,
+          error: true
+        }
+        return res.status(200).json(notFound);
+      }
+      return res.json(response)
     });
   });
 
@@ -37,7 +44,6 @@ module.exports = function(app, pool) {
       data: req.body
     })
       .then(response => {
-        console.log("​response", response)
         res.json(response)
       });
   });
