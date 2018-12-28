@@ -17,6 +17,11 @@ export class Sidebar {
   /**
    * @type {Function}
    */
+  @bindable onSidebarClose = () => {};
+
+  /**
+   * @type {Function}
+   */
   @bindable passDataToSidebar = () => {};
 
   sidebarOpen = false;
@@ -47,6 +52,7 @@ export class Sidebar {
     this.outsideClickSidebar = closeOnOutsideClick(this.sidebarRef, (ev) => {
       if (ev.target.classList.contains('lyrics-word')) return;
       if (ev.target.classList.contains('btn')) return;
+      this.onSidebarClose();
       this.sidebarOpen = false;
     });
     document.addEventListener('click', this.outsideClickSidebar);
