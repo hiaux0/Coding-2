@@ -39,13 +39,13 @@ describe('tokenizeLyrics', () => {
 
   it('Should split up words correctly', () => {
     expect(lyricsMap.get(0).original.length).toBe(8);
-    expect(lyricsMap.get(0).translated.length).toBe(15);
+    expect(lyricsMap.get(0).translation.length).toBe(15);
   });
 
   it('Should split up lines correctly into array of words', () => {
     expect(JSON.stringify(lyricsMap.get(0).original)).toBe(JSON.stringify(['바쁘게', '살아온', '당신의', '젊음에', '의미를', '더해줄', '아이가', '생기고']));
-    expect(JSON.stringify(lyricsMap.get(0).translated)).toBe(JSON.stringify(['In', 'your', 'busy', 'youth,', 'you', 'had', 'a', 'child', 'who', 'would', 'lend', 'purpose', 'to', 'your', 'life.']));
+    expect(JSON.stringify(lyricsMap.get(0).translation)).toBe(JSON.stringify(['In', 'your', 'busy', 'youth,', 'you', 'had', 'a', 'child', 'who', 'would', 'lend', 'purpose', 'to', 'your', 'life.']));
     expect(JSON.stringify(lyricsMap.get(7).original)).toBe(JSON.stringify(['당신의', '웃음', '꽃', '피우길', '피우길x3']));
-    expect(JSON.stringify(lyricsMap.get(7).translated)).toBe(JSON.stringify(['Just', 'to', 'see', 'your', 'blooming', 'smile', 'again', 'x3']));
+    expect(JSON.stringify(lyricsMap.get(7).translation)).toBe(JSON.stringify(['Just', 'to', 'see', 'your', 'blooming', 'smile', 'again', 'x3']));
   });
 });

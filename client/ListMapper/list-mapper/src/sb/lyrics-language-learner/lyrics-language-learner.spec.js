@@ -44,10 +44,10 @@ describe('LYRICS-LANGUAGE-LEARNER', () => {
     });
   });
 
-  it('Should display correct words for translated lyrics', done => {
+  it('Should display correct words for translation lyrics', done => {
     component.create(bootstrap).then(() => {
       const element = component.element;
-      let translatedLyrics = element.querySelector('.lyrics-translated');
+      let translatedLyrics = element.querySelector('.lyrics-translation');
 
       expect(translatedLyrics.children.length).toBe(15);
       expect(translatedLyrics.innerText).toBe('In your busy youth, you had a child who would lend purpose to your life.');
