@@ -150,17 +150,10 @@ exports.getEntryByColumn = (pool, { value, columnName, tableName }) => {
  * @param {Object} data
  */
 exports.singleInsertInto = (pool, tableName, data) => {
-  const dataKeys = Object.keys(data).join();
-  const dataValues = Object.values(data).join("','");
-  const sql =
-    ` INSERT INTO ${tableName}
-    (${dataKeys})
-    VALUES
-    ('${dataValues}');
-    `;
-  return createQuery(pool, sql)
-    .then(response => response)
-    .catch(err => err);
+  return knex(tableName)
+  .insert(data.translation)
+  .then(res => res)
+  .catch(err => err);
 }
 
 /**
@@ -208,11 +201,11 @@ exports.listTable = (pool, tableName) => {
 // .then(pool => {
 //   // createTable(pool, tableName, [
 //   //   `original`,
-//   //   `translated`
+//   //   `translation`
 //   // ])
 //   singleInsertInto(pool, tableName, {
 //     original: 'orign',
-//     translated: 'trans',
+//     translation: 'trans',
 //   })
 //   // .catch(err => console.error(err));
 // })
