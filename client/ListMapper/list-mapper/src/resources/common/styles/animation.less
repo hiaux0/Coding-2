@@ -8,3 +8,34 @@
     opacity: 1;
   }
 }
+
+@keyframes growBodyHeight {
+  from {height: 100vh;}
+  to {height: ~'calc(100vh + @{sidebarBottomHeight})';}
+}
+
+@keyframes shrinkBodyHeight {
+  from {height: ~'calc(100vh + @{sidebarBottomHeight})';}
+  to {height: 100vh;}
+}
+
+@keyframes swipeRight {
+  0%   { transform: translate3d(-120%, 0, 0); }
+  100%   { transform: translate3d(0, 0, 0); }
+}
+
+@keyframes swipeLeft {
+  0%   { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-120%, 0, 0); }
+}
+
+@keyframes swipeUp {
+  0%   { transform: translate3d(0, 120%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+@keyframes swipeDown {
+  0%   { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(0, 120%, 0); }
+}
+

@@ -22,7 +22,7 @@ export class Sidebar {
   /**
    * @type {Function}
    */
-  @bindable passDataToSidebar = () => {};
+  @bindable onSidebarOpen = () => {};
 
   sidebarOpen = false;
   doubleArrowLeft = doubleArrowLeft;
@@ -41,9 +41,8 @@ export class Sidebar {
 
     for (let trigger of triggerElements) {
       trigger.addEventListener('click', (event) => {
-        const target = event.target;
-        this.passDataToSidebar(event);
-        this.sidebarOpen = true;
+        this.onSidebarOpen(event);
+        this.openSidebarBottom();
       });
     }
   }
@@ -53,13 +52,15 @@ export class Sidebar {
       if (ev.target.classList.contains('lyrics-word')) return;
       if (ev.target.classList.contains('btn')) return;
       this.onSidebarClose();
-      this.sidebarOpen = false;
+      this.closeSidebar();
     });
     document.addEventListener('click', this.outsideClickSidebar);
   }
 
   closeSidebar() {
     this.sidebarOpen = false;
+    const body = document.getElementsByTagName('body')[0];
+    body.classList.remove('sidebar-bottom-open');
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////////
@@ -78,6 +79,9 @@ export class Sidebar {
   openSidebarBottom() {
     this.sidebarRef.classList.add('sidebar-bottom');
     this.sidebarOpen = true;
+    const body = document.getElementsByTagName('body')[0];
+    body.classList.remove('no-animation'); // this class prevents animation on page load
+    body.classList.add('sidebar-bottom-open');
   }
 
 

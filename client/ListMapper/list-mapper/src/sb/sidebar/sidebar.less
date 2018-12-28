@@ -1,5 +1,8 @@
-@import (reference) '../../resources/common/styles/animation.less';
+@import '../../resources/common/styles/animation.less';
 @import (reference) '../../resources/common/styles/colors.less';
+
+@sidebarBottomHeight: 400px;
+@sidebarBottomAnimationDuration: .4s;
 
 .sidebar {
   position: fixed;
@@ -13,8 +16,8 @@
     height: 100vh;
 
     &.au-enter            {transform: translate3d(-120%, 0, 0); }
-    &.aurelia-hide-add    {animation: swipeLeft 0.3s ease-out; }
-    &.aurelia-hide-remove {animation: swipeRight 0.3s ease-out; }
+    &.aurelia-hide-add    {animation: swipeLeft @sidebarBottomAnimationDuration ease-out; }
+    &.aurelia-hide-remove {animation: swipeRight @sidebarBottomAnimationDuration ease-out; }
   }
 
   /**
@@ -29,11 +32,11 @@
     bottom: 0;
     left: 0;
     width: 100vw;
-    height: 300px;
+    height: @sidebarBottomHeight;
 
     &.au-enter            {transform: translate3d(0, 120%, 0); }
-    &.aurelia-hide-add    {animation: swipeDown 0.3s ease-out; }
-    &.aurelia-hide-remove {animation: swipeUp 0.3s ease-out; }
+    &.aurelia-hide-add    {animation: swipeDown @sidebarBottomAnimationDuration ease-out; }
+    &.aurelia-hide-remove {animation: swipeUp @sidebarBottomAnimationDuration ease-out; }
   }
 
   // Sidebar close button
@@ -56,24 +59,20 @@
   }
 }
 
+body#hio-body {
+  animation: shrinkBodyHeight @sidebarBottomAnimationDuration ease-out;
+  height: 100vh;
 
+  &.no-animation {
+    animation: none;
+  }
 
-@keyframes swipeRight {
-  0%   { transform: translate3d(-120%, 0, 0); }
-  100%   { transform: translate3d(0, 0, 0); }
+  // We don't actually need this animation, since by increasing the height,
+  // the 'overflown' height is not visible until we scroll down.
+  // I am keeping it for completeness with `shrinkBodyHeight`
+  &.sidebar-bottom-open {
+    height: ~'calc(100vh + @{sidebarBottomHeight})';
+    animation: growBodyHeight @sidebarBottomAnimationDuration ease-out;
+  }
 }
 
-@keyframes swipeLeft {
-  0%   { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(-120%, 0, 0); }
-}
-
-@keyframes swipeUp {
-  0%   { transform: translate3d(0, 120%, 0); }
-  100% { transform: translate3d(0, 0, 0); }
-}
-
-@keyframes swipeDown {
-  0%   { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(0, 120%, 0); }
-}
