@@ -1,7 +1,11 @@
 const { singleInsertInto, listTable, getEntryByColumn, updateRowByColumn } = require('./api/api-init');
+const { translate } = require('./lang-translator/lang-translator');
 
 module.exports = function(app, pool) {
   const tableName = 'lyricTest';
+
+  // //////////////////////////////////
+  // LYRICS DATABASE
 
   app.get('/lyrics', (_, res) => {
     listTable(pool, tableName).then(response => res.json(response));
@@ -47,5 +51,17 @@ module.exports = function(app, pool) {
         res.json(response)
       });
   });
+
+  // //////////////////////////////////
+  // LANGUAGE TRANSLATOR
+
+  app.route('/translate/:text')
+    .get((req, res) => {
+      const params = req.params;
+      const result = translate(params.text);
+      return result.then(data => {
+        res.json(data);
+      })
+    });
 
 }
