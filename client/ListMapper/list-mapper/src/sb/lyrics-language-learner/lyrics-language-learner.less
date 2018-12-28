@@ -1,6 +1,8 @@
 @import (reference) '../../resources/common/styles/colors.less';
 @import (reference) '../../resources/common/styles/common.less';
 
+@sidebarMargin: 16px;
+
 .lyrics-container {
   & * {
     border: 1px dashed #333;
@@ -17,7 +19,7 @@
     .lyrics-text {
 
       .lyrics-original,
-      .lyrics-translated {
+      .lyrics-translation {
         .lyrics-word {
           &:hover {
             color: orange;
@@ -30,25 +32,78 @@
 
       }
 
-      .lyrics-translated {
+      .lyrics-translation {
 
       }
     }
   }
 }
 
+// TODO: Figure out where these styles should go
+// To sidebar.less? ~~> So every bottom sidebar has this basic layout
 .sidebar.sidebar-bottom {
   .sidebar-content {
     .sidebar-header {
-      margin: 16px;
+      margin: @sidebarMargin;
+
+      .lyrics-word {
+        &:hover {
+          color: orange;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .sidebar-body {
+      margin: @sidebarMargin;
+
+      .translation-container {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin-bottom: @sidebarMargin;
+
+        > * {
+          border: 1px solid;
+        }
+        .original {
+          width: 48%;
+          min-height: 140px;
+        }
+
+        .translation {
+          width: 48%;
+          min-height: 140px;
+        }
+      }
+
+      label.label-top {
+        display: flex;
+        flex-direction: column;
+
+        .comment-textarea {
+          height: 100px;
+          width: 100%;
+          background: #222222;
+          color: @main-text-clr;
+        }
+      }
+    }
+
+    .sidebar-footer {
+      button.save-changes {
+        // bottom right
+        position: absolute;
+        bottom: 20px;
+        left: calc(100% - 100px);
+        right: 100%;
+        // Have content be 'align-right'
+        display: flex;
+        justify-content: flex-end;
+
+        color: #f36a6a;
+      }
     }
   }
 }
 
-.comment-textarea {
-  height: 100px;
-  width: 100vw;
-  // margin: 0 20px;
-  background: #222222;
-  color: @main-text-clr;
-}

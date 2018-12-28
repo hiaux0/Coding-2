@@ -2,7 +2,7 @@ import {bindable} from 'aurelia-framework';
 
 import './lyrics-language-learner.less'
 import { tokenizeLyrics } from './modules/tokenize-lyrics';
-import {translate, getTranslatedWords, saveTranslatedWord} from './lyrics-language-learner.gateway';
+import { translate, getTranslatedWord, saveTranslatedWord, updateTranslatedWord } from './lyrics-language-learner.gateway';
 window.saveTranslatedWord = saveTranslatedWord;
 import { testLyrics } from './modules/test-data';
 import hotkeys from 'hotkeys-js';
@@ -23,15 +23,11 @@ export class LyricsLanguageLearner {
   /**
    * @type {string}
    */
-  sidebarLyricWord = 'change';
+  sidebarLyricWord = '[TODO] Word';
+  sidebarLyricSentence = '[TODO] Whole sentence goes here';
 
   bind() {
-    window.localStorage.clear();
     this.lyricsMap = tokenizeLyrics(this.lyrics);
-    console.log(this.lyricsMap);
-
-                                                                saveTranslatedWord();
-                                                                // getTranslatedWords();
   }
 
   attached() {
@@ -40,54 +36,88 @@ export class LyricsLanguageLearner {
     hotkeys("d", () => window.localStorage.clear());  // eslint-disable-line no-console
   }
 
+  updateSelection = (ev) => {
+    const selection = document.getSelection().toString();
+    console.log("​LyricsLanguageLearner -> updateSelection -> selection", selection)
+    // onSidebarOpen();
+  }
+
+
+
   /**
    * @param {Object<HTMLEvent>} event
    */
-  passDataToSidebar = (event) => {
+  onSidebarOpen = (event) => {
     const target = event.target;
+    const parentElement = target.parentElement;
+
+    this.sidebarLyricSentence = parentElement.innerHTML;
     this.sidebarLyricWord = target.innerText.trim();
 
     if (document.getSelection().toString()) {
       this.sidebarLyricWord = document.getSelection().toString().trim();
     }
 
-    if (window.localStorage.getItem(this.sidebarLyricWord)) {
-      console.log('Got from local storage');
-      const rawFromStorage = window.localStorage.getItem(this.sidebarLyricWord);
-      const storageData = JSON.parse(rawFromStorage);
-      this.sidebarLyricTranslation = storageData;
-    } else {
-      console.log('New request');
-      // translate(this.sidebarLyricWord).then(response => {
-      //   this.sidebarLyricTranslation = response;
-      // });
+    this.loadTranslationFromDatabase();
+  }
 
-      const response = [
-        { translation: this.sidebarLyricWord + ' test' }
-      ]
+  translateHeaderWord(event) {
+    const {target} = event;
+    this.sidebarLyricWord = target.innerText.trim();
+    this.loadTranslationFromDatabase();
+  }
 
-      // save database
-      saveTranslatedWord({
-        original: this.sidebarLyricWord,
-        translated: 'test of ' + this.sidebarLyricWord,
-        comment: 'test comment for ' + this.sidebarLyricWord
-      })
-      .then(data => {
-        if (data.message === 'ER_DUP_ENTRY') throw new Error('ER_DUP_ENTRY');
-        console.log(data)
+  loadTranslationFromDatabase() {
+    // request db
+    getTranslatedWord(this.sidebarLyricWord)
+      .then(res => {
+        if (res.error) throw new Error(res.message);
+
+        const { translation, comment } = res;
+        this.sidebarLyricTranslation = translation;
+        this.commentRef.value = comment;
       })
       .catch(err => {
-        if (err.message === 'ER_DUP_ENTRY') {
-          console.log('dupdudpudp')
-          this.isDuplicatedVocabulary = true;
-        }
+        console.log('catch')
+        // translate now
+        translate(this.sidebarLyricWord)
+          .then(translation => {
+            this.sidebarLyricTranslation = translation;
+            saveTranslatedWord({
+              translation: translation,
+              original: this.sidebarLyricWord
+            });
+          });
       });
+  }
 
+  saveChanges() {
+    this.sidebarLyricTranslation;
+    this.commentRef.value;
 
-      // Local Storage
-      // window.localStorage.setItem(this.sidebarLyricWord, JSON.stringify(response));
-      this.sidebarLyricTranslation = response;
-    }
+    // update database
+    updateTranslatedWord({
+      words: this.sidebarLyricWord,
+      updates: {
+        comment: this.commentRef.value,
+        translation: this.sidebarLyricTranslation
+      }
+    })
+    .then(data => {
+      if (data.message === 'ER_DUP_ENTRY') throw new Error('ER_DUP_ENTRY');
+			console.log("​LyricsLanguageLearner -> saveChanges -> data", data)
+    })
+    .catch(err => {
+      if (err.message === 'ER_DUP_ENTRY') {
+        console.log('dupdudpudp')
+        this.isDuplicatedVocabulary = true;
+      }
+    });
+  }
+
+  resetTextarea = () => {
+    this.commentRef.value = '';
+    this.sidebarLyricTranslation = '';
   }
 
 }

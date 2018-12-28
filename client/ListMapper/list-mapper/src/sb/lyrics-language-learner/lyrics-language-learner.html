@@ -5,27 +5,50 @@
   <sidebar
     position="bottom"
     trigger=".lyrics-word"
-    pass-data-to-sidebar.bind="passDataToSidebar"
+    on-sidebar-close.bind="resetTextarea"
+    on-sidebar-open.bind="onSidebarOpen"
   >
     <div class="sidebar-content">
-      <h6 class="sidebar-header" slot="sidebar-content">
-        Original: ${sidebarLyricWord}
-      </h6>
+      <h6
+        class="sidebar-header"
+        slot="sidebar-content"
+        innerhtml.bind="sidebarLyricSentence"
+        click.delegate="translateHeaderWord($event)"
+      ></h6>
 
       <div ref="sidebarBody" class="sidebar-body">
-        Translation = ${sidebarLyricTranslation[0].translation}
+        <div class="translation-container">
+          <div class="original">
+            <label class="label-top">
+              Original
+              <textarea class="original-text" value.bind="sidebarLyricWord"></textarea>
+            </label>
+          </div>
+
+          <div class="translation">
+            Translation: ${sidebarLyricTranslation}
+          </div>
+
+
+        </div>
+
+        <label class="label-top">
+          <span class="label-text">Comment</span>
+          <textarea ref="commentRef" class="comment-textarea" autofocus></textarea>
+        </label>
       </div>
 
-      <textarea class="comment-textarea"></textarea>
-
-      <div class="sidebar-error">
-        ${isDuplicatedVocabulary ? 'dup' : ''}
+      <div class="sidebar-footer">
+        <button class="btn save-changes" click.delegate="saveChanges()">Update</button>
+        <div class="sidebar-error">
+          ${isDuplicatedVocabulary ? 'dup' : ''}
+        </div>
       </div>
     </div>
   </sidebar>
 
   <!-- Lyrics container -->
-  <div class="lyrics-container">
+  <div class="lyrics-container" mouseup.delegate="updateSelection()">
     <div class="lyrics-line" repeat.for="[lineNumber, lyrics] of lyricsMap">
       <div class="lyrics-line-number">${lineNumber}</div>
       <div class="lyrics-text">
@@ -34,8 +57,8 @@
             ${word}
           </span>
         </div>
-        <div class="lyrics-translated">
-          <span class="lyrics-word" repeat.for="word of lyrics.translated">
+        <div class="lyrics-translation">
+          <span repeat.for="word of lyrics.translation">
             ${word}
           </span>
         </div>
