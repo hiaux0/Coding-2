@@ -6,30 +6,44 @@ const injectClient = (factory) => {
   return factory(client)
 }
 
+/**
+ * @param {Array<string> | string}
+ *
+  {
+    "translations": [
+      {
+        "translation": "A handsome one."
+      }
+    ],
+    "word_count": 1,
+    "character_count": 3
+  }
+ */
 export const translate = (stringArr) => {
   const client = Container.instance.get(HttpClient);
 
   stringArr = Array.isArray(stringArr) ? stringArr : [stringArr];
   stringArr.join(',');
 
-  return client.fetch(`http://localhost:3030/translate/${stringArr}`)
+  return client.fetch(`http://localhost:3131/translate/${stringArr}`)
     .then(response => response.json())
+    // assume that we always translate one word/phrase.
     .then(data => {
-      return data.translations;
+      return data.translations[0].translation;
     });
 }
 
 /**
  * @type {Object} translation
  * @prop {string} original
- * @prop {string} translated
+ * @prop {string} translation
  */
 export const saveTranslatedWord = (translation) => {
-   const client = Container.instance.get(HttpClient);
+  const client = Container.instance.get(HttpClient);
 
   return client.fetch(`http://localhost:3131/lyrics`, {
     method: 'POST',
-    body: json(translation)
+    body: json({ translation })
   })
     .then(response => response.json())
     .then(data => {
@@ -55,16 +69,16 @@ export const getTranslatedWords = () => {
 // GET
 
 export const getTranslatedWordFactory = (client) => (words) => {
-  console.log("​getTranslatedWordFactory -> words", words)
   const wordsToArray = words.split(' ');
   const wordsQuery = JSON.stringify(wordsToArray);
 
   return client.fetch(`http://localhost:3131/lyrics/words?words=${wordsQuery}`)
     .then(response => response.json())
     .then(data => {
-      console.log("​getTranslatedWordFactory -> data", data)
+      if (data.error) return data;
       return data[0];
     })
+    .catch(err => err);
 }
 
 /**
@@ -78,7 +92,6 @@ export const getTranslatedWord = injectClient(getTranslatedWordFactory);
 // UPDATE
 
 export const updateTranslatedWordFactory = (client) => ({words, updates}) => {
-	console.log("​updateTranslatedWordFactory -> updates", updates)
   const wordsToArray = words.split(' ');
   const wordsQuery = JSON.stringify(wordsToArray);
 
@@ -98,15 +111,7 @@ export const updateTranslatedWordFactory = (client) => ({words, updates}) => {
  */
 export const updateTranslatedWord = injectClient(updateTranslatedWordFactory);
 
-// {
-//   "translations": [
-//     {
-//       "translation": "A handsome one."
-//     }
-//   ],
-//   "word_count": 1,
-//   "character_count": 3
-// }
+
 
 /**
  * text string[]
