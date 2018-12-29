@@ -15,6 +15,11 @@ const languageTranslator = new LanguageTranslatorV3({
   url: url
 });
 
+// naver api
+// source: ko
+// target: en
+// text: 나는 한국인입니다.
+
 
 
 // languageTranslator.listIdentifiableLanguages(

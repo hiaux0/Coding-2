@@ -34,6 +34,8 @@ module.exports = function(app, pool) {
         }
         return res.status(200).json(notFound);
       }
+      // console.log("​response", response)
+      // response.translation = response.translation.split(',')
       return res.json(response)
     });
   });
