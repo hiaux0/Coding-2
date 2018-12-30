@@ -4,8 +4,14 @@ import '../common/styles/tooltip.less';
 @inject(Element)
 export class TooltipCustomAttribute {
   @bindable({ primaryProperty: true }) text;
+  @bindable onAppear;
 
   tooltip;
+
+  /**
+   * @type {boolean}
+   */
+  firstHover = true;
 
   constructor(element) {
     this.element = element;
@@ -38,7 +44,21 @@ export class TooltipCustomAttribute {
     element.removeEventListener('mouseout', this.hideTooltip);
   }
 
+  /**
+   * On first hover, update text if appear callback is given
+   * Shows and positions the tooltip.
+   */
   showTooltip = () => {
+    if (this.firstHover && this.onAppear) {
+      const contextText = this.element.textContent.trim();
+      this.onAppear(contextText).then(res => {
+        const { translation } = res;
+
+        this.tooltip.innerText = translation;
+        this.firstHover = false;
+      });
+    }
+
     this.tooltip.style.opacity = 1;
     const {left} = this.setTooltipPosition(this.element);
     this.tooltip.style.left = `${left}px`;

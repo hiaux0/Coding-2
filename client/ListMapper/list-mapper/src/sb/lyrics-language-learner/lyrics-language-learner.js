@@ -109,8 +109,30 @@ export class LyricsLanguageLearner {
       });
   }
 
+  loadForTooltip(text) {
+    return getTranslatedWord(text)
+      .then(res => {
+        if (res.error) throw new Error(res.message);
+
+        return res
+      })
+      .catch(err => {
+        console.log('catch')
+        // translate now
+        translate(this.sidebarLyricWord)
+          .then(translation => {
+            this.sidebarLyricTranslation = translation;
+            saveTranslatedWord({
+              translation: translation,
+              original: this.sidebarLyricWord
+            });
+            return translation;
+          });
+      });
+  }
+
   saveChanges() {
-    this.sidebarLyricTranslation;
+  this.sidebarLyricTranslation;
     this.commentRef.value;
 
     // update database
