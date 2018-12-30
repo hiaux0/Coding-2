@@ -10,7 +10,7 @@ Thrown in to the real world, I ended up becoming a child who’d lost its way
 이곳저곳에서 깨지고 또 일어서다 외로운 어느날 꺼내본 사진 속 아빠를 닮아있네
 One lonely day, after falling down and getting back up again in countless places, I looked back at that family portrait and realized that I resembled my father
 
-.내 젊을 어느 새 기울어 갈때 쯤 그제야 보이는 당신의 날 들이
+내 젊을 어느 새 기울어 갈때 쯤 그제야 보이는 당신의 날 들이
 As my youth fades away, only now can I see the life you lived.
 
 가족사진속에 미소 띤 젊은 우리 엄마 꽃피던 시절은 나에게 다시 돌아와서
@@ -19,11 +19,11 @@ My young mother, smiling in the family portrait. I remember the days when the pi
 나를 꽃피우기위해 거름이 되어버렸던 그을린 그 시간들을 내가 깨끗이 모아서
 I will collect the ashes of all the time you spent, like fertilizer to help me blossom,
 
-당신의 웃음 꽃 피우길 피우길x3
+당신의 웃음 꽃 피우길 피우길
 Just to see your blooming smile again x3
 
 나를 꽃피우기위해 거름이 되어버렸던 그을린 그 시간들을 내가 깨끗이 모아서
 I will collect the ashes of all the time you spent, like fertilizer to help me blossom,
 
-당신의 웃음 꽃 피우길 피우길x3
+당신의 웃음 꽃 피우길 피우길
 Just to see your blooming smile again x3`
