@@ -6,6 +6,11 @@ const injectClient = (factory) => {
   return factory(client)
 }
 
+const baseUrl = 'http://localhost:3131';
+
+// //////////////////////////////
+// GET
+
 /**
  * @param {Array<string> | string}
  *
@@ -25,13 +30,33 @@ export const translate = (stringArr) => {
   stringArr = Array.isArray(stringArr) ? stringArr : [stringArr];
   stringArr.join(',');
 
-  return client.fetch(`http://localhost:3131/translate/${stringArr}`)
+  return client.fetch(`${baseUrl}/translate/${stringArr}`)
     .then(response => response.json())
     // assume that we always translate one word/phrase.
     .then(data => {
       return data.translations[0].translation;
     });
 }
+
+// //////////////////////////////
+// GET
+
+export const getTranslatedWordFactory = (client) => (words) => {
+  const wordsToArray = words.split(' ');
+  const wordsQuery = JSON.stringify(wordsToArray);
+
+  return client.fetch(`${baseUrl}/lyrics/words?words=${wordsQuery}`)
+    .then(response => response.json())
+    .then(data => {
+      if (data.error) return data;
+      return data[0];
+    })
+    .catch(err => err);
+}
+
+
+// //////////////////////////////
+// POST
 
 /**
  * @type {Object} translation
@@ -41,7 +66,7 @@ export const translate = (stringArr) => {
 export const saveTranslatedWord = (translation) => {
   const client = Container.instance.get(HttpClient);
 
-  return client.fetch(`http://localhost:3131/lyrics`, {
+  return client.fetch(`${baseUrl}/lyrics`, {
     method: 'POST',
     body: json({ translation })
   })
@@ -56,29 +81,11 @@ export const saveTranslatedWord = (translation) => {
 export const getTranslatedWords = () => {
   const client = Container.instance.get(HttpClient);
 
-  return client.fetch('http://localhost:3131/lyrics')
+  return client.fetch(`${baseUrl}/lyrics`)
     .then(response => response.json())
     .then(data => {
       console.log(data)
     })
-}
-
-
-
-// //////////////////////////////
-// GET
-
-export const getTranslatedWordFactory = (client) => (words) => {
-  const wordsToArray = words.split(' ');
-  const wordsQuery = JSON.stringify(wordsToArray);
-
-  return client.fetch(`http://localhost:3131/lyrics/words?words=${wordsQuery}`)
-    .then(response => response.json())
-    .then(data => {
-      if (data.error) return data;
-      return data[0];
-    })
-    .catch(err => err);
 }
 
 /**
@@ -95,7 +102,7 @@ export const updateTranslatedWordFactory = (client) => ({words, updates}) => {
   const wordsToArray = words.split(' ');
   const wordsQuery = JSON.stringify(wordsToArray);
 
-  return client.fetch(`http://localhost:3131/lyrics/words?words=${wordsQuery}`, {
+  return client.fetch(`${baseUrl}/lyrics/words?words=${wordsQuery}`, {
     method: 'PUT',
     body: json(updates)
   })
@@ -127,7 +134,7 @@ target string
 Translation target language code.
  */
 
-// curl -X POST -u "apikey:{apikey}" --header "Content-Type: application/json" --data "{\"text\": [\"Hello, world!\", \"How are you?\"], \"model_id\":\"en-es\"}" "{url}/v3/translate?version=2018-05-01"
+// curl -X POST -u "apikey:{apikey}" --header "Content-Type: application/json" --data "{\"text\": [\"Hello, world!\", \"How are you?\"], \"model_id\":\"en-es\"}" "{baseUrl}/v3/translate?version=2018-05-01"
 
 /**
 curl --user apikey:S7DU1G82CyZy2ng6ZKIGWtb3Gm1ZgY0elAhelOG5mUmV --request POST --header "Content-Type: application/json" --data '
