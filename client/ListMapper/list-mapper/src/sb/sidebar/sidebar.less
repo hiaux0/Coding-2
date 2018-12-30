@@ -67,11 +67,14 @@ body#hio-body {
     animation: none;
   }
 
-  // We don't actually need this animation, since by increasing the height,
-  // the 'overflown' height is not visible until we scroll down.
-  // I am keeping it for completeness with `shrinkBodyHeight`
   &.sidebar-bottom-open {
+    /* With this calc I assume, that all content is inside full viewport */
+    /* Issue: content exceeds 100vh -> +@{} can't fully compensate anymore (would need 120vh+ or sth) */
     height: ~'calc(100vh + @{sidebarBottomHeight})';
+
+    // We don't actually need this animation, since by increasing the height,
+    // the 'overflown' height is not visible until we scroll down.
+    // I am keeping it for completeness with `shrinkBodyHeight`
     animation: growBodyHeight @sidebarBottomAnimationDuration ease-out;
   }
 }

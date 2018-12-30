@@ -26,10 +26,21 @@
           </div>
 
           <div class="translation">
-            Translation: ${sidebarLyricTranslation}
+            <label class="label-top">
+              Translation
+              <div class="translation-text">
+                ${sidebarLyricTranslation}
+              </div>
+            </label>
           </div>
+        </div>
 
-
+        <div class="sidebar-history-container">
+          <h5>History</h5>
+          <div class="sidebar-history">
+            <div class="history-original">orig</div>
+            <div class="history-translation">trans</div>
+          </div>
         </div>
 
         <label class="label-top">
@@ -47,22 +58,39 @@
     </div>
   </sidebar>
 
-  <!-- Lyrics container -->
-  <div class="lyrics-container" mouseup.delegate="updateSelection()">
-    <div class="lyrics-line" repeat.for="[lineNumber, lyrics] of lyricsMap">
-      <div class="lyrics-line-number">${lineNumber}</div>
-      <div class="lyrics-text">
-        <div class="lyrics-original">
-          <span class="lyrics-word" repeat.for="word of lyrics.original">
-            ${word}
-          </span>
-        </div>
-        <div class="lyrics-translation">
-          <span repeat.for="word of lyrics.translation">
-            ${word}
-          </span>
+  <div class="page-container">
+    <!-- Lyrics container -->
+    <div class="lyrics-container" mouseup.delegate="updateSelection()">
+      <div class="lyrics-line" repeat.for="[lineNumber, lyrics] of lyricsMap">
+        <div class="lyrics-line-number">${lineNumber}</div>
+        <div class="lyrics-text">
+          <div class="lyrics-original">
+            <span class="lyrics-word" repeat.for="word of lyrics.original">
+              ${word}
+            </span>
+          </div>
+          <div class="lyrics-translation">
+            <span repeat.for="word of lyrics.translation">
+              ${word}
+            </span>
+          </div>
         </div>
       </div>
     </div>
+
+    <!-- Video container -->
+    <div class="video-container">
+      <!-- <iframe width="420" height="315" src="https://www.youtube.com/embed/cS-IiArGmcU">
+      </iframe> -->
+      Video
+
+          <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+          <div id="player"></div>
+
+          <script>
+
+          </script>
+    </div>
+
   </div>
 </template>

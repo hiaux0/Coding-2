@@ -64,6 +64,10 @@ export class LyricsLanguageLearner {
   translateHeaderWord(event) {
     const {target} = event;
     this.sidebarLyricWord = target.innerText.trim();
+    if (document.getSelection().toString()) {
+      this.sidebarLyricWord = document.getSelection().toString().trim();
+    }
+
     this.loadTranslationFromDatabase();
   }
 
