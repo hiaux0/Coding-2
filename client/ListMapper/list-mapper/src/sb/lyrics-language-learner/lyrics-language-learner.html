@@ -1,5 +1,6 @@
 <template>
   <require from='../sidebar/sidebar'></require>
+  <require from='../../resources/attributes/tooltip'></require>
 
   <!-- Sidebar with translations -->
   <sidebar
@@ -65,7 +66,7 @@
         <div class="lyrics-line-number">${lineNumber}</div>
         <div class="lyrics-text">
           <div class="lyrics-original">
-            <span class="lyrics-word" repeat.for="word of lyrics.original">
+            <span tooltip="hello" class="lyrics-word" repeat.for="word of lyrics.original">
               ${word}
             </span>
           </div>

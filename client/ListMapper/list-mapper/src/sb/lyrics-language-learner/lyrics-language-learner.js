@@ -38,18 +38,16 @@ export class LyricsLanguageLearner {
 
   updateSelection = (ev) => {
     const selection = document.getSelection().toString();
-    console.log("​LyricsLanguageLearner -> updateSelection -> selection", selection)
     // onSidebarOpen();
   }
-
-
 
   /**
    * @param {Object<HTMLEvent>} event
    */
   onSidebarOpen = (event) => {
     const target = event.target;
-    const parentElement = target.parentElement;
+    let parentElement = target.parentElement;
+    parentElement = this.removeTooltip(parentElement);
 
     this.sidebarLyricSentence = parentElement.innerHTML;
     this.sidebarLyricWord = target.innerText.trim();
@@ -59,6 +57,22 @@ export class LyricsLanguageLearner {
     }
 
     this.loadTranslationFromDatabase();
+  }
+
+  /**
+   * This is a workaround because we are using innerHTML to insert the
+   *  sentence into the header
+   * @type {HTMLElement} element
+   */
+  removeTooltip(element) {
+    const clonedParent = element.cloneNode(true);
+    const tooltipClass = '.tooltip';
+    const tooltips = clonedParent.querySelectorAll(tooltipClass);
+    for (let tooltip of tooltips) {
+      clonedParent.removeChild(tooltip);
+    }
+
+    return clonedParent;
   }
 
   translateHeaderWord(event) {
@@ -109,7 +123,6 @@ export class LyricsLanguageLearner {
     })
     .then(data => {
       if (data.message === 'ER_DUP_ENTRY') throw new Error('ER_DUP_ENTRY');
-			console.log("​LyricsLanguageLearner -> saveChanges -> data", data)
     })
     .catch(err => {
       if (err.message === 'ER_DUP_ENTRY') {
