@@ -25,6 +25,7 @@ export class LyricsLanguageLearner {
    */
   sidebarLyricWord = '[TODO] Word';
   sidebarLyricSentence = '[TODO] Whole sentence goes here';
+  getTranslatedWord = getTranslatedWord;
 
   bind() {
     this.lyricsMap = tokenizeLyrics(this.lyrics);
@@ -56,7 +57,7 @@ export class LyricsLanguageLearner {
       this.sidebarLyricWord = document.getSelection().toString().trim();
     }
 
-    this.loadTranslationFromDatabase();
+    this.updateWithDatabaseTranslation(this.sidebarLyricWord);
   }
 
   /**
@@ -75,66 +76,62 @@ export class LyricsLanguageLearner {
     return clonedParent;
   }
 
-  translateHeaderWord(event) {
+  /**
+   * When sidebar is open, in the header, each word can also be translated.
+   */
+  translateHeaderWord = (event) => {
     const {target} = event;
     this.sidebarLyricWord = target.innerText.trim();
     if (document.getSelection().toString()) {
       this.sidebarLyricWord = document.getSelection().toString().trim();
     }
 
-    this.loadTranslationFromDatabase();
+    this.updateWithDatabaseTranslation(this.sidebarLyricWord);
   }
 
-  loadTranslationFromDatabase() {
-    // request db
-    getTranslatedWord(this.sidebarLyricWord)
-      .then(res => {
-        if (res.error) throw new Error(res.message);
-
-        const { translation, comment } = res;
-        this.sidebarLyricTranslation = translation;
-        this.commentRef.value = comment;
-      })
-      .catch(err => {
-        console.log('catch')
-        // translate now
-        translate(this.sidebarLyricWord)
-          .then(translation => {
-            this.sidebarLyricTranslation = translation;
-            saveTranslatedWord({
-              translation: translation,
-              original: this.sidebarLyricWord
-            });
-          });
-      });
+  /**
+   * @param {string} words
+   * @return {Promise} not used atm 2018-12-30 22:19:40
+   */
+  updateWithDatabaseTranslation(words) {
+    return getTranslatedWord(words)
+    .then(this.udpateView)
+    .catch(this.translateAndSave)
   }
 
-  loadForTooltip(text) {
-    return getTranslatedWord(text)
-      .then(res => {
-        if (res.error) throw new Error(res.message);
+  /**
+   * @param {Object} translationResponse
+   */
+  udpateView = (translationResponse) => {
+    const { translation, comment } = translationResponse;
+    this.sidebarLyricTranslation = translation;
+    this.commentRef.value = comment;
+  }
 
-        return res
-      })
-      .catch(err => {
-        console.log('catch')
-        // translate now
-        translate(this.sidebarLyricWord)
-          .then(translation => {
-            this.sidebarLyricTranslation = translation;
-            saveTranslatedWord({
-              translation: translation,
-              original: this.sidebarLyricWord
-            });
-            return translation;
-          });
+  /**
+   * 1. Call gateway translate(word),
+   * 2. then save translation to db
+   * 3. and update the view
+   */
+  translateAndSave = (err) => {
+    const saveTranslation = (translation) => {
+      saveTranslatedWord({
+        translation: translation,
+        original: this.sidebarLyricWord
       });
+      return translation;
+    }
+
+    const updateViewWithNewTranslation = (translation) => {
+      this.sidebarLyricTranslation = translation;
+    }
+
+    return translate(this.sidebarLyricWord)
+    .then(saveTranslation)
+    .then(updateViewWithNewTranslation);
   }
 
   saveChanges() {
-  this.sidebarLyricTranslation;
-    this.commentRef.value;
-
     // update database
     updateTranslatedWord({
       words: this.sidebarLyricWord,
@@ -143,15 +140,15 @@ export class LyricsLanguageLearner {
         translation: this.sidebarLyricTranslation
       }
     })
-    .then(data => {
-      if (data.message === 'ER_DUP_ENTRY') throw new Error('ER_DUP_ENTRY');
-    })
-    .catch(err => {
-      if (err.message === 'ER_DUP_ENTRY') {
-        console.log('dupdudpudp')
-        this.isDuplicatedVocabulary = true;
-      }
-    });
+    /** Don't need the dup catch I think */
+    // .then(data => {
+    //   if (data.message === 'ER_DUP_ENTRY') throw new Error('ER_DUP_ENTRY');
+    // })
+    // .catch(err => {
+    //   if (err.message === 'ER_DUP_ENTRY') {
+    //     this.isDuplicatedVocabulary = true;
+    //   }
+    // });
   }
 
   resetTextarea = () => {
