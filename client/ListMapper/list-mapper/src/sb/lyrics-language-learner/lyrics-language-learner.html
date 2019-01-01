@@ -2,6 +2,20 @@
   <require from='../sidebar/sidebar'></require>
   <require from='../../resources/attributes/tooltip'></require>
 
+  <button class="btn btn-outline-secondary" click.delegate="listSongs()">List song with lyrics</button>
+  <button class="btn btn-outline-secondary" click.delegate="getSongWithLyrics()">Get song with lyrics</button>
+  <button class="btn btn-outline-secondary" click.delegate="saveSongWithLyrics()">Save song with lyrics</button>
+
+  <div class="song-list-container">
+    <button
+      repeat.for="song of songs"
+      class="btn btn-outline-secondary song"
+      click.delegate="changeSong(song.id)"
+    >
+      ${song.name}
+    </button>
+  </div>
+
   <div class="page-container">
     <!-- Lyrics container -->
     <div class="lyrics-container" mouseup.delegate="updateSelection()">

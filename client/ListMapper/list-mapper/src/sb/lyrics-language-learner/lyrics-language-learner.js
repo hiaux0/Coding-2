@@ -2,9 +2,9 @@ import {bindable} from 'aurelia-framework';
 
 import './lyrics-language-learner.less'
 import { tokenizeLyrics } from './modules/tokenize-lyrics';
-import { translate, getTranslatedWord, saveTranslatedWord, updateTranslatedWord } from './lyrics-language-learner.gateway';
-window.saveTranslatedWord = saveTranslatedWord;
-import { testLyrics } from './modules/test-data';
+const lyricsGateway = require('./lyrics-language-learner.gateway');
+
+import { testLyrics, dontWorry } from './modules/test-data';
 import hotkeys from 'hotkeys-js';
 
 export class LyricsLanguageLearner {
@@ -25,10 +25,18 @@ export class LyricsLanguageLearner {
    */
   sidebarLyricWord = '[TODO] Word';
   sidebarLyricSentence = '[TODO] Whole sentence goes here';
-  getTranslatedWord = getTranslatedWord;
+
+  /**
+   * @type {Array<Object>}
+   */
+  songs;
+
+  getTranslatedWord = lyricsGateway.getTranslatedWord;
 
   bind() {
     this.lyricsMap = tokenizeLyrics(this.lyrics);
+    console.log("​LyricsLanguageLearner -> bind -> this.lyricsMap", this.lyricsMap)
+    this.listSongs();
   }
 
   attached() {
@@ -36,6 +44,36 @@ export class LyricsLanguageLearner {
     hotkeys("h", () => console.log(this));  // eslint-disable-line no-console
     hotkeys("d", () => window.localStorage.clear());  // eslint-disable-line no-console
   }
+
+  listSongs() {
+    lyricsGateway.listSongs()
+      .then(data => {
+        console.log("​LyricsLanguageLearner -> listSongs -> data", data)
+        this.songs = data;
+      })
+  }
+
+  changeSong(songId) {
+    this.getSongWithLyrics(songId)
+  }
+
+  getSongWithLyrics(songId) {
+    lyricsGateway.getSongLyrics(songId)
+      .then(data => {
+        console.log("​LyricsLanguageLearner -> getSongWithLyrics -> data", data)
+        const lyricsMap = new Map(data.lyrics);
+        this.lyricsMap = lyricsMap;
+      })
+  }
+
+  saveSongWithLyrics() {
+    lyricsGateway.saveSongLyric(dontWorry)
+    .then(data => {
+      console.log("​LyricsLanguageLearner -> saveSongWithLyrics -> data", data)
+    })
+  }
+
+
 
   updateSelection = (ev) => {
     const selection = document.getSelection().toString();
@@ -94,7 +132,7 @@ export class LyricsLanguageLearner {
    * @return {Promise} not used atm 2018-12-30 22:19:40
    */
   updateWithDatabaseTranslation(words) {
-    return getTranslatedWord(words)
+    return lyricsGateway.getTranslatedWord(words)
     .then(this.udpateView)
     .catch(this.translateAndSave)
   }
@@ -103,6 +141,10 @@ export class LyricsLanguageLearner {
    * @param {Object} translationResponse
    */
   udpateView = (translationResponse) => {
+    // I tried throwing an error in `getTranslatedWordFactory` but then cosnole error
+    // `a promise was rejected with a non-error:` got thrown...
+    if (translationResponse.error) throw new Error(translationResponse.message);
+
     const { translation, comment } = translationResponse;
     this.sidebarLyricTranslation = translation;
     this.commentRef.value = comment;
@@ -115,7 +157,7 @@ export class LyricsLanguageLearner {
    */
   translateAndSave = (err) => {
     const saveTranslation = (translation) => {
-      saveTranslatedWord({
+      lyricsGateway.saveTranslatedWord({
         translation: translation,
         original: this.sidebarLyricWord
       });
@@ -126,14 +168,14 @@ export class LyricsLanguageLearner {
       this.sidebarLyricTranslation = translation;
     }
 
-    return translate(this.sidebarLyricWord)
+    return lyricsGateway.translate(this.sidebarLyricWord)
     .then(saveTranslation)
     .then(updateViewWithNewTranslation);
   }
 
   saveChanges() {
     // update database
-    updateTranslatedWord({
+    lyricsGateway.updateTranslatedWord({
       words: this.sidebarLyricWord,
       updates: {
         comment: this.commentRef.value,
