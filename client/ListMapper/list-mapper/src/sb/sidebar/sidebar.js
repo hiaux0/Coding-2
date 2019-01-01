@@ -37,14 +37,13 @@ export class Sidebar {
   }
 
   initSidebar() {
-    const triggerElements = document.querySelectorAll(this.trigger);
+    document.addEventListener('click', (event) => {
+      const {target} = event;
+      if (!target.classList.contains(this.trigger)) return;
 
-    for (let trigger of triggerElements) {
-      trigger.addEventListener('click', (event) => {
-        this.onSidebarOpen(event);
-        this.openSidebarBottom();
-      });
-    }
+      this.onSidebarOpen(event);
+      this.openSidebarBottom();
+    });
   }
 
   closeSidebarOnOutsideClick() {
