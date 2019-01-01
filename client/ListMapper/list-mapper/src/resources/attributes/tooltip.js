@@ -48,6 +48,8 @@ export class TooltipCustomAttribute {
    * Shows and positions the tooltip.
    */
   showTooltip = () => {
+    if (document.getSelection().toString() !== '') return;
+
     if (this.firstHover && this.onAppear) {
       const contextText = this.element.textContent.trim();
       this.onAppear(contextText).then(res => {
@@ -58,6 +60,7 @@ export class TooltipCustomAttribute {
       });
     }
 
+    this.tooltip.style.display = 'block'
     this.tooltip.style.opacity = 1;
     const {left} = this.setTooltipPosition(this.element);
     this.tooltip.style.left = `${left}px`;
@@ -65,6 +68,7 @@ export class TooltipCustomAttribute {
 
   hideTooltip = () => {
     this.tooltip.style.opacity = 0;
+    this.tooltip.style.display = 'none'
   }
 
   createTooltipElement(textContent) {
