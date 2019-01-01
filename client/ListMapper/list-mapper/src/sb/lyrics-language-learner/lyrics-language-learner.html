@@ -23,7 +23,7 @@
         <div class="lyrics-line-number">${lineNumber}</div>
         <div class="lyrics-text">
           <div class="lyrics-original">
-            <span tooltip="text: hello; on-appear.bind: getTranslatedWord" class="lyrics-word" repeat.for="word of lyrics.original">
+            <span tooltip="text: loading...; on-appear.bind: updateWithDatabaseTranslation" class="lyrics-word" repeat.for="word of lyrics.original">
               ${word}
             </span>
           </div>

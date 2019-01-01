@@ -22,7 +22,6 @@ export class TooltipCustomAttribute {
     // if (!allowed.includes(this.element.innerText.trim())) return;
 
     const parent = this.element.parentNode;
-		// console.log("​TooltipCustomAttribute -> attached -> parent", parent)
     const textContent = this.element.textContent.trim();
     this.tooltip = this.createTooltipElement(textContent);
     parent.insertBefore(this.tooltip, this.element.nextSibling);
