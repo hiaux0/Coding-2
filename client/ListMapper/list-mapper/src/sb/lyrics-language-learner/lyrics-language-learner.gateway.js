@@ -9,6 +9,19 @@ const injectClient = (factory) => {
 const baseUrl = 'http://localhost:3131';
 
 // //////////////////////////////
+// LIST
+
+export const listSongsFactory = (client) => () => {
+  return client.fetch(`${baseUrl}/songs/lyrics`)
+    .then(response => response.json())
+    .then(data => {
+      return data;
+    })
+}
+
+export const listSongs = injectClient(listSongsFactory);
+
+// //////////////////////////////
 // GET
 
 /**
@@ -54,6 +67,19 @@ export const getTranslatedWordFactory = (client) => (words) => {
     .catch(err => err);
 }
 
+// //////////////////////////////
+// GET
+
+export const getSongLyricsFactory = (client) => (songId) => {
+
+  return client.fetch(`${baseUrl}/songs/lyrics/${songId}`)
+  .then(res => res.json())
+  .then(data => {
+    return data[0];
+  })
+}
+
+export const getSongLyrics = injectClient(getSongLyricsFactory);
 
 // //////////////////////////////
 // POST
@@ -77,6 +103,20 @@ export const saveTranslatedWord = (translation) => {
     })
     .catch(err => err);
 }
+
+export const saveSongLyricFactory = (client) => (lyrics) => {
+  return client.fetch(`${baseUrl}/songs/lyrics`, {
+    method: 'POST',
+    body: json({lyrics})
+  })
+  .then(response => response.json())
+  .then(data => {
+    return data;
+  })
+  .catch(err => err);
+}
+
+export const saveSongLyric = injectClient(saveSongLyricFactory);
 
 export const getTranslatedWords = () => {
   const client = Container.instance.get(HttpClient);
