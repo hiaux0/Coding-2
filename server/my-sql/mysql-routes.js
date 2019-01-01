@@ -71,6 +71,9 @@ module.exports = function(app, pool) {
   // //////////////////////////////////
   // SONG LYRICS
 
+  app.route('/songs/lyrics')
+    .get(songsController.listSongs);
+
   app.route('/songs/lyrics/:songId')
     .get(songsController.getSong);
 
