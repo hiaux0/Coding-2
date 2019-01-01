@@ -27,3 +27,54 @@ I will collect the ashes of all the time you spent, like fertilizer to help me b
 
 당신의 웃음 꽃 피우길 피우길
 Just to see your blooming smile again x3`
+
+export const dontWorry = `그대여 아무 걱정 하지 말아요
+My dear, don’t worry about anything
+
+우리 함께 노래 합시다
+Let’s sing together
+
+그대 아픈 기억들 모두 그대여
+Bury all the painful memories
+
+그대 가슴에 깊이 묻어 버리고
+Deep inside your heart
+
+지나간 것은 지나간 대로
+All things past is in the past
+
+그런 의미가 있죠
+They all have a meaning
+
+떠난 이에게 노래 하세요
+Sing to the one who left
+
+후회없이 사랑했노라 말해요
+Say that you loved without regrets
+
+그대는 너무 힘든 일이 많았죠
+You went through so many difficult things
+
+새로움을 잃어 버렸죠
+You lost that newness
+
+그대 슬픈 얘기들 모두 그대여
+All of the hardships
+
+그대 탓으로 훌훌 털어 버리고
+Brush them all off
+
+지나간 것은 지나간 대로
+All things past is in the past
+
+그런 의미가 있죠
+They all have a meaning
+
+우리 다 함께 노래 합시다
+Let’s all sing together
+
+후회없이 꿈을 꾸었다 말해요
+Say that you dreamed without regrets
+
+새로운 꿈을 꾸겠다 말해요
+Say that you will dream a new dream`
