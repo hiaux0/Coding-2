@@ -1,10 +1,13 @@
+const apiInit = require('../api/api-init');
+
+const songsTableName = 'songs';
 
 exports.getSong = ((req, res) => {
   const { params } = req;
   console.log("​params", params)
   const { songId } = params;
 
-  getEntry({ id: songId, tableName: songLyricsName })
+  apiInit.getEntry({ id: songId, tableName: songsTableName })
     .then(data => {
       res.json(data);
     })
@@ -12,9 +15,9 @@ exports.getSong = ((req, res) => {
 
 exports.postSong = ((req, res) => {
     const {body} = req;
-		console.log("body", body)
+    console.log("body", body)
 
-    insert({tableName: songLyricsName, data: body})
+    apiInit.insert({tableName: songsTableName, data: body})
     .then(data => {
       res.json(data);
     })
