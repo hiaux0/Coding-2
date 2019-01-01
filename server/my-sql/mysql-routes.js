@@ -1,8 +1,10 @@
-const { singleInsertInto, listTable, getEntryByColumn, updateRowByColumn } = require('./api/api-init');
+const { singleInsertInto, listTable, getEntryByColumn, updateRowByColumn, getEntry, insert } = require('./api/api-init');
 const { translate } = require('./lang-translator/lang-translator');
+const songsController = require('./mysql-controllers/songs-controller');
 
 module.exports = function(app, pool) {
   const tableName = 'lyricTest';
+  const songLyricsName = 'songs';
 
   // //////////////////////////////////
   // LYRICS DATABASE
@@ -65,5 +67,15 @@ module.exports = function(app, pool) {
         res.json(data);
       })
     });
+
+  // //////////////////////////////////
+  // SONG LYRICS
+
+  app.route('/songs/lyrics/:songId')
+    .get(songsController.getSong);
+
+  app.route('/songs/lyrics')
+    .post(songsController.postSong);
+
 
 }
