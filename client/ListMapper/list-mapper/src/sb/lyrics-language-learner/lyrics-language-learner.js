@@ -35,7 +35,6 @@ export class LyricsLanguageLearner {
 
   bind() {
     this.lyricsMap = tokenizeLyrics(this.lyrics);
-    console.log("​LyricsLanguageLearner -> bind -> this.lyricsMap", this.lyricsMap)
     this.listSongs();
   }
 
@@ -48,7 +47,6 @@ export class LyricsLanguageLearner {
   listSongs() {
     lyricsGateway.listSongs()
       .then(data => {
-        console.log("​LyricsLanguageLearner -> listSongs -> data", data)
         this.songs = data;
       })
   }
@@ -60,7 +58,6 @@ export class LyricsLanguageLearner {
   getSongWithLyrics(songId) {
     lyricsGateway.getSongLyrics(songId)
       .then(data => {
-        console.log("​LyricsLanguageLearner -> getSongWithLyrics -> data", data)
         const lyricsMap = new Map(data.lyrics);
         this.lyricsMap = lyricsMap;
       })
@@ -69,7 +66,6 @@ export class LyricsLanguageLearner {
   saveSongWithLyrics() {
     lyricsGateway.saveSongLyric(dontWorry)
     .then(data => {
-      console.log("​LyricsLanguageLearner -> saveSongWithLyrics -> data", data)
     })
   }
 
@@ -95,7 +91,8 @@ export class LyricsLanguageLearner {
       this.sidebarLyricWord = document.getSelection().toString().trim();
     }
 
-    this.updateWithDatabaseTranslation(this.sidebarLyricWord);
+    this.updateWithDatabaseTranslation(this.sidebarLyricWord)
+      .then(this.udpateView);
   }
 
   /**
@@ -124,27 +121,38 @@ export class LyricsLanguageLearner {
       this.sidebarLyricWord = document.getSelection().toString().trim();
     }
 
-    this.updateWithDatabaseTranslation(this.sidebarLyricWord);
+    this.updateWithDatabaseTranslation(this.sidebarLyricWord)
+      .then(this.udpateView);
   }
 
   /**
    * @param {string} words
    * @return {Promise} not used atm 2018-12-30 22:19:40
    */
-  updateWithDatabaseTranslation(words) {
+  updateWithDatabaseTranslation = (words) => {
     return lyricsGateway.getTranslatedWord(words)
-    .then(this.udpateView)
-    .catch(this.translateAndSave)
+      .then(this.processError)
+      .catch(err => this.translateAndSave(err, words));
+  }
+
+  /**
+   * I tried throwing an error in `getTranslatedWordFactory` but then cosnole error
+   * `a promise was rejected with a non-error:` got thrown...
+   * This is my attempt to effectively utilize Promises catch
+   * @param {Object}
+   * @prop {boolean} [err]
+   * @prop {string} [message]
+   * @prop {number} [code]
+   */
+  processError(res) {
+    if (translationResponse.error) throw new Error(translationResponse.message);
+    return res;
   }
 
   /**
    * @param {Object} translationResponse
    */
   udpateView = (translationResponse) => {
-    // I tried throwing an error in `getTranslatedWordFactory` but then cosnole error
-    // `a promise was rejected with a non-error:` got thrown...
-    if (translationResponse.error) throw new Error(translationResponse.message);
-
     const { translation, comment } = translationResponse;
     this.sidebarLyricTranslation = translation;
     this.commentRef.value = comment;
@@ -155,22 +163,17 @@ export class LyricsLanguageLearner {
    * 2. then save translation to db
    * 3. and update the view
    */
-  translateAndSave = (err) => {
+  translateAndSave = (err, words) => {
     const saveTranslation = (translation) => {
       lyricsGateway.saveTranslatedWord({
         translation: translation,
-        original: this.sidebarLyricWord
+        original: words
       });
-      return translation;
+      return {translation};
     }
 
-    const updateViewWithNewTranslation = (translation) => {
-      this.sidebarLyricTranslation = translation;
-    }
-
-    return lyricsGateway.translate(this.sidebarLyricWord)
+    return lyricsGateway.translate(words)
     .then(saveTranslation)
-    .then(updateViewWithNewTranslation);
   }
 
   saveChanges() {
@@ -182,15 +185,6 @@ export class LyricsLanguageLearner {
         translation: this.sidebarLyricTranslation
       }
     })
-    /** Don't need the dup catch I think */
-    // .then(data => {
-    //   if (data.message === 'ER_DUP_ENTRY') throw new Error('ER_DUP_ENTRY');
-    // })
-    // .catch(err => {
-    //   if (err.message === 'ER_DUP_ENTRY') {
-    //     this.isDuplicatedVocabulary = true;
-    //   }
-    // });
   }
 
   resetTextarea = () => {

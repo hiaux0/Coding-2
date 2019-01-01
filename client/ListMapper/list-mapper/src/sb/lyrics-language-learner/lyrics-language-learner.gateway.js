@@ -61,7 +61,7 @@ export const getTranslatedWordFactory = (client) => (words) => {
   return client.fetch(`${baseUrl}/lyrics/words?words=${wordsQuery}`)
     .then(response => response.json())
     .then(data => {
-      if (data.error) return data;
+      if (data.error) throw new Error(data.message);
       return data[0];
     })
     .catch(err => err);
