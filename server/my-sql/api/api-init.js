@@ -131,7 +131,6 @@ const schemaValidation = (schema, data) => {
  */
 exports.getEntryByColumn = (pool, { value, columnName, tableName }) => {
   value = JSON.parse(value);
-	console.log("​exports.getEntryByColumn -> value", value)
   value = value.join(' ');
 
   return knex(tableName)
@@ -163,10 +162,18 @@ exports.getEntry = ({id, tableName}) => {
  * @param {MySql.pool} pool - WIKI: is a cache of database connections maintained so that the connections can be reused when future requests to the database are required.
  * @param {String} tableName
  * @param {Object} data
+ * @deprecated for `insert`
  */
 exports.singleInsertInto = (pool, tableName, data) => {
   return knex(tableName)
   .insert(data.translation)
+  .then(res => res)
+  .catch(err => err);
+}
+
+exports.insert = ({tableName, data}) => {
+  return knex(tableName)
+  .insert(data)
   .then(res => res)
   .catch(err => err);
 }
