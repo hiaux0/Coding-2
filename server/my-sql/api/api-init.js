@@ -123,6 +123,21 @@ const schemaValidation = (schema, data) => {
 }
 
 /**
+ * SELECT * from `tableName`;
+ * @param {Object}
+ * @prop {string} tableName
+ */
+exports.listEntries = (({tableName}) => {
+  return knex
+    .select()
+    .table(tableName)
+    .then(tableData => {
+      return tableData;
+    })
+    .catch(err => err);
+})
+
+/**
  * @param {Object} pool
  * @param {Object} entryOptions
  *  @prop {string<JSON>} value
