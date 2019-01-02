@@ -1,10 +1,9 @@
 const { singleInsertInto, listTable, getEntryByColumn, updateRowByColumn, getEntry, insert } = require('./api/api-init');
-const { translate } = require('./lang-translator/lang-translator');
 const songsController = require('./mysql-controllers/songs-controller');
+const { translateFactory } = require('./mysql-controllers/translate-controller');
 
 module.exports = function(app, pool) {
   const tableName = 'lyricTest';
-  const songLyricsName = 'songs';
 
   // //////////////////////////////////
   // LYRICS DATABASE
@@ -60,13 +59,8 @@ module.exports = function(app, pool) {
   // LANGUAGE TRANSLATOR
 
   app.route('/translate/:text')
-    .get((req, res) => {
-      const params = req.params;
-      const result = translate(params.text);
-      return result.then(data => {
-        res.json(data);
-      })
-    });
+    .get(translateFactory('naver'));
+    // .get(translateFactory('watson'));
 
   // //////////////////////////////////
   // SONG LYRICS
