@@ -5,22 +5,12 @@ const url = login.watson.url;
 const apiKey = login.watson.key;
 const version = '2018-05-01';
 const model_id = 'ko-en';
-// const source = 'ko';
-// const target = 'en';
-// const method = 'translate';
 
 const languageTranslator = new LanguageTranslatorV3({
   version: version,
   iam_apikey: apiKey,
   url: url
 });
-
-// naver api
-// source: ko
-// target: en
-// text: 나는 한국인입니다.
-
-
 
 // languageTranslator.listIdentifiableLanguages(
 //   {},

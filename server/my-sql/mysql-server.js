@@ -10,13 +10,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(cors());
 
-// app.use(function(req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//   next();
-// });
 
-db.connect.then(pool => routes(app, pool)) // register the routes
+db.connect.then(pool => routes(app, pool)) // register the routes with mysql instance.
 
 const port = 3131;
 app.listen(port, () => {
