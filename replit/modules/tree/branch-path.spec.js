@@ -128,7 +128,7 @@ describe('completePathRetrieved', () => {
   });
 });
 
-describe('getSiblingIds', () => {
+fdescribe('getSiblingIds', () => {
   const currentPaths = {
     "1": [null],
     "2": [null, '1'],
@@ -142,19 +142,19 @@ describe('getSiblingIds', () => {
     "10": [null, '7', '9']
   };
 
-  const siblingsForOne = getSiblingIds('2', currentPaths);
+  const siblingsOf1 = getSiblingIds('2', currentPaths);
 
   it('Should return the correct siblings', () => {
-    expect(JSON.stringify(siblingsForOne)).toBe(JSON.stringify(['2', '5', '6']));
+    expect(JSON.stringify(siblingsOf1)).toBe(JSON.stringify(['5', '6']));
   });
 
   it('Should not return the wrong siblings', () => {
-    expect(siblingsForOne).not.toContain('9');
+    expect(siblingsOf1).not.toContain('9');
   });
 
   it('Should return the node itself, if it has no siblings', () => {
-    const siblingsForSeven = getSiblingIds('9', currentPaths);
-    expect(JSON.stringify(siblingsForSeven)).toBe(JSON.stringify(['9']));
+    const siblingsOf9 = getSiblingIds('9', currentPaths);
+    expect(JSON.stringify(siblingsOf9)).toBe(JSON.stringify([]));
   });
 
   it('Should throw an error if id is not in map', () => {

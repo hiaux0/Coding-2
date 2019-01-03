@@ -86,7 +86,8 @@ function getSiblingIds(nodeId, branchPathMap) {
   let filteredSiblings = [];
   for (let id in branchPathMap) {
     if ((branchPathMap[id].length === nodePath.length) // is at same level as node
-        && (branchPathMap[id][directParentIndex] === directParentId)) { // is direct sibling
+        && (branchPathMap[id][directParentIndex] === directParentId) // is direct sibling
+        && id !== nodeId) {  // is node itself
       filteredSiblings.push(id);
     }
   }
