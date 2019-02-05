@@ -96,27 +96,48 @@ function getSiblingIds(nodeId, branchPathMap) {
 }
 
 /**
- * Check whether direct siblings are checked (not root siblings).
+ * Retrieve the direct children ids of a node.
+ * @param {string} nodeId
+ * @param {BranchPathMap} branchPathMap
+ * @returns {Array<Id>}
+ */
+function getDirectChildrenIds(nodeId, branchPathMap) {
+  const nodePath = branchPathMap[nodeId];
+  const positionInPath = nodePath.length;
+
+  const directChildrenIds = [];
+  for (let id in branchPathMap) {
+    const path = branchPathMap[id];
+    if (path.length !== positionInPath + 1) continue; // not direct child
+    if (path[positionInPath] === nodeId) {
+      directChildrenIds.push(id)
+    }
+  }
+  return directChildrenIds;
+}
+
+/**
+ * Check whether direct children are checked.
  * @param {string} nodeId
  * @param {Array<Id>} checkedNodes
  * @param {BranchPathMap} branchPathMap
  * @returns {boolean}
  */
-function siblingsAreChecked(nodeId, checkedNodes, branchPathMap) {
+function allChildrenAreChecked(nodeId, checkedNodes, branchPathMap) {
   const nodePath = branchPathMap[nodeId];
   if (!nodePath) return;
-  if (nodePath.length === 1) return; // root is parent
 
-  const nodeSiblings = getSiblingIds(nodeId, branchPathMap);
-  const checkedSiblings = _.intersection(checkedNodes, nodeSiblings);
-  return checkedSiblings.length > 0;
+  const nodeChildrenIds = getDirectChildrenIds(nodeId, branchPathMap);
+  const checkedChildren = _.intersection(checkedNodes, nodeChildrenIds);
+  return checkedChildren.length === nodeChildrenIds.length;
 }
 
 module.exports = {
   buildBranchPath,
   completePathRetrieved,
   getSiblingIds,
-  siblingsAreChecked
+  getDirectChildrenIds,
+  allChildrenAreChecked
 }
 
 

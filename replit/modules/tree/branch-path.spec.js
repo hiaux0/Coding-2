@@ -1,4 +1,4 @@
-const { buildBranchPath, completePathRetrieved, getSiblingIds, siblingsAreChecked } = require('./branch-path');
+const { buildBranchPath, completePathRetrieved, getSiblingIds, getDirectChildrenIds, allChildrenAreChecked } = require('./branch-path');
 
 let allFolders = [
   { name: 'f-root-1', id: '1', parentId: null },
@@ -128,7 +128,7 @@ describe('completePathRetrieved', () => {
   });
 });
 
-fdescribe('getSiblingIds', () => {
+describe('getSiblingIds', () => {
   const currentPaths = {
     "1": [null],
     "2": [null, '1'],
@@ -163,7 +163,33 @@ fdescribe('getSiblingIds', () => {
    });
 });
 
-describe('siblingsAreChecked', () => {
+describe('getDirectChildrenIds', () => {
+  const currentPaths = {
+    "1": [null],
+    "2": [null, '1'],
+    "3": [null, '1', '2'],
+    "4": [null, '1', '2'],
+    "5": [null, '1'],
+    "6": [null, '1'],
+    "7": [null],
+    "8": [null, '1', '6'],
+    "9": [null, '7'],
+    "10": [null, '7', '9']
+  };
+
+  it('Should select direct children', () => {
+    const directChildrenIds = ['2', '5', '6']
+    const result = getDirectChildrenIds('1', currentPaths)
+    expect(JSON.stringify(result)).toBe(JSON.stringify(directChildrenIds))
+  });
+
+  it('Should return an empty array if there are no direct children', () => {
+    const result = getDirectChildrenIds('10', currentPaths)
+    expect(JSON.stringify(result)).toBe(JSON.stringify([]))
+  });
+});
+
+describe('allChildrenAreChecked', () => {
   const currentPaths = {
     "1": [null],
     "2": [null, '1'],
@@ -178,23 +204,24 @@ describe('siblingsAreChecked', () => {
   };
 
   it('Should early return if id not in path map', () => {
-    const result = siblingsAreChecked('a', [], currentPaths);
+    const result = allChildrenAreChecked('a', [], currentPaths);
     expect(result).toBeUndefined();
   });
 
-  it('Should return undefined if direct parent is at root level', () => {
-    const rootSiblingsAreChecked = siblingsAreChecked('1', ['7'], currentPaths);
-    expect(rootSiblingsAreChecked).toBeUndefined();
-  });
-
-  it('Should return true if siblings are checked', () => {
-    const withCheckedSiblings = ['3', '4', '5'];
-    const areChecked = siblingsAreChecked('3', withCheckedSiblings, currentPaths);
+  it('Should return true if children are checked', () => {
+    const withCheckedChildren = ['2', '3', '4', '5', '6', '8'];
+    const areChecked = allChildrenAreChecked('1', withCheckedChildren, currentPaths);
     expect(areChecked).toBe(true);
   });
 
-  it('Should retun false if siblings are not checked', () => {
-    const areChecked = siblingsAreChecked('3', [], currentPaths);
+  it('Should retun false if children are not all checked', () => {
+    const notAllCheckedChildren = ['2', '3', '4', '5'];
+    const areChecked = allChildrenAreChecked('1', notAllCheckedChildren, currentPaths);
+    expect(areChecked).toBe(false);
+  });
+
+  it('Should retun false if no children are checked', () => {
+    const areChecked = allChildrenAreChecked('1', [], currentPaths);
     expect(areChecked).toBe(false);
   });
 });
