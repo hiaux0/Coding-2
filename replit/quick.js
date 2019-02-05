@@ -1,8 +1,5 @@
-let obj = {
-  a: '1',
-  b: 'hstsht'
-}
+const a = ['l']
 
-for (let key in obj) {
-  key /*?*/
-}
+const b = [...a || []]
+b
+
