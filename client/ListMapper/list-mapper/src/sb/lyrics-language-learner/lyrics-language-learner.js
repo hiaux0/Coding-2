@@ -176,6 +176,16 @@ export class LyricsLanguageLearner {
     .then(saveTranslation)
   }
 
+  /**
+   * @param {Object}
+   * @prop {string} type ['original', 'translated']
+   * @prop {string} text - to be copied
+   */
+  copyTextarea() {
+    this.originalTextarea.select();
+    document.execCommand('copy');
+  }
+
   saveChanges() {
     // update database
     lyricsGateway.updateTranslatedWord({

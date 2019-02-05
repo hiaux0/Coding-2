@@ -69,19 +69,32 @@
       <div ref="sidebarBody" class="sidebar-body">
         <div class="translation-container">
           <div class="original">
-            <label class="label-top">
-              Original
-              <textarea class="original-text" value.bind="sidebarLyricWord"></textarea>
-            </label>
+            <div role="label" class="label-top">
+              <div class="label-header">
+                <div class="label-text">Original</div>
+                <button class="btn btn-sm btn-outline-secondary btn-copy" click.delegate="copyTextarea()">Copy text</button>
+              </div>
+              <textarea ref="originalTextarea" class="original-text" value.bind="sidebarLyricWord"></textarea>
+            </div>
           </div>
 
           <div class="translation">
-            <label class="label-top">
-              Translation
+            <div role="label" class="label-top">
+              <div class="label-header">
+                <div class="label-text">Translation</div>
+                <div class="translation-options">
+                  <button class="btn btn-sm btn-outline-secondary translation-option">
+                    Watson
+                  </button>
+                  <button class="btn btn-sm btn-outline-secondary translation-option">
+                    Naver
+                  </button>
+                </div>
+              </div>
               <div class="translation-text">
                 ${sidebarLyricTranslation}
               </div>
-            </label>
+            </div>
           </div>
         </div>
 
